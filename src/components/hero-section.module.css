@@ -1,0 +1,244 @@
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-40px, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(40px, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes gradientShift {
+  0% { 
+    background-position: 0% 50%;
+  }
+  50% { 
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gentleBounceIn {
+  0% {
+    opacity: 0;
+    transform: scale3d(0.8, 0.8, 1) translate3d(0, 20px, 0);
+  }
+  60% {
+    transform: scale3d(1.02, 1.02, 1) translate3d(0, -5px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes ctaEntrance {
+  0% {
+    opacity: 0;
+    transform: scale3d(0.9, 0.9, 1) translate3d(0, 30px, 0);
+  }
+  70% {
+    transform: scale3d(1.01, 1.01, 1) translate3d(0, -5px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes subtleGlow {
+  0% {
+    opacity: 0;
+    transform: scale3d(0.5, 0.5, 1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale3d(1.1, 1.1, 1);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes badgeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(-30px, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes iconPopIn {
+  0% {
+    transform: scale3d(0, 0, 1);
+    opacity: 0;
+  }
+  70% {
+    transform: scale3d(1.1, 1.1, 1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+    opacity: 1;
+  }
+}
+
+.fadeInUp {
+  will-change: opacity, transform;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.fadeInUp.completed {
+  will-change: auto;
+}
+
+.slideInLeft {
+  will-change: opacity, transform;
+  animation: slideInLeft 0.9s ease-out forwards;
+}
+
+.slideInLeft.completed {
+  will-change: auto;
+}
+
+.slideInRight {
+  will-change: opacity, transform;
+  animation: slideInRight 0.9s ease-out forwards;
+}
+
+.slideInRight.completed {
+  will-change: auto;
+}
+
+.gradientShift {
+  background-size: 200% 200%;
+  will-change: background-position;
+  animation: gradientShift 3s ease-in-out forwards;
+}
+
+.gradientShift.completed {
+  will-change: auto;
+}
+
+.gentleBounceIn {
+  will-change: opacity, transform;
+  animation: gentleBounceIn 0.8s ease-out forwards;
+}
+
+.gentleBounceIn.completed {
+  will-change: auto;
+}
+
+.ctaEntrance {
+  will-change: opacity, transform;
+  animation: ctaEntrance 1s ease-out forwards;
+}
+
+.ctaEntrance.completed {
+  will-change: auto;
+}
+
+.subtleGlow {
+  will-change: opacity, transform;
+  animation: subtleGlow 1.2s ease-out forwards;
+}
+
+.subtleGlow.completed {
+  will-change: auto;
+}
+
+.badgeSlideIn {
+  will-change: opacity, transform;
+  animation: badgeSlideIn 0.7s ease-out forwards;
+}
+
+.badgeSlideIn.completed {
+  will-change: auto;
+}
+
+.iconPopIn {
+  will-change: transform, opacity;
+  animation: iconPopIn 0.6s ease-out forwards;
+}
+
+.iconPopIn.completed {
+  will-change: auto;
+}
+
+.delay200 {
+  animation-delay: 0.2s;
+}
+
+.delay300 {
+  animation-delay: 0.3s;
+}
+
+.delay400 {
+  animation-delay: 0.4s;
+}
+
+.delay500 {
+  animation-delay: 0.5s;
+}
+
+.delay600 {
+  animation-delay: 0.6s;
+}
+
+.delay700 {
+  animation-delay: 0.7s;
+}
+
+.delay800 {
+  animation-delay: 0.8s;
+}
+
+.delay900 {
+  animation-delay: 0.9s;
+}
+
+.delay1000 {
+  animation-delay: 1s;
+}
+
+/* Card stagger delays */
+.cardDelay1 {
+  animation-delay: 0.6s;
+}
+
+.cardDelay2 {
+  animation-delay: 0.8s;
+}
+
+.cardDelay3 {
+  animation-delay: 1.0s;
+}
