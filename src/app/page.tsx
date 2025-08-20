@@ -4,7 +4,8 @@ import EmergencyBanner from '@/components/emergency-banner';
 import HeroSection from '@/components/hero-section';
 import ServiceCard from '@/components/service-card';
 import TestimonialCard from '@/components/testimonial-card';
-import ContactForm from '@/components/contact-form';
+import AppleCardsCarouselDemo from '@/components/apple-cards-carousel-demo';
+import LayoutGridDemo from '@/components/layout-grid-demo';
 import { 
   Wrench, 
   Droplets, 
@@ -24,7 +25,7 @@ export default function Home() {
       title: "Emergency Plumbing",
       description: "24/7 emergency service for burst pipes, water heater failures, and urgent repairs",
       icon: Wrench,
-      href: "/emergency",
+      href: "/services",
       features: ["Available 24/7", "Fast response time", "Same day service"]
     },
     {
@@ -68,7 +69,7 @@ export default function Home() {
     {
       name: "Jennifer L.",
       rating: 5,
-      review: "Honest, reliable, and reasonably priced. AB's Plumbing treated our home with respect and did quality work.",
+      review: "Honest, reliable, and reasonably priced. AB&apos;s Plumbing treated our home with respect and did quality work.",
       date: "3 weeks ago",
       location: "San Jose, CA"
     }
@@ -83,15 +84,20 @@ export default function Home() {
         {/* Hero Section */}
         <HeroSection />
 
+        {/* Featured Services Carousel */}
+        <section className="bg-gray-50">
+          <AppleCardsCarouselDemo />
+        </section>
+
         {/* Trust Indicators Section */}
         <section className="section-padding bg-gray-50">
           <div className="container-default">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Why San Francisco Bay Area Trusts AB's Plumbing
+                Why San Francisco Bay Area Trusts AB&apos;s Plumbing
               </h2>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Over 500 satisfied customers and counting. We're committed to fair pricing, quality work, and exceptional service.
+                Over 500 satisfied customers and counting. We&apos;re committed to fair pricing, quality work, and exceptional service.
               </p>
             </div>
             
@@ -160,7 +166,7 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                  Why Choose AB's Plumbing?
+                  Why Choose AB&apos;s Plumbing?
                 </h2>
                 <div className="space-y-4">
                   <div className="flex items-start space-x-3">
@@ -183,7 +189,7 @@ export default function Home() {
                     <CheckCircle className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-1">Clean & Professional</h4>
-                      <p className="text-gray-600">We treat your home with the same respect we'd want for our own. Clean work area guaranteed.</p>
+                      <p className="text-gray-600">We treat your home with the same respect we&apos;d want for our own. Clean work area guaranteed.</p>
                     </div>
                   </div>
                   
@@ -198,7 +204,7 @@ export default function Home() {
                 
                 <div className="mt-8 p-6 bg-blue-600 text-white rounded-lg">
                   <h4 className="font-bold text-lg mb-2">New Customer Special!</h4>
-                  <p className="mb-3">Save 10% on any service when you choose AB's Plumbing</p>
+                  <p className="mb-3">Save 10% on any service when you choose AB&apos;s Plumbing</p>
                   <a
                     href="tel:+14155551234"
                     className="inline-flex items-center bg-white text-blue-600 font-semibold px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -230,7 +236,7 @@ export default function Home() {
                 <div className="bg-white p-6 rounded-lg shadow-lg">
                   <h3 className="text-xl font-bold text-gray-900 mb-4">Emergency Services</h3>
                   <p className="text-gray-600 mb-4">
-                    Plumbing emergencies don't wait for business hours. Neither do we.
+                    Plumbing emergencies don&apos;t wait for business hours. Neither do we.
                   </p>
                   <ul className="space-y-2 text-sm text-gray-600">
                     <li>• Burst pipe repair</li>
@@ -242,6 +248,21 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Our Work Gallery Section */}
+        <section className="section-padding bg-white">
+          <div className="container-default">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Our Recent Work
+              </h2>
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                See the quality of our plumbing installations and repairs. Every project completed with precision and care.
+              </p>
+            </div>
+            <LayoutGridDemo />
           </div>
         </section>
 
@@ -261,17 +282,17 @@ export default function Home() {
               
               <div className="text-lg leading-relaxed text-gray-300 mb-8">
                 <p className="mb-4">
-                  "I started AB's Plumbing Services because I was tired of seeing customers being overcharged 
+                  &quot;I started AB&apos;s Plumbing Services because I was tired of seeing customers being overcharged 
                   and underserved by large plumbing companies. Every day, I work to provide the kind of honest, 
-                  fair service that I would want for my own family."
+                  fair service that I would want for my own family.&quot;
                 </p>
                 <p className="mb-4">
-                  "Whether it's a small repair or a major installation, we treat every job with the same care 
+                  &quot;Whether it&apos;s a small repair or a major installation, we treat every job with the same care 
                   and attention to detail. Our community deserves better than overpriced, rushed service – 
-                  and that's exactly what we deliver."
+                  and that&apos;s exactly what we deliver.&quot;
                 </p>
                 <p>
-                  "Thank you for trusting AB's Plumbing with your home. We don't take that trust lightly."
+                  &quot;Thank you for trusting AB&apos;s Plumbing with your home. We don&apos;t take that trust lightly.&quot;
                 </p>
               </div>
               
@@ -291,7 +312,7 @@ export default function Home() {
                 What Our Customers Say
               </h2>
               <p className="text-xl text-gray-600">
-                Don't just take our word for it. Here's what real customers have to say about our service.
+                Don&apos;t just take our word for it. Here&apos;s what real customers have to say about our service.
               </p>
             </div>
             
@@ -321,23 +342,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Contact Form Section */}
-        <section className="section-padding">
-          <div className="container-default">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                  Get Your Free Estimate Today
-                </h2>
-                <p className="text-xl text-gray-600">
-                  Ready to experience the AB's Plumbing difference? Contact us for your free, no-obligation estimate.
-                </p>
-              </div>
-              
-              <ContactForm />
-            </div>
-          </div>
-        </section>
       </main>
       
       <Footer />
