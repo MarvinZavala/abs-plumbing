@@ -69,7 +69,7 @@ npm run lint
 ### Business Context
 - **Service Area**: San Francisco Bay Area
 - **Services**: Emergency plumbing, water heater services, drain cleaning, general plumbing
-- **Contact**: Emergency phone number is (415) 555-1234
+- **Contact**: Emergency phone number is (510) 753-8649
 - **Key Features**: 24/7 emergency service, 500+ 5-star reviews, licensed & insured
 
 ## Development Notes

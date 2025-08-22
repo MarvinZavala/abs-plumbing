@@ -32,7 +32,12 @@ export default function HeroSection() {
 
             {/* Trust Indicators */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
-              <div className="bg-blue-800/50 rounded-lg p-4">
+              <a 
+                href="https://www.yelp.com/biz/abs-plumbing-services-oakland-13"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-blue-800/50 hover:bg-blue-700/50 rounded-lg p-4 transition-colors"
+              >
                 <div className="flex justify-center mb-2">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -40,7 +45,7 @@ export default function HeroSection() {
                 </div>
                 <div className="text-2xl font-bold">500+</div>
                 <div className="text-sm text-blue-200">5-Star Reviews</div>
-              </div>
+              </a>
               
               <div className="bg-blue-800/50 rounded-lg p-4">
                 <Clock className="w-8 h-8 mx-auto mb-2 text-blue-300" />

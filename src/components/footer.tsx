@@ -28,11 +28,11 @@ export default function Footer() {
             <h3 className="text-xl font-bold text-blue-100">Contact Us</h3>
             <div className="space-y-3">
               <a
-                href="tel:+14155551234"
+                href="tel:+15107538649"
                 className="flex items-center space-x-3 text-blue-200 hover:text-white transition-colors"
               >
                 <Phone className="w-5 h-5" />
-                <span>(415) 555-1234</span>
+                <span>(510) 753-8649</span>
               </a>
               <a
                 href="mailto:info@absplumbing.com"
@@ -125,7 +125,7 @@ export default function Footer() {
             <div className="flex items-center space-x-1 text-sm text-blue-300">
               <span>Find us on</span>
               <a
-                href="https://www.yelp.com"
+                href="https://www.yelp.com/biz/abs-plumbing-services-oakland-13"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-200 hover:text-white font-semibold"

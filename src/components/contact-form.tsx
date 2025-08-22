@@ -182,8 +182,8 @@ export default function ContactForm() {
             </div>
             <p className="text-red-700 text-sm mb-3">
               For immediate emergency service, please call us directly at{' '}
-              <a href="tel:+14155551234" className="font-bold hover:underline">
-                (415) 555-1234
+              <a href="tel:+15107538649" className="font-bold hover:underline">
+                (510) 753-8649
               </a>
             </p>
             <p className="text-red-600 text-xs">
@@ -211,7 +211,7 @@ export default function ContactForm() {
           </button>
 
           <a
-            href="tel:+14155551234"
+            href="tel:+15107538649"
             className="flex items-center justify-center space-x-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors"
           >
             <Phone className="w-5 h-5" />
