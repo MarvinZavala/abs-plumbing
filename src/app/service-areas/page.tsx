@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import Navigation from '@/components/navigation';
 import Footer from '@/components/footer';
-import EmergencyBanner from '@/components/emergency-banner';
 import ContactForm from '@/components/contact-form';
 import { MapPin, Clock, Star, Phone, CheckCircle } from 'lucide-react';
 
@@ -90,9 +89,7 @@ export default function ServiceAreasPage() {
   ];
 
   return (
-    <>
-      <Navigation />
-      <EmergencyBanner />
+    <>\n      <Navigation />
       
       <main>
         {/* Hero Section */}

@@ -15,7 +15,6 @@ export default function Navigation() {
     { href: '/gallery', label: 'Gallery' },
     { href: '/about', label: 'About Us' },
     { href: '/service-areas', label: 'Service Areas' },
-    { href: '/emergency', label: 'Emergency' },
   ];
 
   return (
@@ -46,25 +45,9 @@ export default function Navigation() {
             ))}
           </div>
 
-          {/* Emergency Button - Desktop */}
-          <div className="hidden md:flex items-center space-x-4">
-            <a
-              href="tel:+14155551234"
-              className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-bold flex items-center space-x-2 transition-all duration-200 shadow-lg hover:shadow-xl animate-pulse"
-            >
-              <Phone className="w-4 h-4" />
-              <span>Emergency: (415) 555-1234</span>
-            </a>
-          </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-2">
-            <a
-              href="tel:+14155551234"
-              className="bg-red-600 text-white p-2 rounded-lg"
-            >
-              <Phone className="w-5 h-5" />
-            </a>
+          <div className="md:hidden">
             <button
               onClick={toggleMenu}
               className="text-gray-700 p-2"
@@ -89,13 +72,6 @@ export default function Navigation() {
                   {link.label}
                 </Link>
               ))}
-              <a
-                href="tel:+14155551234"
-                className="block w-full bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-md font-bold text-center mt-4"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                24/7 Emergency: (415) 555-1234
-              </a>
             </div>
           </div>
         )}

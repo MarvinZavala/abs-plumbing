@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import Navigation from '@/components/navigation';
 import Footer from '@/components/footer';
-import EmergencyBanner from '@/components/emergency-banner';
 import ContactForm from '@/components/contact-form';
 import { 
   Heart, 
@@ -39,7 +38,6 @@ export default function AboutPage() {
   return (
     <>
       <Navigation />
-      <EmergencyBanner />
       
       <main>
         {/* Hero Section */}

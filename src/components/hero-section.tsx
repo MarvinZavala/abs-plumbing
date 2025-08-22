@@ -55,20 +55,9 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* Main CTA */}
+            {/* Service Area */}
             <div className="space-y-4">
-              <a
-                href="tel:+14155551234"
-                className="inline-flex items-center bg-red-600 hover:bg-red-700 text-white font-bold text-lg px-8 py-4 rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 space-x-3"
-              >
-                <Phone className="w-6 h-6" />
-                <div>
-                  <div>Call Now: (415) 555-1234</div>
-                  <div className="text-sm font-normal opacity-90">Free Estimates • Same Day Service</div>
-                </div>
-              </a>
-              
-              <p className="text-blue-200 text-sm">
+              <p className="text-blue-200 text-lg">
                 Serving the entire San Francisco Bay Area
               </p>
             </div>
@@ -110,15 +99,6 @@ export default function HeroSection() {
               </div>
             </div>
 
-            <div className="bg-blue-800/50 rounded-xl p-6 border border-blue-700">
-              <h4 className="font-bold text-lg mb-2">Emergency Services Available</h4>
-              <p className="text-blue-200 text-sm mb-3">
-                Burst pipes, water heater failures, clogged drains, and more
-              </p>
-              <div className="text-2xl font-bold text-red-400">
-                Fast Response • Same Day Service
-              </div>
-            </div>
           </div>
         </div>
       </div>

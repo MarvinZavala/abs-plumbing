@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import Navigation from '@/components/navigation';
 import Footer from '@/components/footer';
-import EmergencyBanner from '@/components/emergency-banner';
 import ServiceCard from '@/components/service-card';
 import ContactForm from '@/components/contact-form';
 import {
@@ -197,7 +196,6 @@ export default function ServicesPage() {
   return (
     <>
       <Navigation />
-      <EmergencyBanner />
       
       <main>
         {/* Hero Section */}

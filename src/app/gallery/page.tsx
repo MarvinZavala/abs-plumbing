@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import Navigation from '@/components/navigation';
 import Footer from '@/components/footer';
-import EmergencyBanner from '@/components/emergency-banner';
 import ContactForm from '@/components/contact-form';
 import { Camera, Clock, CheckCircle } from 'lucide-react';
 
@@ -73,7 +72,6 @@ export default function GalleryPage() {
   return (
     <>
       <Navigation />
-      <EmergencyBanner />
       
       <main>
         {/* Hero Section */}

@@ -1,6 +1,5 @@
 import Navigation from '@/components/navigation';
 import Footer from '@/components/footer';
-import EmergencyBanner from '@/components/emergency-banner';
 import HeroSection from '@/components/hero-section';
 import ServiceCard from '@/components/service-card';
 import TestimonialCard from '@/components/testimonial-card';
@@ -78,7 +77,6 @@ export default function Home() {
   return (
     <>
       <Navigation />
-      <EmergencyBanner />
       
       <main>
         {/* Hero Section */}
