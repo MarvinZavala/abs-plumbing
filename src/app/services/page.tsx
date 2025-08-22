@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import Navigation from '@/components/navigation';
 import Footer from '@/components/footer';
 import { useState } from 'react';
+import { useScrollAnimation, useStaggeredScrollAnimation } from '@/hooks/use-scroll-animation';
 import {
   Wrench,
   Droplets,
@@ -30,6 +31,21 @@ interface Service {
 
 export default function ServicesPage() {
   const [activeCategory, setActiveCategory] = useState<'installation' | 'repair' | 'additional'>('installation');
+
+  // Scroll animation hooks
+  const { ref: heroRef, isVisible: heroVisible } = useScrollAnimation();
+  const { ref: heroBadgeRef, isVisible: heroBadgeVisible } = useScrollAnimation({ threshold: 0.8 });
+  const { ref: heroTitleRef, isVisible: heroTitleVisible } = useScrollAnimation({ threshold: 0.6 });
+  const { ref: heroDescRef, isVisible: heroDescVisible } = useScrollAnimation({ threshold: 0.4 });
+  const { ref: heroButtonsRef, isVisible: heroButtonsVisible } = useScrollAnimation({ threshold: 0.3 });
+  
+  const { ref: categoriesRef, isVisible: categoriesVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { ref: servicesHeaderRef, isVisible: servicesHeaderVisible } = useScrollAnimation({ threshold: 0.3 });
+  const { ref: servicesGridRef, visibleItems: servicesVisible } = useStaggeredScrollAnimation(6, { threshold: 0.1 });
+  
+  const { ref: whyChooseRef, isVisible: whyChooseVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { ref: whyChooseHeaderRef, isVisible: whyChooseHeaderVisible } = useScrollAnimation({ threshold: 0.4 });
+  const { ref: whyChooseCardsRef, visibleItems: whyChooseCardsVisible } = useStaggeredScrollAnimation(4, { threshold: 0.1 });
 
   const installationServices: Service[] = [
     {
@@ -141,14 +157,11 @@ export default function ServicesPage() {
     }
   };
 
-  const ServiceCard = ({ service, index }: { service: Service; index: number }) => (
+  const ServiceCard = ({ service, index, isVisible }: { service: Service; index: number; isVisible: boolean }) => (
     <div 
       className={`group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden ${
         service.popular ? 'ring-2 ring-blue-500 ring-opacity-50' : ''
-      }`}
-      style={{
-        animationDelay: `${index * 100}ms`
-      }}
+      } ${isVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-12'}`}
     >
       {service.popular && (
         <div className="absolute top-0 right-0 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-1 sm:px-4 sm:py-1 rounded-bl-xl text-xs sm:text-sm font-semibold flex items-center gap-1">
@@ -196,30 +209,52 @@ export default function ServicesPage() {
       
       <main className="min-h-screen">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white py-12 sm:py-16 lg:py-20 overflow-hidden">
+        <section ref={heroRef} className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white py-12 sm:py-16 lg:py-20 overflow-hidden">
           <div className="absolute inset-0 bg-black/10">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(120,119,198,0.3),transparent_50%)]"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(120,119,198,0.2),transparent_50%)]"></div>
+            <div className={`absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(120,119,198,0.3),transparent_50%)] transition-all duration-1000 ${heroVisible ? 'animate-subtle-float' : ''}`}></div>
+            <div className={`absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(120,119,198,0.2),transparent_50%)] transition-all duration-1000 ${heroVisible ? 'animate-subtle-float' : ''}`}></div>
           </div>
           
           <div className="container-default relative px-4 sm:px-6">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 bg-blue-800/50 text-blue-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 backdrop-blur-sm">
-                <Zap className="w-3 h-3 sm:w-4 sm:h-4" />
+              <div 
+                ref={heroBadgeRef}
+                className={`inline-flex items-center gap-2 bg-blue-800/50 text-blue-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 backdrop-blur-sm transition-all duration-800 ${
+                  heroBadgeVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-8'
+                }`}
+              >
+                <Zap className={`w-3 h-3 sm:w-4 sm:h-4 transition-all duration-1000 ${heroBadgeVisible ? 'animate-pulse-soft' : ''}`} />
                 Professional Plumbing Services
               </div>
               
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent leading-tight">
+              <h1 
+                ref={heroTitleRef}
+                className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent leading-tight transition-all duration-800 ${
+                  heroTitleVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-8'
+                }`}
+              >
                 Expert Plumbing
-                <span className="block text-blue-300">Solutions</span>
+                <span className={`block text-blue-300 transition-all duration-800 delay-300 ${
+                  heroTitleVisible ? 'animate-slide-in-right opacity-100' : 'opacity-0 translate-x-12'
+                }`}>Solutions</span>
               </h1>
               
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-blue-100 mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto px-4 sm:px-0">
+              <p 
+                ref={heroDescRef}
+                className={`text-base sm:text-lg md:text-xl lg:text-2xl text-blue-100 mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto px-4 sm:px-0 transition-all duration-800 delay-500 ${
+                  heroDescVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-8'
+                }`}
+              >
                 From emergency repairs to complete installations, we deliver professional plumbing services 
                 across the San Francisco Bay Area with guaranteed quality and fair pricing.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0">
+              <div 
+                ref={heroButtonsRef}
+                className={`flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0 transition-all duration-800 delay-700 ${
+                  heroButtonsVisible ? 'animate-bounce-in opacity-100' : 'opacity-0 scale-75'
+                }`}
+              >
                 <button className="bg-white text-blue-900 hover:bg-blue-50 font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 text-sm sm:text-base">
                   View All Services
                 </button>
@@ -232,10 +267,12 @@ export default function ServicesPage() {
         </section>
 
         {/* Service Categories */}
-        <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
+        <section ref={categoriesRef} className="py-12 sm:py-16 lg:py-20 bg-gray-50">
           <div className="container-default px-4 sm:px-6">
             {/* Mobile Category Selector */}
-            <div className="lg:hidden mb-8">
+            <div className={`lg:hidden mb-8 transition-all duration-800 ${
+              categoriesVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-8'
+            }`}>
               <div className="bg-white rounded-2xl shadow-lg p-4">
                 <h3 className="text-lg font-bold text-gray-900 mb-4">Service Categories</h3>
                 <div className="grid grid-cols-1 gap-2">
@@ -269,7 +306,9 @@ export default function ServicesPage() {
 
             {/* Desktop Layout */}
             <div className="hidden lg:flex gap-8 items-start">
-              <div className="w-1/4">
+              <div className={`w-1/4 transition-all duration-800 delay-200 ${
+                categoriesVisible ? 'animate-slide-in-left opacity-100' : 'opacity-0 -translate-x-12'
+              }`}>
                 <div className="sticky top-24 bg-white rounded-2xl shadow-lg p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-6">Service Categories</h3>
                   <div className="space-y-2">
@@ -303,7 +342,9 @@ export default function ServicesPage() {
 
               {/* Services Grid */}
               <div className="w-3/4">
-                <div className="mb-8">
+                <div ref={servicesHeaderRef} className={`mb-8 transition-all duration-800 delay-300 ${
+                  servicesHeaderVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-8'
+                }`}>
                   <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 capitalize">
                     {activeCategory} Services
                   </h2>
@@ -314,9 +355,9 @@ export default function ServicesPage() {
                   </p>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 service-cards">
+                <div ref={servicesGridRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 service-cards">
                   {getServices().map((service, index) => (
-                    <ServiceCard key={service.title} service={service} index={index} />
+                    <ServiceCard key={service.title} service={service} index={index} isVisible={servicesVisible[index] || false} />
                   ))}
                 </div>
               </div>
@@ -324,7 +365,9 @@ export default function ServicesPage() {
 
             {/* Mobile Services Grid */}
             <div className="lg:hidden">
-              <div className="mb-6">
+              <div className={`mb-6 transition-all duration-800 delay-300 ${
+                servicesHeaderVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-8'
+              }`}>
                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 capitalize">
                   {activeCategory} Services
                 </h2>
@@ -337,7 +380,7 @@ export default function ServicesPage() {
               
               <div className="grid grid-cols-1 gap-6 service-cards">
                 {getServices().map((service, index) => (
-                  <ServiceCard key={service.title} service={service} index={index} />
+                  <ServiceCard key={service.title} service={service} index={index} isVisible={servicesVisible[index] || false} />
                 ))}
               </div>
             </div>
@@ -345,19 +388,23 @@ export default function ServicesPage() {
         </section>
 
         {/* Why Choose Us */}
-        <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(120,119,198,0.3),transparent_50%)]"></div>
+        <section ref={whyChooseRef} className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white relative overflow-hidden">
+          <div className={`absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(120,119,198,0.3),transparent_50%)] transition-all duration-1000 ${whyChooseVisible ? 'animate-subtle-float' : ''}`}></div>
           <div className="container-default relative px-4 sm:px-6">
-            <div className="max-w-4xl mx-auto text-center mb-12 sm:mb-16">
+            <div ref={whyChooseHeaderRef} className={`max-w-4xl mx-auto text-center mb-12 sm:mb-16 transition-all duration-800 ${
+              whyChooseHeaderVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-8'
+            }`}>
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
                 Why Choose AB's Plumbing?
               </h2>
-              <p className="text-base sm:text-lg md:text-xl text-blue-100">
+              <p className={`text-base sm:text-lg md:text-xl text-blue-100 transition-all duration-800 delay-300 ${
+                whyChooseHeaderVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-8'
+              }`}>
                 We're committed to delivering exceptional service with every job
               </p>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            <div ref={whyChooseCardsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
               {[
                 {
                   icon: Zap,
@@ -382,10 +429,13 @@ export default function ServicesPage() {
               ].map((item, index) => (
                 <div 
                   key={item.title}
-                  className="text-center group animate-fade-in-up"
-                  style={{ animationDelay: `${index * 150}ms` }}
+                  className={`text-center group transition-all duration-800 ${
+                    whyChooseCardsVisible[index] ? 'animate-bounce-in opacity-100' : 'opacity-0 scale-50'
+                  }`}
                 >
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 group-hover:bg-blue-500 transition-all duration-300">
+                  <div className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 group-hover:bg-blue-500 transition-all duration-300 ${
+                    whyChooseCardsVisible[index] ? 'animate-pulse-soft' : ''
+                  }`}>
                     <item.icon className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8" />
                   </div>
                   <h3 className="font-bold text-lg sm:text-xl mb-2 sm:mb-3">{item.title}</h3>
@@ -400,10 +450,7 @@ export default function ServicesPage() {
       <Footer />
 
       <style jsx>{`
-        .service-cards {
-          animation: fadeInUp 0.8s ease-out;
-        }
-
+        /* Fade In Up Animation */
         @keyframes fadeInUp {
           from {
             opacity: 0;
@@ -416,17 +463,203 @@ export default function ServicesPage() {
         }
 
         .animate-fade-in-up {
-          animation: fadeInUp 0.6s ease-out forwards;
+          animation: fadeInUp 0.8s ease-out forwards;
           opacity: 0;
         }
 
+        /* Fade In Animation */
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        .animate-fade-in {
+          animation: fadeIn 0.8s ease-out forwards;
+          opacity: 0;
+        }
+
+        /* Slide In Left Animation */
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        .animate-slide-in-left {
+          animation: slideInLeft 0.8s ease-out forwards;
+          opacity: 0;
+        }
+
+        /* Slide In Right Animation */
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        .animate-slide-in-right {
+          animation: slideInRight 0.8s ease-out forwards;
+          opacity: 0;
+        }
+
+        /* Bounce In Animation */
+        @keyframes bounceIn {
+          0% {
+            opacity: 0;
+            transform: scale(0.3) translateY(50px);
+          }
+          50% {
+            opacity: 1;
+            transform: scale(1.05) translateY(-10px);
+          }
+          70% {
+            transform: scale(0.95) translateY(0px);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+
+        .animate-bounce-in {
+          animation: bounceIn 0.8s ease-out forwards;
+          opacity: 0;
+        }
+
+        /* Pulse Soft Animation */
+        @keyframes pulseSoft {
+          0%, 100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.8;
+            transform: scale(1.05);
+          }
+        }
+
+        .animate-pulse-soft {
+          animation: pulseSoft 2s ease-in-out infinite;
+        }
+
+        /* Subtle Float Animation */
+        @keyframes subtleFloat {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+
+        .animate-subtle-float {
+          animation: subtleFloat 6s ease-in-out infinite;
+        }
+
+        /* Scroll-based animation utilities */
+        .opacity-0 {
+          opacity: 0;
+        }
+
+        .opacity-100 {
+          opacity: 1;
+        }
+
+        .translate-y-8 {
+          transform: translateY(2rem);
+        }
+
+        .translate-y-12 {
+          transform: translateY(3rem);
+        }
+
+        .-translate-x-12 {
+          transform: translateX(-3rem);
+        }
+
+        .translate-x-12 {
+          transform: translateX(3rem);
+        }
+
+        .scale-50 {
+          transform: scale(0.5);
+        }
+
+        .scale-75 {
+          transform: scale(0.75);
+        }
+
+        /* Smooth transitions for scroll animations */
+        .transition-all {
+          transition-property: all;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .duration-800 {
+          transition-duration: 800ms;
+        }
+
+        .duration-1000 {
+          transition-duration: 1000ms;
+        }
+
+        .delay-200 {
+          transition-delay: 200ms;
+        }
+
+        .delay-300 {
+          transition-delay: 300ms;
+        }
+
+        .delay-500 {
+          transition-delay: 500ms;
+        }
+
+        .delay-700 {
+          transition-delay: 700ms;
+        }
+
+        /* Reduced Motion Preferences */
         @media (prefers-reduced-motion: reduce) {
-          .service-cards,
-          .animate-fade-in-up {
+          .animate-fade-in-up,
+          .animate-fade-in,
+          .animate-slide-in-left,
+          .animate-slide-in-right,
+          .animate-bounce-in,
+          .animate-pulse-soft,
+          .animate-subtle-float {
             animation: none;
             opacity: 1;
             transform: none;
           }
+        }
+
+        /* Performance Optimizations */
+        .animate-fade-in-up,
+        .animate-fade-in,
+        .animate-slide-in-left,
+        .animate-slide-in-right,
+        .animate-bounce-in {
+          will-change: transform, opacity;
+        }
+
+        .animate-pulse-soft,
+        .animate-subtle-float {
+          will-change: transform;
         }
       `}</style>
     </>

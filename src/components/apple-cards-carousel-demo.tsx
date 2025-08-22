@@ -2,18 +2,34 @@
 
 import React from "react";
 import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 export default function AppleCardsCarouselDemo() {
+  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation({ threshold: 0.3 });
+  const { ref: carouselRef, isVisible: carouselVisible } = useScrollAnimation({ threshold: 0.1 });
+
   const cards = data.map((card, index) => (
     <Card key={card.src} card={card} index={index} />
   ));
 
   return (
     <div className="w-full h-full py-20">
-      <h2 className="max-w-7xl pl-4 mx-auto text-xl md:text-5xl font-bold text-neutral-800 dark:text-neutral-200 font-sans">
+      <h2 
+        ref={titleRef}
+        className={`max-w-7xl pl-4 mx-auto text-xl md:text-5xl font-bold text-neutral-800 dark:text-neutral-200 font-sans transition-all duration-800 ${
+          titleVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-8'
+        }`}
+      >
         Professional Plumbing Services You Can Trust
       </h2>
-      <Carousel items={cards} />
+      <div 
+        ref={carouselRef}
+        className={`transition-all duration-1000 delay-300 ${
+          carouselVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-12'
+        }`}
+      >
+        <Carousel items={cards} />
+      </div>
     </div>
   );
 }
