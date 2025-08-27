@@ -12,6 +12,9 @@ export default function Home() {
   const { ref: testimonialsHeaderRef, isVisible: testimonialsHeaderVisible } = useScrollAnimation({ threshold: 0.4 });
   const { ref: testimonialsCardsRef, visibleItems: testimonialsCardsVisible } = useStaggeredScrollAnimation(3, { threshold: 0.1 });
   const { ref: ctaRef, isVisible: ctaVisible } = useScrollAnimation({ threshold: 0.3 });
+  const { ref: serviceAreaRef, isVisible: serviceAreaVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { ref: serviceAreaHeaderRef, isVisible: serviceAreaHeaderVisible } = useScrollAnimation({ threshold: 0.4 });
+  const { ref: serviceAreaCardsRef, visibleItems: serviceAreaCardsVisible } = useStaggeredScrollAnimation(4, { threshold: 0.1 });
   const { ref: galleryRef, isVisible: galleryVisible } = useScrollAnimation({ threshold: 0.2 });
   const { ref: galleryHeaderRef, isVisible: galleryHeaderVisible } = useScrollAnimation({ threshold: 0.4 });
 
@@ -228,6 +231,100 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Service Area Section */}
+        <section ref={serviceAreaRef} className="py-12 sm:py-16 bg-gradient-to-br from-blue-50 to-white relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(59,130,246,0.1),transparent_50%)]"></div>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div ref={serviceAreaHeaderRef} className="text-center mb-8 sm:mb-12">
+              <div className={`inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 transition-all duration-800 ${
+                serviceAreaHeaderVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-8'
+              }`}>
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                </svg>
+                Service Coverage
+              </div>
+              <h2 className={`text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 transition-all duration-800 delay-200 ${
+                serviceAreaHeaderVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-8'
+              }`}>
+                Serving the Entire San Francisco Bay Area
+              </h2>
+              <p className={`text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-6 sm:mb-8 px-4 sm:px-0 transition-all duration-800 delay-400 ${
+                serviceAreaHeaderVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-8'
+              }`}>
+                Professional plumbing services across 16+ cities throughout the Bay Area. 
+                From emergency repairs to complete installations, we're your local experts.
+              </p>
+            </div>
+
+            <div ref={serviceAreaCardsRef} className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-12 max-w-4xl mx-auto px-2 sm:px-0">
+              {[
+                "San Francisco",
+                "Oakland", 
+                "San Jose",
+                "Berkeley"
+              ].map((city, index) => (
+                <div 
+                  key={city}
+                  className={`bg-white rounded-xl p-4 sm:p-6 text-center shadow-md border border-gray-100 hover:shadow-lg hover:scale-105 transition-all duration-300 group ${
+                    serviceAreaCardsVisible[index] ? 'animate-bounce-in opacity-100' : 'opacity-0 scale-50'
+                  }`}
+                >
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:from-blue-600 group-hover:to-blue-700 transition-all duration-300">
+                    <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <h3 className="font-semibold text-gray-900 text-sm sm:text-base">{city}</h3>
+                  <p className="text-xs sm:text-sm text-gray-500 mt-1">Full Coverage</p>
+                </div>
+              ))}
+            </div>
+
+            <div className={`text-center transition-all duration-800 delay-600 ${
+              serviceAreaVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-8'
+            }`}>
+              <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-100 max-w-3xl mx-auto">
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Complete Bay Area Coverage</h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">
+                  We proudly serve customers throughout the San Francisco Bay Area with professional plumbing services. 
+                  <span className="font-medium text-blue-600">16+ cities covered</span> - see our complete service area coverage.
+                </p>
+                <div className="flex items-center justify-center gap-4 mb-6 text-sm text-gray-500">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span>Licensed & Insured</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <span>Local Family Business</span>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                  <a
+                    href="/service-areas"
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 sm:px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 text-sm sm:text-base"
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                    </svg>
+                    View All Service Areas
+                  </a>
+                  <a
+                    href="tel:+15107538649"
+                    className="bg-white hover:bg-gray-50 text-blue-600 border-2 border-blue-600 font-semibold px-4 sm:px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 text-sm sm:text-base"
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                    </svg>
+                    Call Now
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Our Work Gallery Section */}
         <section ref={galleryRef} className="section-padding bg-white">
           <div className="container-default">
@@ -346,6 +443,23 @@ export default function Home() {
           opacity: 0;
         }
 
+        /* Scale In Animation */
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.95) translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+
+        .animate-scale-in {
+          animation: scaleIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+          opacity: 0;
+        }
+
         /* Pulse Soft Animation */
         @keyframes pulseSoft {
           0%, 100% {
@@ -430,6 +544,7 @@ export default function Home() {
           .animate-slide-in-left,
           .animate-slide-in-right,
           .animate-bounce-in,
+          .animate-scale-in,
           .animate-pulse-soft,
           .animate-twinkle,
           .animate-spin-slow,
@@ -447,6 +562,7 @@ export default function Home() {
         .animate-slide-in-left,
         .animate-slide-in-right,
         .animate-bounce-in,
+        .animate-scale-in,
         .animate-counter {
           will-change: transform, opacity;
         }
@@ -495,8 +611,16 @@ export default function Home() {
           transform: scale(0.5);
         }
 
+        .scale-50 {
+          transform: scale(0.5);
+        }
+
         .scale-75 {
           transform: scale(0.75);
+        }
+
+        .scale-95 {
+          transform: scale(0.95);
         }
 
         /* Smooth transitions for scroll animations */

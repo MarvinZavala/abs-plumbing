@@ -10,7 +10,7 @@ interface UseScrollAnimationOptions {
 
 export function useScrollAnimation(options: UseScrollAnimationOptions = {}) {
   const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const {
     threshold = 0.1,
@@ -51,7 +51,7 @@ export function useScrollAnimation(options: UseScrollAnimationOptions = {}) {
 
 export function useStaggeredScrollAnimation(itemCount: number, options: UseScrollAnimationOptions = {}) {
   const [visibleItems, setVisibleItems] = useState<boolean[]>(new Array(itemCount).fill(false));
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const {
     threshold = 0.1,
