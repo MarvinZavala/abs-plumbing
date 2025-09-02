@@ -16,7 +16,6 @@ import {
   Settings,
   Bath,
   UtensilsCrossed,
-  ArrowRight,
   CheckCircle,
   Star
 } from 'lucide-react';
@@ -40,8 +39,12 @@ export default function ServicesPage() {
   const { ref: heroButtonsRef, isVisible: heroButtonsVisible } = useScrollAnimation({ threshold: 0.3 });
   
   const { ref: categoriesRef, isVisible: categoriesVisible } = useScrollAnimation({ threshold: 0.2 });
+  // Desktop services animations
   const { ref: servicesHeaderRef, isVisible: servicesHeaderVisible } = useScrollAnimation({ threshold: 0.3 });
   const { ref: servicesGridRef, visibleItems: servicesVisible } = useStaggeredScrollAnimation(6, { threshold: 0.1 });
+  // Mobile services animations (separate refs because desktop nodes are hidden on mobile)
+  const { ref: servicesHeaderMobileRef, isVisible: servicesHeaderVisibleMobile } = useScrollAnimation({ threshold: 0.3 });
+  const { ref: servicesGridMobileRef, visibleItems: servicesVisibleMobile } = useStaggeredScrollAnimation(6, { threshold: 0.1 });
   
   const { ref: whyChooseRef, isVisible: whyChooseVisible } = useScrollAnimation({ threshold: 0.2 });
   const { ref: whyChooseHeaderRef, isVisible: whyChooseHeaderVisible } = useScrollAnimation({ threshold: 0.4 });
@@ -194,11 +197,7 @@ export default function ServicesPage() {
             </div>
           ))}
         </div>
-        
-        <button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-2.5 sm:py-3 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group/btn text-sm sm:text-base">
-          Get Quote
-          <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover/btn:translate-x-1 transition-transform" />
-        </button>
+        {/* Action button removed per request */}
       </div>
     </div>
   );
@@ -365,8 +364,8 @@ export default function ServicesPage() {
 
             {/* Mobile Services Grid */}
             <div className="lg:hidden">
-              <div className={`mb-6 transition-all duration-800 delay-300 ${
-                servicesHeaderVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-8'
+              <div ref={servicesHeaderMobileRef} className={`mb-6 transition-all duration-800 delay-300 ${
+                servicesHeaderVisibleMobile ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-8'
               }`}>
                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 capitalize">
                   {activeCategory} Services
@@ -378,9 +377,9 @@ export default function ServicesPage() {
                 </p>
               </div>
               
-              <div className="grid grid-cols-1 gap-6 service-cards">
+              <div ref={servicesGridMobileRef} className="grid grid-cols-1 gap-6 service-cards">
                 {getServices().map((service, index) => (
-                  <ServiceCard key={service.title} service={service} index={index} isVisible={servicesVisible[index] || false} />
+                  <ServiceCard key={service.title} service={service} index={index} isVisible={servicesVisibleMobile[index] || false} />
                 ))}
               </div>
             </div>

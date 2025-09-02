@@ -54,7 +54,7 @@ const DummyContent = () => {
             </p>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/abslogo.png"
+              src="/logo/abslogo.png"
               alt="AB&apos;s Plumbing logo"
               height="200"
               width="200"
@@ -89,19 +89,19 @@ const data = [
   {
     category: "Emergency Service",
     title: "24/7 emergency plumbing response",
-    src: "/sink.jpg",
+    src: "/service-repair.jpg",
     content: <DummyContent />,
   },
   {
     category: "Quality Guarantee",
     title: "Fair pricing with no hidden fees",
-    src: "/waterheater.jpg",
+    src: "/repair4.jpg",
     content: <DummyContent />,
   },
   {
     category: "Customer Satisfaction",
     title: "Over 500 five-star reviews in the Bay Area",
-    src: "/worker.jpg",
+    src: "/repair3.jpg",
     content: <DummyContent />,
   },
 ];

@@ -155,10 +155,10 @@ export default function ServiceAreasPage() {
                 <p className="text-blue-100 mb-6 text-sm sm:text-base">
                   We serve many more areas throughout the Bay Area! Contact us to check service availability in your location.
                 </p>
-                <button className="bg-white text-blue-600 hover:bg-blue-50 font-bold px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-2 mx-auto text-sm sm:text-base">
+                <a href="tel:5107538649" className="bg-white text-blue-600 hover:bg-blue-50 font-bold px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-2 mx-auto text-sm sm:text-base">
                   Check Availability
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </a>
               </div>
             </div>
           </div>

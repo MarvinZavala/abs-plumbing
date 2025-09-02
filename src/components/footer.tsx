@@ -35,11 +35,11 @@ export default function Footer() {
                 <span>(510) 753-8649</span>
               </a>
               <a
-                href="mailto:info@absplumbing.com"
+                href="mailto:absplumbing00@gmail.com"
                 className="flex items-center space-x-3 text-blue-200 hover:text-white transition-colors"
               >
                 <Mail className="w-5 h-5" />
-                <span>info@absplumbing.com</span>
+                <span>absplumbing00@gmail.com</span>
               </a>
               <div className="flex items-center space-x-3 text-blue-200">
                 <MapPin className="w-5 h-5" />

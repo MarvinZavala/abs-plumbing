@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, Phone, Wrench } from 'lucide-react';
+import Image from 'next/image';
+import { Menu, X, Phone } from 'lucide-react';
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,12 +23,17 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="flex items-center justify-center w-10 h-10 bg-blue-600 rounded-lg">
-              <Wrench className="w-6 h-6 text-white" />
-            </div>
-            <div className="hidden sm:block">
-              <span className="text-xl font-bold text-blue-900">AB's Plumbing</span>
+          <Link href="/" className="flex items-center space-x-2" aria-label="AB's Plumbing Services home">
+            <Image
+              src="/logo/abslogo.png"
+              alt="AB's Plumbing Services logo"
+              width={120}
+              height={48}
+              priority
+              className="h-12 w-auto md:h-14 lg:h-16"
+            />
+            <div className="block">
+              <span className="text-lg sm:text-xl font-bold text-blue-900">AB'S PLUMBING</span>
               <div className="text-xs text-blue-600">Licensed & Insured</div>
             </div>
           </Link>
@@ -43,11 +49,25 @@ export default function Navigation() {
                 {link.label}
               </Link>
             ))}
+            <a 
+              href="tel:+15107538649" 
+              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+            >
+              <Phone className="w-4 h-4" />
+              <span className="font-medium">Call Now</span>
+            </a>
           </div>
 
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
+          {/* Mobile call button and menu button */}
+          <div className="md:hidden flex items-center gap-2">
+            <a
+              href="tel:+15107538649"
+              className="flex items-center justify-center bg-blue-600 text-white p-2 rounded-lg"
+              aria-label="Call now"
+            >
+              <Phone className="w-5 h-5" />
+            </a>
             <button
               onClick={toggleMenu}
               className="text-gray-700 p-2"
@@ -72,6 +92,7 @@ export default function Navigation() {
                   {link.label}
                 </Link>
               ))}
+
             </div>
           </div>
         )}

@@ -5,6 +5,7 @@ import Footer from '@/components/footer';
 import HeroSection from '@/components/hero-section';
 import AppleCardsCarouselDemo from '@/components/apple-cards-carousel-demo';
 import LayoutGridDemo from '@/components/layout-grid-demo';
+import YelpReviewsPopup from '@/components/yelp-reviews-popup';
 import { useScrollAnimation, useStaggeredScrollAnimation } from '@/hooks/use-scroll-animation';
 
 export default function Home() {
@@ -351,6 +352,9 @@ export default function Home() {
       </main>
       
       <Footer />
+      
+      {/* Yelp Reviews Popup */}
+      <YelpReviewsPopup />
 
       <style jsx>{`
         /* Fade In Up Animation */

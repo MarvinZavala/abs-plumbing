@@ -7,15 +7,12 @@ import { useState } from 'react';
 import { useScrollAnimation, useStaggeredScrollAnimation } from '@/hooks/use-scroll-animation';
 import { 
   Camera, 
-  Clock, 
-  CheckCircle, 
   Star, 
   Eye, 
   MapPin, 
   Award,
   Users,
-  Wrench,
-  ArrowRight
+  Wrench
 } from 'lucide-react';
 
 interface Project {
@@ -23,8 +20,7 @@ interface Project {
   title: string;
   category: string;
   description: string;
-  beforeImage: string;
-  afterImage: string;
+  image: string;
   services: string[];
   location: string;
   duration: string;
@@ -47,7 +43,7 @@ export default function GalleryPage() {
   const { ref: filterButtonsRef, isVisible: filterButtonsVisible } = useScrollAnimation({ threshold: 0.3 });
   
   const { ref: projectsHeaderRef, isVisible: projectsHeaderVisible } = useScrollAnimation({ threshold: 0.3 });
-  const { ref: projectsGridRef, visibleItems: projectsVisible } = useStaggeredScrollAnimation(6, { threshold: 0.1 });
+  const { ref: projectsGridRef, visibleItems: projectsVisible } = useStaggeredScrollAnimation(9, { threshold: 0.1 });
   
   const { ref: ctaSectionRef, isVisible: ctaSectionVisible } = useScrollAnimation({ threshold: 0.2 });
   const { ref: ctaHeaderRef, isVisible: ctaHeaderVisible } = useScrollAnimation({ threshold: 0.4 });
@@ -57,75 +53,100 @@ export default function GalleryPage() {
   const projects: Project[] = [
     {
       id: 1,
-      title: "Luxury Master Bathroom Renovation",
-      category: "Bathroom",
-      description: "Complete bathroom transformation with walk-in shower, dual vanities, and premium fixtures in a San Francisco Victorian home.",
-      beforeImage: "/images/placeholder-before.jpg",
-      afterImage: "/images/placeholder-after.jpg",
-      services: ["Walk-in Shower", "Dual Vanities", "Luxury Fixtures", "Heated Floors"],
-      location: "San Francisco",
-      duration: "3 days",
+      title: "Sewer Lateral Replacement",
+      category: "Emergency Repairs",
+      description: "Complete sewer line replacement with professional excavation and new piping to prevent future backups.",
+      image: "/services/SEWERLATERAL.jpg",
+      services: ["Sewer Replacement", "Excavation", "New Piping", "Drainage Restoration"],
+      location: "Fremont",
+      duration: "2-3 days",
       featured: true
     },
     {
       id: 2,
-      title: "Emergency Water Heater Replacement",
-      category: "Water Heaters",
-      description: "Same-day tankless water heater installation after emergency failure, restoring hot water within 4 hours.",
-      beforeImage: "/images/placeholder-before.jpg",
-      afterImage: "/images/placeholder-after.jpg",
-      services: ["Tankless Installation", "Gas Line Work", "Permit Acquisition", "Same Day Service"],
-      location: "Oakland",
-      duration: "Same day",
+      title: "Major Pipe Installation Project",
+      category: "Plumbing Infrastructure",
+      description: "Installation project with large-diameter PVC pipes for main water or sewer lines.",
+      image: "/services/bigpipa.jpg",
+      services: ["Main Line Installation", "Large Diameter Piping", "Professional Connections", "Infrastructure Upgrade"],
+      location: "Hayward",
+      duration: "3-4 days",
       featured: true
     },
     {
       id: 3,
-      title: "Modern Kitchen Sink Installation",
-      category: "Kitchen",
-      description: "Complete kitchen plumbing upgrade with undermount sink, garbage disposal, and water filtration system.",
-      beforeImage: "/images/placeholder-before.jpg",
-      afterImage: "/images/placeholder-after.jpg",
-      services: ["Sink Installation", "Garbage Disposal", "Water Filtration", "Faucet Upgrade"],
-      location: "San Jose",
+      title: "Professional Water Heater Installation",
+      category: "Water Heaters",
+      description: "Professional high-efficiency water heater installation with proper venting for reliable hot water access.",
+      image: "/services/WATERHEATER1.jpg",
+      services: ["Water Heater Installation", "Safety Inspection", "Proper Venting", "Efficiency Upgrade"],
+      location: "San Francisco",
       duration: "1 day"
     },
     {
       id: 4,
-      title: "Trenchless Sewer Line Repair",
-      category: "Emergency Repairs",
-      description: "Non-invasive sewer line repair using advanced trenchless technology, saving the customer's landscaping.",
-      beforeImage: "/images/placeholder-before.jpg",
-      afterImage: "/images/placeholder-after.jpg",
-      services: ["Trenchless Repair", "Video Inspection", "Root Removal", "Line Testing"],
+      title: "Commercial Plumbing Project",
+      category: "Commercial Services",
+      description: "Large-scale commercial installation with advanced piping systems and fixtures for business facilities.",
+      image: "/services/ABPROYECT.jpg",
+      services: ["Commercial Installation", "Code Compliance", "System Design", "Professional Execution"],
+      location: "San Mateo",
+      duration: "5 days"
+    },
+    {
+      id: 5,
+      title: "Water Distribution Manifold System",
+      category: "Plumbing Infrastructure",
+      description: "Water distribution manifold providing balanced pressure throughout the house with individual shut-off valves.",
+      image: "/services/WATERHEADER3.jpg",
+      services: ["Water Distribution", "Pressure Balancing", "Individual Shut-offs", "System Upgrade"],
       location: "Berkeley",
       duration: "2 days"
     },
     {
-      id: 5,
-      title: "Guest Bathroom Remodel",
-      category: "Bathroom",
-      description: "Space-efficient bathroom renovation maximizing functionality in a compact Fremont townhome.",
-      beforeImage: "/images/placeholder-before.jpg",
-      afterImage: "/images/placeholder-after.jpg",
-      services: ["Space Optimization", "New Fixtures", "Efficient Layout", "Modern Design"],
-      location: "Fremont",
-      duration: "2 days"
+      id: 6,
+      title: "Emergency Plumbing Repair",
+      category: "Emergency Repairs",
+      description: "Urgent repair of damaged system with professional diagnosis to prevent property damage.",
+      image: "/services/bigrepair.jpg",
+      services: ["Emergency Service", "Damage Prevention", "Expert Diagnosis", "Rapid Solution"],
+      location: "Daly City",
+      duration: "Same day"
     },
     {
-      id: 6,
-      title: "High-Efficiency Water Heater Install",
+      id: 7,
+      title: "Modern Tankless Water Heater System",
       category: "Water Heaters",
-      description: "Energy-efficient tank water heater installation with smart controls and expansion tank for optimal performance.",
-      beforeImage: "/images/placeholder-before.jpg",
-      afterImage: "/images/placeholder-after.jpg",
-      services: ["Tank Installation", "Smart Controls", "Expansion Tank", "Energy Efficiency"],
-      location: "Hayward",
+      description: "Tankless system with advanced pipe configuration for continuous supply and energy savings.",
+      image: "/services/WATERHEATER2.jpg",
+      services: ["Tankless System", "Energy Efficiency", "Space-Saving Design", "Professional Installation"],
+      location: "Oakland",
       duration: "1 day"
-    }
+    },
+    {
+      id: 8,
+      title: "Whole-House Water Filtration System",
+      category: "Water Quality",
+      description: "Whole-house filtration system ensuring clean, safe water from every tap.",
+      image: "/services/WATERFILTER.jpg",
+      services: ["Water Filtration", "Contaminant Removal", "System Installation", "Water Quality Improvement"],
+      location: "San Jose",
+      duration: "1 day"
+    },
+    {
+      id: 9,
+      title: "Large Commercial Installation",
+      category: "Commercial Services",
+      description: "Infrastructure installation for commercial building with complex piping systems and fixture placement.",
+      image: "/services/bigproyect.jpg",
+      services: ["Commercial Plumbing", "Large Scale Project", "System Integration", "Code Compliance"],
+      location: "South San Francisco",
+      duration: "1 week"
+    },
+
   ];
 
-  const categories = ["All", "Bathroom", "Kitchen", "Water Heaters", "Emergency Repairs"];
+  const categories = ["All", "Water Heaters", "Emergency Repairs", "Plumbing Infrastructure", "Water Quality", "Commercial Services", "Custom Work"];
 
   const filteredProjects = activeFilter === 'All' 
     ? projects 
@@ -144,36 +165,21 @@ export default function GalleryPage() {
         </div>
       )}
       
-      {/* Before/After Images */}
-      <div className="grid grid-cols-2 relative">
-        <div className="relative overflow-hidden">
-          <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-            <div className="text-center text-gray-500">
-              <Camera className="w-8 h-8 sm:w-12 sm:h-12 mx-auto mb-2 opacity-50" />
-              <div className="text-xs sm:text-sm font-medium">BEFORE</div>
-            </div>
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-          <div className="absolute bottom-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
-            BEFORE
-          </div>
-        </div>
-        <div className="relative overflow-hidden">
-          <div className="aspect-square bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-            <div className="text-center text-blue-600">
-              <Camera className="w-8 h-8 sm:w-12 sm:h-12 mx-auto mb-2" />
-              <div className="text-xs sm:text-sm font-medium">AFTER</div>
-            </div>
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-          <div className="absolute bottom-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-bold">
-            AFTER
-          </div>
+      {/* Project Image */}
+      <div className="relative overflow-hidden">
+        <div className="aspect-square relative overflow-hidden">
+          <img 
+            src={project.image} 
+            alt={project.title} 
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
         </div>
         
         {/* Hover Overlay */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-          <button className="bg-white text-gray-900 px-4 py-2 rounded-lg font-semibold flex items-center gap-2 transform scale-90 group-hover:scale-100 transition-transform duration-300">
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+          <button className="bg-white text-gray-900 px-4 py-2 rounded-lg font-semibold flex items-center gap-2 transform scale-90 group-hover:scale-100 transition-transform duration-300 shadow-lg">
             <Eye className="w-4 h-4" />
             View Details
           </button>
@@ -201,17 +207,6 @@ export default function GalleryPage() {
         </p>
         
         <div className="space-y-3 mb-4">
-          <div className="flex items-center justify-between text-xs sm:text-sm">
-            <div className="flex items-center text-gray-600">
-              <Clock className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
-              <span>Duration: {project.duration}</span>
-            </div>
-            <div className="flex items-center text-green-600">
-              <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
-              <span>Completed</span>
-            </div>
-          </div>
-          
           <div className="space-y-2">
             <h4 className="font-semibold text-gray-900 text-sm">Services:</h4>
             <div className="flex flex-wrap gap-1 sm:gap-2">
@@ -229,11 +224,6 @@ export default function GalleryPage() {
             </div>
           </div>
         </div>
-        
-        <button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-2.5 sm:py-3 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group/btn text-sm sm:text-base">
-          View Project
-          <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover/btn:translate-x-1 transition-transform" />
-        </button>
       </div>
     </div>
   );
@@ -262,16 +252,16 @@ export default function GalleryPage() {
                 Project Gallery
               </div>
               
-              <h1 
+                              <h1 
                 ref={heroTitleRef}
                 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent leading-tight transition-all duration-800 ${
                   heroTitleVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-8'
                 }`}
               >
-                Our Work
+                Our Project
                 <span className={`block text-blue-300 transition-all duration-800 delay-300 ${
                   heroTitleVisible ? 'animate-slide-in-right opacity-100' : 'opacity-0 translate-x-12'
-                }`}>Speaks for Itself</span>
+                }`}>Gallery</span>
               </h1>
               
               <p 
@@ -280,8 +270,8 @@ export default function GalleryPage() {
                   heroDescVisible ? 'animate-fade-in-up opacity-100' : 'opacity-0 translate-y-8'
                 }`}
               >
-                Explore real before and after photos from actual projects across the San Francisco Bay Area. 
-                Quality workmanship and satisfied customers are our best advertisement.
+                Explore our portfolio of completed plumbing projects across the San Francisco Bay Area.
+                Quality workmanship and attention to detail is our commitment on every job.
               </p>
               
               <div 
@@ -373,7 +363,7 @@ export default function GalleryPage() {
               </div>
             </div>
             
-            <div ref={projectsGridRef} className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 project-cards">
+            <div ref={projectsGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 project-cards">
               {filteredProjects.map((project, index) => (
                 <ProjectCard key={project.id} project={project} index={index} isVisible={projectsVisible[index] || false} />
               ))}
