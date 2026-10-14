@@ -98,7 +98,12 @@ test('llms.txt states phone, hours and home base', () => {
   const txt = buildLlmsTxt(BASE);
   assert.ok(txt.includes('(510) 753-8649'));
   assert.ok(txt.includes('24 hours'));
-  assert.ok(txt.includes('Fruitvale, Oakland'));
+  assert.ok(txt.includes('based in Oakland'));
+});
+
+test('AI files and structured data name the city only, never the neighborhood', () => {
+  const outputs = [buildLlmsTxt(BASE), buildLlmsFullTxt(BASE), JSON.stringify(businessJsonLd(BASE))];
+  for (const output of outputs) assert.equal(output.includes('Fruitvale'), false);
 });
 
 test('llms-full.txt covers every city and every FAQ', () => {

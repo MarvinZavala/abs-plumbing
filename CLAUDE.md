@@ -4,7 +4,7 @@ Guidance for Claude Code when working in this repository.
 
 ## Project
 
-Website and Google Ads landing pages for AB’s Plumbing Services, a family-owned 24/7 plumbing crew based in Fruitvale, Oakland, CA.
+Website and Google Ads landing pages for AB’s Plumbing Services, a family-owned 24/7 plumbing crew based in Oakland, CA. Say "Oakland", never the neighborhood.
 Visitors are mostly on phones, often mid-emergency, arriving from Google Ads. The site’s job is to get a call, a text or an estimate request fast.
 The brand is the crew (AB’s), not one person.
 

@@ -5,7 +5,7 @@
 export const areas = [
   {
     region: 'East Bay',
-    note: 'Home base: Fruitvale, Oakland',
+    note: 'Home base: Oakland',
     cities: [
       'Oakland',
       'Berkeley',

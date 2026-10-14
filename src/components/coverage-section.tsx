@@ -13,7 +13,7 @@ export function CoverageSection() {
             Serving all of the San Francisco Bay Area
           </h2>
           <p className="type-lead measure mt-5">
-            Our crew is based in Fruitvale, Oakland, right in the middle of the Bay. From here we cover San Francisco
+            Our crew is based in Oakland, right in the middle of the Bay. From here we cover San Francisco
             and the Peninsula, the East Bay, the South Bay and north to Vallejo.
           </p>
           <p className="mt-7 flex flex-wrap items-baseline gap-x-6 gap-y-3">

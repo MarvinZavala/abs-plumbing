@@ -1,7 +1,7 @@
 import { business } from '@/content/business';
 
 const facts: [string, string][] = [
-  ['Based in', `${business.base.neighborhood}, ${business.base.city}`],
+  ['Based in', business.base.city],
   ['Hours', business.hours],
   ['License', business.license ? `CA #${business.license}, insured` : 'Licensed and insured in California'],
   ['Estimates', 'Free, with the price before any work starts'],
@@ -20,7 +20,7 @@ export function CrewSection() {
             A local crew, not a call center.
           </h2>
           <p className="type-lead measure mt-5">
-            AB’s Plumbing is a family-owned plumbing company from Fruitvale, Oakland. Our crew works on houses,
+            AB’s Plumbing is a family-owned plumbing company from Oakland. Our crew works on houses,
             apartment buildings and restaurants all over the Bay Area, and we’re on call around the clock.
           </p>
           <figure className="mt-8 border-l-4 border-action pl-5">

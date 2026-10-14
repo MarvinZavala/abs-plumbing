@@ -9,7 +9,7 @@ import { photoById } from '@/content/work';
 export const metadata: Metadata = {
   title: 'About Our Crew',
   description:
-    'AB’s Plumbing is a family-owned plumbing company from Fruitvale, Oakland, on call 24/7 across the Bay Area. Licensed, insured, 4.9 stars on Yelp.',
+    'AB’s Plumbing is a family-owned plumbing company from Oakland, on call 24/7 across the Bay Area. Licensed, insured, 4.9 stars on Yelp.',
   alternates: { canonical: '/about' },
 };
 
@@ -17,7 +17,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
-        title="A family-owned plumbing crew from Fruitvale, Oakland"
+        title="A family-owned plumbing crew from Oakland"
         lead="We fix leaks, clogs, water heaters and sewer lines for homeowners, landlords and restaurants across the Bay Area, around the clock."
         photo={photoById('sewer-line-foothill-blvd-oakland')}
         placement="about"

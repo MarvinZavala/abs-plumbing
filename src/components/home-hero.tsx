@@ -13,8 +13,7 @@ export function HomeHero() {
           <OpenStatus />
           <h1 className="type-hero mt-4">Plumbing problem? Our crew picks up 24/7.</h1>
           <p className="type-lead measure mt-5">
-            Leaks, clogs, water heaters and sewer lines across the Bay Area. Licensed, insured and based in Fruitvale,
-            Oakland.
+            Leaks, clogs, water heaters and sewer lines across the Bay Area. Licensed, insured and based in Oakland.
           </p>
           <RatingLine className="mt-5" />
           <CtaGroup placement="hero" className="mt-7" />

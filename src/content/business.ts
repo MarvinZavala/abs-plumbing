@@ -18,7 +18,6 @@ export const business = {
   factsCheckedOn: '2026-10-13',
   /** Base of operations as listed on Yelp. */
   base: {
-    neighborhood: 'Fruitvale',
     city: 'Oakland',
     region: 'CA',
     postalCode: '94601',

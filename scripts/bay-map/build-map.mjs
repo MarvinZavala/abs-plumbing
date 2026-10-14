@@ -37,7 +37,7 @@ for (const g of geometries) {
 }
 const landD = polys.join('');
 
-const BASE = { name: 'Fruitvale, Oakland', lat: 37.784, lon: -122.214 }; // Foothill Blvd in Fruitvale
+const BASE = { name: 'Oakland', lat: 37.784, lon: -122.214 }; // Foothill Blvd, Oakland
 const cities = [
   { name: 'San Francisco', lat: 37.7749, lon: -122.4194, mobile: true },
   { name: 'Berkeley', lat: 37.8716, lon: -122.2727, mobile: false },

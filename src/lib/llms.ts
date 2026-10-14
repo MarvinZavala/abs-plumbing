@@ -14,8 +14,8 @@ const checked = formatReviewDate(business.factsCheckedOn);
 
 function summary(): string {
   return (
-    `> ${business.name} is a family-owned plumbing company based in ${business.base.neighborhood}, ` +
-    `${business.base.city}, California, serving the entire San Francisco Bay Area 24 hours a day, 7 days a week. ` +
+    `> ${business.name} is a family-owned plumbing company based in ${business.base.city}, California, ` +
+    `serving the entire San Francisco Bay Area 24 hours a day, 7 days a week. ` +
     `${business.acceptsTexts ? 'Call or text' : 'Call'} ${business.phone.display}.`
   );
 }
@@ -23,7 +23,7 @@ function summary(): string {
 function keyFacts(base: string): string[] {
   return [
     `- Phone: ${business.phone.display}${business.acceptsTexts ? ' (calls and texts)' : ''}, open 24 hours, 7 days a week`,
-    `- Home base: ${business.base.neighborhood}, ${business.base.city}, ${business.base.region} ${business.base.postalCode}`,
+    `- Based in: ${business.base.city}, California`,
     '- Service area: the whole San Francisco Bay Area (East Bay, San Francisco and the Peninsula, South Bay, and north to Vallejo)',
     `- ${business.license ? `Licensed (California CSLB #${business.license}) and insured` : 'Licensed and insured in California'}`,
     '- Free estimates, with the price given before any work starts',
@@ -85,7 +85,7 @@ export function buildLlmsFullTxt(base: string): string {
   });
   out.push('');
 
-  out.push('## Service area', '', `Home base: ${business.base.neighborhood}, ${business.base.city}. The crew serves the entire San Francisco Bay Area.`, '');
+  out.push('## Service area', '', `Based in ${business.base.city}. The crew serves the entire San Francisco Bay Area.`, '');
   for (const area of areas) out.push(`- ${area.region}: ${area.cities.join(', ')}`);
   out.push('', `If a Bay Area city is not listed, call ${business.phone.display} to confirm.`, '');
 

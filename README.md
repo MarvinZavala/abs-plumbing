@@ -1,6 +1,6 @@
 # AB’s Plumbing Services website
 
-Marketing site and Google Ads landing pages for AB’s Plumbing Services, a 24/7 plumbing crew based in Fruitvale, Oakland.
+Marketing site and Google Ads landing pages for AB’s Plumbing Services, a 24/7 plumbing crew based in Oakland.
 Next.js 15 (App Router, fully static pages), React 19, Tailwind CSS v4.
 
 ## Run it

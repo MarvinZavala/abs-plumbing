@@ -23,7 +23,7 @@ export function businessJsonLd(base: string) {
     name: business.name,
     alternateName: business.shortName,
     description:
-      'Family-owned plumbing company based in Fruitvale, Oakland, California. Open 24 hours for emergency plumbing, drain cleaning, water heaters, sewer lines, leaks and fixtures across the San Francisco Bay Area.',
+      'Family-owned plumbing company based in Oakland, California. Open 24 hours for emergency plumbing, drain cleaning, water heaters, sewer lines, leaks and fixtures across the San Francisco Bay Area.',
     url: abs(base, '/'),
     telephone: business.phone.e164,
     email: business.email,
