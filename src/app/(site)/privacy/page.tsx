@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { business } from '@/content/business';
+import { business, telHref } from '@/content/business';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -59,7 +59,14 @@ export default function PrivacyPage() {
           <h2>Contact</h2>
           <p>
             {business.name}, {business.base.city}, {business.base.region} {business.base.postalCode}. Phone{' '}
-            {business.phone.display}. Email {business.email}.
+            <a href={telHref} className="text-blue underline underline-offset-4">
+              {business.phone.display}
+            </a>
+            . Email{' '}
+            <a href={`mailto:${business.email}`} className="text-blue underline underline-offset-4">
+              {business.email}
+            </a>
+            .
           </p>
         </div>
       </div>

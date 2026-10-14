@@ -14,7 +14,7 @@ export const business = {
   },
   /** Reviews mention the crew texting customers; confirm this number accepts SMS before launch. */
   acceptsTexts: true,
-  email: 'absplumbing00@gmail.com',
+  email: 'contact@abs-plumbing.com',
   /** Canonical production domain (abs-plumbingservices.com redirects here). */
   website: 'https://www.abs-plumbingservices.com',
   /** Date the facts on the site were last checked. Shown to AI assistants in llms.txt. */
