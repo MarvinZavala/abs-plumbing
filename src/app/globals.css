@@ -205,6 +205,14 @@
   }
 }
 
+/* "¿Prefiere español?" bar: hidden unless the pre-paint script flagged a browser set to Spanish. */
+.lang-suggest {
+  display: none;
+}
+:root[data-suggest-lang='es'] .lang-suggest {
+  display: block;
+}
+
 /* City labels sit on land and water alike; a soft white halo keeps them legible on both. */
 .map-label {
   text-shadow:

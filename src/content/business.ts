@@ -2,6 +2,9 @@
  * Single source of truth for business facts shown across the site.
  * Everything here must be true and verifiable — Google Ads and CA contractor rules both care.
  */
+/** New-customer discount, used by the English and Spanish copy. Must match the ads. */
+const OFFER_PERCENT = 10;
+
 export const business = {
   name: 'AB’s Plumbing Services',
   shortName: 'AB’s Plumbing',
@@ -38,10 +41,13 @@ export const business = {
   /** Current offer shown on the site. Must match whatever the ads promise. */
   offer: {
     enabled: true,
-    short: '10% off for new customers',
-    detail: 'New customers get 10% off their first service. Mention the website when you call.',
+    percent: OFFER_PERCENT,
+    short: `${OFFER_PERCENT}% off for new customers`,
+    detail: `New customers get ${OFFER_PERCENT}% off their first service. Mention the website when you call.`,
   },
   payments: ['Cash', 'Credit cards', 'Zelle'],
+  /** The crew speaks both. Spanish visitors have their own page at /es. */
+  languages: ['English', 'Spanish'],
   /** From the Yelp listing amenities. */
   aslProficient: true,
 } as const;

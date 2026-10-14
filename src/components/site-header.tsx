@@ -3,40 +3,53 @@ import Link from 'next/link';
 import { Phone } from 'lucide-react';
 import logo from '@/assets/brand/ab-logo.png';
 import { business, telHref } from '@/content/business';
+import { servicesEs } from '@/content/es';
+import { t, type Locale } from '@/content/i18n';
 import { services } from '@/content/services';
 import { buttonStyles } from './cta';
+import { LanguageLink } from './language-link';
 import { MobileMenu } from './mobile-menu';
 import { TrackedLink } from './tracked-link';
 import { cn } from '@/lib/utils';
 
-export const mainNav = [
-  { href: '/services', label: 'Services' },
-  { href: '/gallery', label: 'Our work' },
-  { href: '/about', label: 'About us' },
-  { href: '/service-areas', label: 'Service areas' },
-];
+/** Service links for menus, in the given language. */
+export function serviceLinks(locale: Locale) {
+  return locale === 'es'
+    ? servicesEs.map((s) => ({ href: `/es/servicios/${s.slugEs}`, label: s.name }))
+    : services.map((s) => ({ href: `/services/${s.slug}`, label: s.name }));
+}
 
-export function SiteHeader() {
+export function SiteHeader({ locale = 'en' }: { locale?: Locale }) {
+  const copy = t(locale);
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white">
       <div className="wrap flex h-16 items-center justify-between gap-3 lg:h-20">
-        <Link href="/" className="flex shrink-0 items-center gap-2.5 rounded-md">
+        <Link href={copy.homeHref} className="flex shrink-0 items-center gap-2.5 rounded-md">
           <Image src={logo} alt="" priority className="h-11 w-auto lg:h-14" sizes="64px" />
           <span className="flex flex-col gap-1 leading-none">
             <span className="font-display text-[1.5rem] font-bold text-ink lg:text-[1.7rem]">AB’s Plumbing</span>
-            <span className="text-[0.8rem] font-medium text-mute">Oakland, open 24/7</span>
+            <span className="text-[0.8rem] font-medium text-mute">{copy.tagline}</span>
           </span>
         </Link>
 
-        <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-7">
-            {mainNav.map((item) => (
+        <nav aria-label={copy.mainNavLabel} className="hidden lg:block">
+          <ul className="flex items-center gap-6 xl:gap-7">
+            {copy.nav.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="font-medium text-ink decoration-2 hover:underline">
                   {item.label}
                 </Link>
               </li>
             ))}
+            <li className="border-l border-line pl-6 xl:pl-7">
+              <LanguageLink
+                to={copy.otherLanguage.locale}
+                placement="header"
+                className="font-medium text-blue underline decoration-2 underline-offset-4"
+              >
+                {copy.otherLanguage.label}
+              </LanguageLink>
+            </li>
           </ul>
         </nav>
 
@@ -54,12 +67,17 @@ export function SiteHeader() {
             href={telHref}
             event="call_click"
             placement="header"
-            aria-label={`Call ${business.phone.display}`}
+            aria-label={copy.call(business.phone.display)}
             className="inline-flex size-11 items-center justify-center rounded-button bg-action text-ink active:translate-y-px lg:hidden"
           >
             <Phone className="size-5" strokeWidth={2.5} aria-hidden="true" />
           </TrackedLink>
-          <MobileMenu nav={mainNav} services={services.map((s) => ({ href: `/services/${s.slug}`, label: s.name }))} />
+          <MobileMenu
+            nav={copy.nav}
+            services={serviceLinks(locale)}
+            language={copy.otherLanguage}
+            labels={{ open: copy.openMenu, close: copy.closeMenu, nav: copy.mobileNavLabel, services: copy.whatWeFix }}
+          />
         </div>
       </div>
     </header>

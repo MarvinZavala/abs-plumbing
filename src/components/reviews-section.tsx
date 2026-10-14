@@ -1,19 +1,24 @@
 import { business } from '@/content/business';
+import { t, type Locale } from '@/content/i18n';
 import { formatReviewDate, reviewById, type Review } from '@/content/reviews';
 import { cn } from '@/lib/utils';
 import { Stars } from './bits';
 
-function ReviewCard({ review, className }: { review: Review; className?: string }) {
+function ReviewCard({ review, locale, className }: { review: Review; locale: Locale; className?: string }) {
   return (
     <li className={className}>
       <figure className="flex h-full flex-col rounded-plate bg-ink-soft p-5 lg:p-6">
-        <blockquote className="text-[1.05rem] leading-relaxed text-white">“{review.quote}”</blockquote>
+        {/* Quotes stay in the reviewer's own words (English), so mark them as English on Spanish pages. */}
+        <blockquote lang="en" className="text-[1.05rem] leading-relaxed text-white">
+          “{review.quote}”
+        </blockquote>
         <figcaption className="mt-auto pt-5 text-[0.92rem] leading-snug text-white/70">
           <span className="block font-semibold text-white">
             {review.name}, {review.city.replace(/, CA$/, '')}
           </span>
           <span className="block">
-            {review.job}, <time dateTime={review.date}>{formatReviewDate(review.date)}</time>
+            {locale === 'es' ? review.jobEs : review.job},{' '}
+            <time dateTime={review.date}>{formatReviewDate(review.date, locale)}</time>
           </span>
         </figcaption>
       </figure>
@@ -27,16 +32,19 @@ function ReviewCard({ review, className }: { review: Review; className?: string 
  */
 export function ReviewsSection({
   ids,
-  title = `${business.yelp.reviewCount} reviews. Here are a few.`,
+  locale = 'en',
+  title = t(locale).reviewsTitle(business.yelp.reviewCount),
 }: {
   ids: string[];
+  locale?: Locale;
   title?: string;
 }) {
+  const copy = t(locale);
   const list = ids.map(reviewById);
   const first = list.slice(0, 3);
   const rest = list.slice(3);
   return (
-    <section id="reviews" aria-labelledby="reviews-title" className="scroll-mt-20 bg-ink text-white">
+    <section id={copy.reviewsAnchor} aria-labelledby="reviews-title" className="scroll-mt-20 bg-ink text-white">
       <div className="wrap py-14 lg:py-20">
         <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
           <div>
@@ -47,9 +55,7 @@ export function ReviewsSection({
               <span className="font-display text-[3.5rem] font-bold leading-none text-cyan">{business.yelp.rating}</span>
               <span>
                 <Stars className="text-2xl" />
-                <span className="mt-1 block text-[0.95rem] text-white/75">
-                  average from {business.yelp.reviewCount} reviews on Yelp
-                </span>
+                <span className="mt-1 block text-[0.95rem] text-white/75">{copy.averageFrom(business.yelp.reviewCount)}</span>
               </span>
             </div>
           </div>
@@ -59,17 +65,19 @@ export function ReviewsSection({
             rel="noopener noreferrer"
             className="font-medium text-white underline decoration-white/40 underline-offset-4 hover:decoration-white"
           >
-            Read them all on Yelp
-            <span className="sr-only"> (opens in a new tab)</span>
+            {copy.readAllOnYelp}
+            <span className="sr-only"> {copy.opensNewTab}</span>
           </a>
         </div>
 
+        {copy.reviewsLanguageNote && <p className="mt-6 text-[0.95rem] text-white/75">{copy.reviewsLanguageNote}</p>}
+
         <ul className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {first.map((r) => (
-            <ReviewCard key={r.id} review={r} />
+            <ReviewCard key={r.id} review={r} locale={locale} />
           ))}
           {rest.map((r) => (
-            <ReviewCard key={r.id} review={r} className="hidden lg:block" />
+            <ReviewCard key={r.id} review={r} locale={locale} className="hidden lg:block" />
           ))}
         </ul>
 
@@ -81,11 +89,11 @@ export function ReviewsSection({
                 'font-display text-[1.15rem] font-semibold text-white group-open:hidden',
               )}
             >
-              Show {rest.length} more reviews
+              {copy.showMore(rest.length)}
             </summary>
             <ul className="grid gap-4 md:grid-cols-2">
               {rest.map((r) => (
-                <ReviewCard key={r.id} review={r} />
+                <ReviewCard key={r.id} review={r} locale={locale} />
               ))}
             </ul>
           </details>

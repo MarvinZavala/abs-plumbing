@@ -44,7 +44,29 @@ test('accepts a complete request and normalizes every field', () => {
       urgency: 'emergency',
       details: 'No hot water since this morning',
       page: '/services/water-heaters',
+      language: 'en',
       attribution: { gclid: 'Cj0KCQabc', utmSource: 'google', utmCampaign: 'water-heaters' },
+    },
+  });
+});
+
+test('records a Spanish-language request so the crew calls back in Spanish', () => {
+  const es = parseLead(fields({ lang: 'es' }), NOW);
+  assert.equal(es.ok && es.lead.language, 'es');
+  for (const lang of ['', 'fr']) {
+    const other = parseLead(fields({ lang }), NOW);
+    assert.equal(other.ok && other.lead.language, 'en', `expected "${lang}" to fall back to en`);
+  }
+});
+
+test('explains field errors in Spanish on the Spanish form', () => {
+  const result = parseLead(fields({ lang: 'es', name: ' ', phone: '123', zip: 'abc' }), NOW);
+  assert.deepEqual(result, {
+    ok: false,
+    errors: {
+      name: 'Escriba su nombre.',
+      phone: 'Escriba un teléfono de 10 dígitos.',
+      zip: 'Escriba un código postal (ZIP) de 5 dígitos.',
     },
   });
 });

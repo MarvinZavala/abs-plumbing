@@ -81,3 +81,14 @@ test('in development, an unconfigured form logs the lead and succeeds so the flo
   assert.equal(logs.length, 1);
   assert.ok(logs[0].includes('(510) 555-0142'));
 });
+
+test('answers in Spanish when the visitor used the Spanish form', async () => {
+  const invalid = await handleLeadSubmission({ ...valid, lang: 'es', phone: '123' }, setup({ ok: true, channels: ['email'] }).deps);
+  assert.equal(invalid.status === 'error' && invalid.message, 'Revise los campos marcados.');
+
+  const failed = await handleLeadSubmission({ ...valid, lang: 'es' }, setup({ ok: false, reason: 'failed' }).deps);
+  assert.equal(
+    failed.status === 'error' && failed.message,
+    `No pudimos enviar su solicitud. Llámenos al ${BUSINESS_PHONE}, abrimos 24/7.`,
+  );
+});

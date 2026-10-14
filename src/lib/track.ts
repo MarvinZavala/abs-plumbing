@@ -3,7 +3,7 @@
  * - Always pushes a dataLayer event (for Google Tag Manager triggers).
  * - Also fires a gtag conversion when NEXT_PUBLIC_GOOGLE_ADS_ID and the matching label are set.
  */
-export type TrackEvent = 'call_click' | 'text_click' | 'estimate_click' | 'lead_submit';
+export type TrackEvent = 'call_click' | 'text_click' | 'estimate_click' | 'lead_submit' | 'language_switch';
 
 const adsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
 const conversionLabels: Partial<Record<TrackEvent, string | undefined>> = {

@@ -7,6 +7,7 @@ import { services, type ServiceSlug } from '../content/services.ts';
 export type ServiceChoice = ServiceSlug | 'not-sure';
 export type Urgency = 'emergency' | 'soon' | 'quote';
 export type LeadField = 'name' | 'phone' | 'zip';
+export type Language = 'en' | 'es';
 
 export type Attribution = {
   gclid?: string;
@@ -24,6 +25,8 @@ export type Lead = {
   urgency: Urgency;
   details: string;
   page: string;
+  /** Language of the form the visitor used, so the crew calls back in it. */
+  language: Language;
   attribution: Attribution;
 };
 
@@ -37,6 +40,26 @@ export const urgencyLabels: Record<Urgency, string> = {
   soon: 'In the next day or two',
   quote: 'Just getting a quote',
 };
+
+/** What the visitor reads, in the language of the form they used. */
+const text = {
+  en: {
+    errors: { name: 'Enter your name.', phone: 'Enter a 10-digit phone number.', zip: 'Enter a 5-digit ZIP code.' },
+    invalid: 'Check the highlighted fields.',
+    failed: (phone: string) => `We couldn’t send your request. Please call us at ${phone}, we’re open 24/7.`,
+  },
+  es: {
+    errors: {
+      name: 'Escriba su nombre.',
+      phone: 'Escriba un teléfono de 10 dígitos.',
+      zip: 'Escriba un código postal (ZIP) de 5 dígitos.',
+    },
+    invalid: 'Revise los campos marcados.',
+    failed: (phone: string) => `No pudimos enviar su solicitud. Llámenos al ${phone}, abrimos 24/7.`,
+  },
+} satisfies Record<Language, { errors: Record<LeadField, string>; invalid: string; failed: (phone: string) => string }>;
+
+const languageOf = (fields: Record<string, string | undefined>): Language => (fields.lang === 'es' ? 'es' : 'en');
 
 /** Humans need a few seconds to fill the form; scripts don't. */
 const MIN_FILL_MS = 2_500;
@@ -92,10 +115,11 @@ export function parseLead(fields: Record<string, string | undefined>, now: numbe
   const phone = normalizePhone(fields.phone);
   const zip = normalizeZip(fields.zip);
 
+  const language = languageOf(fields);
   const errors: Partial<Record<LeadField, string>> = {};
-  if (!name) errors.name = 'Enter your name.';
-  if (!phone) errors.phone = 'Enter a 10-digit phone number.';
-  if (!zip) errors.zip = 'Enter a 5-digit ZIP code.';
+  if (!name) errors.name = text[language].errors.name;
+  if (!phone) errors.phone = text[language].errors.phone;
+  if (!zip) errors.zip = text[language].errors.zip;
   if (!phone || !zip || !name) return { ok: false, errors };
 
   const service = services.some((s) => s.slug === fields.service) ? (fields.service as ServiceSlug) : 'not-sure';
@@ -117,6 +141,7 @@ export function parseLead(fields: Record<string, string | undefined>, now: numbe
       urgency,
       details: clean(fields.details, 1_000, { keepNewlines: true }),
       page: normalizePage(fields.page),
+      language,
       attribution,
     },
   };
@@ -155,13 +180,14 @@ function leadRows(lead: Lead): [string, string][] {
     ['Service', serviceName(lead.service)],
     ['Urgency', urgencyLabels[lead.urgency]],
     ['Details', lead.details || '(none)'],
+    ['Language', lead.language === 'es' ? 'Spanish (call back in Spanish)' : 'English'],
     ['Page', lead.page],
     ['Ad source', source || '(direct or organic)'],
   ];
 }
 
 export function formatLeadEmail(lead: Lead): { subject: string; text: string; html: string } {
-  const subject = `New website lead: ${serviceName(lead.service)} (${urgencyLabels[lead.urgency]}), ZIP ${lead.zip}`;
+  const subject = `New website lead: ${serviceName(lead.service)} (${urgencyLabels[lead.urgency]}), ZIP ${lead.zip}${lead.language === 'es' ? ', Spanish speaker' : ''}`;
   const rows = leadRows(lead);
   const text = [...rows.map(([label, value]) => `${label}: ${value}`), '', `Call back: ${telLink(lead.phone)}`].join('\n');
   const html = `<!doctype html><html><body style="font-family:Arial,sans-serif;color:#0a2239">
@@ -246,7 +272,7 @@ export async function handleLeadSubmission(
 
   // Bots get the same answer as people, so they learn nothing; nothing is sent.
   if (!parsed.ok && 'spam' in parsed) return { status: 'success', firstName: '', phone: '' };
-  if (!parsed.ok) return { status: 'error', message: 'Check the highlighted fields.', fieldErrors: parsed.errors };
+  if (!parsed.ok) return { status: 'error', message: text[languageOf(fields)].invalid, fieldErrors: parsed.errors };
 
   const { lead } = parsed;
   const result = await (deps.deliver ?? deliverLead)(lead, deps.config);
@@ -260,8 +286,5 @@ export async function handleLeadSubmission(
   }
 
   deps.log(`[lead] Delivery ${result.reason}: ${lead.phone} ${lead.zip} ${lead.service}`);
-  return {
-    status: 'error',
-    message: `We couldn’t send your request. Please call us at ${deps.businessPhone}, we’re open 24/7.`,
-  };
+  return { status: 'error', message: text[lead.language].failed(deps.businessPhone) };
 }

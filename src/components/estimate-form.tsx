@@ -4,7 +4,8 @@ import { startTransition, useActionState, useEffect, useId, useRef, useState } f
 import Link from 'next/link';
 import { CircleCheck, TriangleAlert } from 'lucide-react';
 import { business, telHref } from '@/content/business';
-import { services } from '@/content/services';
+import { formUi } from '@/content/form-ui';
+import type { Locale } from '@/content/i18n';
 import { parseLead, urgencyLabels, type FormState, type LeadField, type ServiceChoice, type Urgency } from '@/lib/lead';
 import { submitLead } from '@/lib/submit-lead';
 import { captureAttribution, readAttribution, track } from '@/lib/track';
@@ -20,12 +21,18 @@ const inputClass =
 type Values = { name: string; phone: string; zip: string; service: ServiceChoice; urgency: Urgency; details: string };
 
 export function EstimateForm({
+  serviceOptions,
+  locale = 'en',
   defaultService = 'not-sure',
   defaultUrgency = 'soon',
 }: {
+  /** Service names in the form's language. */
+  serviceOptions: { value: ServiceChoice; label: string }[];
+  locale?: Locale;
   defaultService?: ServiceChoice;
   defaultUrgency?: Urgency;
 }) {
+  const copy = formUi[locale];
   const [state, formAction, pending] = useActionState(submitLead, initialState);
   const [values, setValues] = useState<Values>({
     name: '',
@@ -86,7 +93,7 @@ export function EstimateForm({
     // The action prop stays on the form so it still works without JavaScript.
     event.preventDefault();
     // Same rules as the server, so mistakes show up instantly instead of after a round trip.
-    const check = parseLead({ ...values, ab_check: '', startedAt: '' }, Date.now());
+    const check = parseLead({ ...values, lang: locale, ab_check: '', startedAt: '' }, Date.now());
     if (!check.ok && 'errors' in check) {
       setClientErrors(check.errors);
       focusFirstInvalid(check.errors);
@@ -106,19 +113,19 @@ export function EstimateForm({
         className="rounded-button bg-white p-6 text-slate outline-none sm:p-8"
       >
         <CircleCheck className="size-10 text-go" aria-hidden="true" />
-        <h3 className="type-h2 mt-3">{state.firstName ? `Got it, ${state.firstName}.` : 'Got it.'}</h3>
+        <h3 className="type-h2 mt-3">{copy.gotIt(state.firstName)}</h3>
         <p className="type-lead mt-3">
           {state.phone ? (
             <>
-              We’ll call you back at <strong className="whitespace-nowrap text-ink">{state.phone}</strong>.
+              {copy.callBackAt} <strong className="whitespace-nowrap text-ink">{state.phone}</strong>.
             </>
           ) : (
-            'We’ll call you back soon.'
+            copy.callBackSoon
           )}{' '}
-          If water is still running or a drain is backing up, don’t wait for us to call. Call now:
+          {copy.dontWait}
         </p>
         <TrackedLink href={telHref} event="call_click" placement="form-success" className={cn(buttonStyles.call, 'mt-5 w-full sm:w-auto')}>
-          Call {business.phone.display}
+          {copy.call(business.phone.display)}
         </TrackedLink>
       </div>
     );
@@ -150,7 +157,7 @@ export function EstimateForm({
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="sm:col-span-2">
           <label htmlFor={`${uid}-name`} className="font-semibold text-ink">
-            Your name
+            {copy.name}
           </label>
           <input
             {...field('name')}
@@ -167,7 +174,7 @@ export function EstimateForm({
 
         <div>
           <label htmlFor={`${uid}-phone`} className="font-semibold text-ink">
-            Phone
+            {copy.phone}
           </label>
           <input
             {...field('phone')}
@@ -186,7 +193,7 @@ export function EstimateForm({
 
         <div>
           <label htmlFor={`${uid}-zip`} className="font-semibold text-ink">
-            ZIP code
+            {copy.zip}
           </label>
           <input
             {...field('zip')}
@@ -204,7 +211,7 @@ export function EstimateForm({
 
         <div className="sm:col-span-2">
           <label htmlFor={`${uid}-service`} className="font-semibold text-ink">
-            What do you need help with?
+            {copy.service}
           </label>
           <select
             id={`${uid}-service`}
@@ -213,18 +220,18 @@ export function EstimateForm({
             onChange={(e) => update('service', e.target.value as ServiceChoice)}
             className={cn(inputClass, 'appearance-none bg-[url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%230a2239%22%20stroke-width%3D%222.5%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E")] bg-[length:1.25rem] bg-[right_1rem_center] bg-no-repeat pr-12')}
           >
-            {services.map((s) => (
-              <option key={s.slug} value={s.slug}>
-                {s.name}
+            {serviceOptions.map((s) => (
+              <option key={s.value} value={s.value}>
+                {s.label}
               </option>
             ))}
-            <option value="not-sure">Not sure yet</option>
+            <option value="not-sure">{copy.notSure}</option>
           </select>
         </div>
       </div>
 
       <fieldset className="mt-5">
-        <legend className="font-semibold text-ink">How soon do you need us?</legend>
+        <legend className="font-semibold text-ink">{copy.urgency}</legend>
         <div className="mt-2 grid gap-2 sm:grid-cols-3">
           {(Object.keys(urgencyLabels) as Urgency[]).map((u) => (
             <label
@@ -239,7 +246,7 @@ export function EstimateForm({
                 onChange={() => update('urgency', u)}
                 className="size-4 shrink-0 accent-action"
               />
-              {urgencyLabels[u]}
+              {copy.urgencyLabels[u]}
             </label>
           ))}
         </div>
@@ -247,14 +254,14 @@ export function EstimateForm({
 
       <div className="mt-5">
         <label htmlFor={`${uid}-details`} className="font-semibold text-ink">
-          Anything we should know? <span className="font-normal text-mute">(optional)</span>
+          {copy.details} <span className="font-normal text-mute">{copy.optional}</span>
         </label>
         <textarea
           id={`${uid}-details`}
           name="details"
           rows={3}
           maxLength={1000}
-          placeholder="What’s happening, where, and since when"
+          placeholder={copy.detailsPlaceholder}
           value={values.details}
           onChange={(e) => update('details', e.target.value)}
           className={cn(inputClass, 'h-auto py-3')}
@@ -264,10 +271,11 @@ export function EstimateForm({
       {/* Spam trap: invisible to people, irresistible to bots. */}
       <div className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
         <label>
-          Leave this field empty
+          {copy.trap}
           <input type="text" name="ab_check" tabIndex={-1} autoComplete="off" defaultValue="" />
         </label>
       </div>
+      <input type="hidden" name="lang" value={locale} />
       <input type="hidden" name="startedAt" value={meta.startedAt} />
       <input type="hidden" name="page" value={meta.page} />
       {Object.entries(meta.attribution).map(([key, value]) => (
@@ -282,12 +290,12 @@ export function EstimateForm({
       )}
 
       <button type="submit" disabled={pending} className={cn(buttonStyles.call, 'mt-6 w-full disabled:opacity-70')}>
-        {pending ? 'Sending…' : 'Send my request'}
+        {pending ? copy.sending : copy.submit}
       </button>
       <p className="mt-3 text-[0.88rem] text-mute">
-        We only use your details to answer this request.{' '}
-        <Link href="/privacy" className="underline underline-offset-4">
-          Privacy policy
+        {copy.privacyNote}{' '}
+        <Link href="/privacy" hrefLang={locale === 'es' ? 'en' : undefined} className="underline underline-offset-4">
+          {copy.privacyLink}
         </Link>
       </p>
     </form>

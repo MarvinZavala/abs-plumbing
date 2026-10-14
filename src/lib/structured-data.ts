@@ -4,7 +4,8 @@
  */
 import { allCities } from '../content/areas.ts';
 import { business } from '../content/business.ts';
-import { services, type Service } from '../content/services.ts';
+import { serviceEs } from '../content/es.ts';
+import { services, type Service, type ServiceSlug } from '../content/services.ts';
 import { siteUrl } from './site.ts';
 
 type Crumb = { name: string; path: string };
@@ -44,6 +45,16 @@ export function businessJsonLd(base: string) {
       { '@type': 'OpeningHoursSpecification', dayOfWeek: DAYS, opens: '00:00', closes: '23:59' },
     ],
     paymentAccepted: 'Cash, Credit Card, Zelle',
+    knowsLanguage: ['en', 'es'],
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        telephone: business.phone.e164,
+        contactType: 'customer service',
+        availableLanguage: [...business.languages],
+        areaServed: 'San Francisco Bay Area',
+      },
+    ],
     sameAs: [business.yelp.url],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
@@ -78,7 +89,7 @@ export function websiteJsonLd(base: string) {
     '@id': abs(base, '/#website'),
     url: abs(base, '/'),
     name: business.name,
-    inLanguage: 'en-US',
+    inLanguage: ['en-US', 'es-US'],
     publisher: { '@id': businessId(base) },
   };
 }
@@ -93,6 +104,24 @@ export function serviceJsonLd(service: Service, base: string = defaultBase()) {
     serviceType: service.name,
     description: service.lead,
     url,
+    provider: { '@id': businessId(base) },
+    areaServed: { '@type': 'AdministrativeArea', name: 'San Francisco Bay Area' },
+  };
+}
+
+/** The Spanish landing page for a service: same business, Spanish name, description and URL. */
+export function spanishServiceJsonLd(slug: ServiceSlug, base: string = defaultBase()) {
+  const service = serviceEs(slug);
+  const url = abs(base, `/es/servicios/${service.slugEs}`);
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${url}#service`,
+    name: service.name,
+    serviceType: service.name,
+    description: service.lead,
+    url,
+    inLanguage: 'es-US',
     provider: { '@id': businessId(base) },
     areaServed: { '@type': 'AdministrativeArea', name: 'San Francisco Bay Area' },
   };

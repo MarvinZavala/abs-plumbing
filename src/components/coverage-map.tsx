@@ -1,4 +1,5 @@
 import { bayMap } from '@/content/bay-map';
+import { t, type Locale } from '@/content/i18n';
 import { cn } from '@/lib/utils';
 import { PlacePlate } from './bits';
 
@@ -8,7 +9,16 @@ const RINGS_MILES = [10, 25, 40];
  * Illustrative map of the Bay Area: real coastline, the Oakland home base and distance rings.
  * City names are HTML laid over the SVG so they stay readable at any size.
  */
-export function CoverageMap({ className, titleId = 'coverage-map' }: { className?: string; titleId?: string }) {
+export function CoverageMap({
+  className,
+  titleId = 'coverage-map',
+  locale = 'en',
+}: {
+  className?: string;
+  titleId?: string;
+  locale?: Locale;
+}) {
+  const copy = t(locale);
   const { viewBox, width, height, land, base, cities, milesToUnits } = bayMap;
   const outer = RINGS_MILES[RINGS_MILES.length - 1] * milesToUnits;
   return (
@@ -20,11 +30,8 @@ export function CoverageMap({ className, titleId = 'coverage-map' }: { className
           role="img"
           aria-labelledby={`${titleId}-title ${titleId}-desc`}
         >
-          <title id={`${titleId}-title`}>Map of the San Francisco Bay Area</title>
-          <desc id={`${titleId}-desc`}>
-            AB’s Plumbing is based in Oakland and serves the whole Bay Area, from Vallejo in the north to
-            San Francisco, Walnut Creek, Fremont, Palo Alto and San Jose.
-          </desc>
+          <title id={`${titleId}-title`}>{copy.mapTitle}</title>
+          <desc id={`${titleId}-desc`}>{copy.mapDesc}</desc>
           <defs>
             <clipPath id={`${titleId}-land`}>
               <path d={land} />
@@ -86,12 +93,12 @@ export function CoverageMap({ className, titleId = 'coverage-map' }: { className
             style={{ left: `${base.x}%`, top: `${base.y}%` }}
             className="absolute -translate-x-1/2 translate-y-5"
           >
-            <PlacePlate className="text-[0.85rem] whitespace-nowrap sm:text-[1rem]">Home base: Oakland</PlacePlate>
+            <PlacePlate className="text-[0.85rem] whitespace-nowrap sm:text-[1rem]">{copy.mapBase}</PlacePlate>
           </span>
         </div>
       </div>
       <figcaption className="mt-2 text-[0.85rem] leading-snug text-mute">
-        Rings mark 10, 25 and 40 miles from our base. Coastline: U.S. Census Bureau.
+        {copy.mapCaption}
       </figcaption>
     </figure>
   );

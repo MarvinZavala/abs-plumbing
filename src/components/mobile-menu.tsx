@@ -4,10 +4,23 @@ import { useEffect, useId, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
+import type { Locale } from '@/content/i18n';
+import { LanguageLink } from './language-link';
 
 type Item = { href: string; label: string };
 
-export function MobileMenu({ nav, services }: { nav: Item[]; services: Item[] }) {
+export function MobileMenu({
+  nav,
+  services,
+  language,
+  labels,
+}: {
+  nav: Item[];
+  services: Item[];
+  /** The other language, e.g. { locale: 'es', label: 'Español' }. */
+  language: { locale: Locale; label: string };
+  labels: { open: string; close: string; nav: string; services: string };
+}) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
   const pathname = usePathname();
@@ -39,7 +52,7 @@ export function MobileMenu({ nav, services }: { nav: Item[]; services: Item[] })
         className="inline-flex size-11 items-center justify-center rounded-button border-2 border-ink text-ink"
       >
         {open ? <X className="size-6" aria-hidden="true" /> : <Menu className="size-6" aria-hidden="true" />}
-        <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
+        <span className="sr-only">{open ? labels.close : labels.open}</span>
       </button>
 
       <div
@@ -47,7 +60,14 @@ export function MobileMenu({ nav, services }: { nav: Item[]; services: Item[] })
         hidden={!open}
         className="absolute inset-x-0 top-full max-h-[calc(100dvh-4rem)] overflow-y-auto border-b border-line bg-white shadow-[0_12px_24px_-12px_rgb(10_34_57/0.35)]"
       >
-        <nav aria-label="Mobile" className="wrap py-3">
+        {/* Close on any link, including same-page anchors (/es#servicios) where the route doesn't change. */}
+        <nav
+          aria-label={labels.nav}
+          className="wrap py-3"
+          onClick={(e) => {
+            if ((e.target as HTMLElement).closest('a')) setOpen(false);
+          }}
+        >
           <ul className="divide-y divide-line">
             {nav.map((item) => (
               <li key={item.href}>
@@ -60,8 +80,17 @@ export function MobileMenu({ nav, services }: { nav: Item[]; services: Item[] })
                 </Link>
               </li>
             ))}
+            <li>
+              <LanguageLink
+                to={language.locale}
+                placement="mobile-menu"
+                className="flex min-h-13 items-center font-display text-[1.45rem] font-semibold text-blue"
+              >
+                {language.label}
+              </LanguageLink>
+            </li>
           </ul>
-          <p className="mt-5 text-[0.9rem] font-semibold text-mute">What we fix</p>
+          <p className="mt-5 text-[0.9rem] font-semibold text-mute">{labels.services}</p>
           <ul className="mt-1 grid grid-cols-2 gap-x-4">
             {services.map((item) => (
               <li key={item.href}>

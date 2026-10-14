@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CoverageSection } from '@/components/coverage-section';
 import { CrewSection } from '@/components/crew-section';
@@ -9,6 +10,11 @@ import { ProcessSteps } from '@/components/process-steps';
 import { ReviewsSection } from '@/components/reviews-section';
 import { ServiceList } from '@/components/service-list';
 import { WorkLog } from '@/components/work-log';
+import { languageAlternates } from '@/lib/i18n-routes';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/', languages: languageAlternates('/', '/es') },
+};
 
 export default function HomePage() {
   return (

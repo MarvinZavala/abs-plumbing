@@ -22,10 +22,12 @@ npm run build
 
 ## Architecture
 
+- English pages live in `src/app/(site)/`, Spanish pages in `src/app/es/`. Each has its own root layout (via `RootDocument`) so `<html lang>` is right; the site-wide 404 is `src/app/global-not-found.tsx` (`experimental.globalNotFound`).
 - `src/content/` is the single source of truth for copy and facts: `business.ts` (phone, hours, license, offer, Yelp snapshot), `services.ts` (each service is a landing page at `/services/[slug]`), `reviews.ts` (verbatim Yelp quotes), `work.ts` (job photos), `areas.ts`, `faqs.ts`, `process.ts`.
 - `src/lib/lead.ts`: estimate form validation, spam checks (hidden `ab_check` field + minimum fill time), email formatting and delivery (Resend REST API and/or a JSON webhook). Pure TypeScript with no Next imports so `node --test` can run it. `src/lib/submit-lead.ts` is the Server Action wrapper.
-- `src/lib/track.ts`: dataLayer events (`call_click`, `text_click`, `estimate_click`, `lead_submit`), optional gtag conversions, gclid/UTM capture.
-- `src/components/`: server components by default. Client components only where needed: `estimate-form`, `mobile-menu`, `tracked-link`, `attribution-capture`.
+- `src/lib/track.ts`: dataLayer events (`call_click`, `text_click`, `estimate_click`, `lead_submit`, `language_switch`), optional gtag conversions, gclid/UTM capture.
+- `src/components/`: server components by default. Client components only where needed: `estimate-form`, `mobile-menu`, `tracked-link`, `attribution-capture`, `language-link`, `language-suggestion`.
+- Spanish: copy in `src/content/es.ts` (services, FAQ, steps), URLs in `es-slugs.ts`, shared UI strings in `i18n.ts`, form strings in `form-ui.ts`. Components take a `locale` prop. `src/lib/i18n-routes.ts` pairs English and Spanish twins (hreflang, sitemap, language links). Never redirect by language; `language-preference.ts` only suggests Spanish.
 - Configuration is via environment variables, documented in `.env.example`.
 
 ## Design system (see `src/app/globals.css`)
@@ -38,7 +40,8 @@ npm run build
 ## Rules for content
 
 - Every claim must be true: facts from `business.ts`, or real customer words with name, city and date.
-- Review quotes are verbatim; trim only at sentence boundaries and mark skipped sentences with an ellipsis.
+- Review quotes are verbatim; trim only at sentence boundaries and mark skipped sentences with an ellipsis. They are never translated: Spanish pages show them in English, marked `lang="en"`.
+- Spanish copy uses "usted" and Bay Area vocabulary (llave, fregadero, regadera, coladera, boiler). Keep facts identical to the English pages.
 - Photo captions describe only what is visible; name a place only if it is readable in the photo.
 - The CSLB license number stays `null` until the client confirms it; never show a placeholder.
 

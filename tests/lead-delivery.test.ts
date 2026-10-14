@@ -10,6 +10,7 @@ const lead: Lead = {
   urgency: 'emergency',
   details: 'No hot water since this morning',
   page: '/services/water-heaters',
+  language: 'en',
   attribution: { gclid: 'Cj0KCQabc', utmSource: 'google' },
 };
 
@@ -31,6 +32,13 @@ test('email subject names the service, urgency and ZIP so the crew can triage fr
   assert.equal(
     formatLeadEmail({ ...lead, service: 'not-sure', urgency: 'soon' }).subject,
     'New website lead: Not sure yet (In the next day or two), ZIP 94601',
+  );
+});
+
+test('email subject flags Spanish speakers so the right person calls back', () => {
+  assert.equal(
+    formatLeadEmail({ ...lead, language: 'es' }).subject,
+    'New website lead: Water heaters (Emergency, right now), ZIP 94601, Spanish speaker',
   );
 });
 

@@ -1,21 +1,33 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
+import { serviceEs } from '@/content/es';
+import type { Locale } from '@/content/i18n';
 import { services, type ServiceSlug } from '@/content/services';
 import { photoById } from '@/content/work';
 
 /** Services as list rows with a real job photo each (not a grid of identical icon cards). */
-export function ServiceList({ exclude }: { exclude?: ServiceSlug }) {
+export function ServiceList({ exclude, locale = 'en' }: { exclude?: ServiceSlug; locale?: Locale }) {
+  const items = services.map((s) => {
+    const es = serviceEs(s.slug);
+    return {
+      slug: s.slug,
+      photo: s.photos[0],
+      ...(locale === 'es'
+        ? { href: `/es/servicios/${es.slugEs}`, name: es.name, summary: es.summary }
+        : { href: `/services/${s.slug}`, name: s.name, summary: s.summary }),
+    };
+  });
   return (
     <ul className="divide-y divide-line border-y border-line">
-      {services
+      {items
         .filter((s) => s.slug !== exclude)
         .map((s) => {
-          const photo = photoById(s.photos[0]);
+          const photo = photoById(s.photo);
           return (
             <li key={s.slug}>
               <Link
-                href={`/services/${s.slug}`}
+                href={s.href}
                 className="group grid grid-cols-[4.75rem_1fr_auto] items-center gap-4 py-4 md:grid-cols-[7.5rem_1fr_auto] md:gap-6"
               >
                 <Image

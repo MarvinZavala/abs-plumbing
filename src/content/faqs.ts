@@ -35,4 +35,8 @@ export const faqs: Faq[] = [
     q: 'How can I pay?',
     a: 'Cash, credit card or Zelle.',
   },
+  {
+    q: 'Do you speak Spanish?',
+    a: 'Yes. Our crew speaks English and Spanish, so call or text in whichever you prefer. The main pages of this site are also in Spanish.',
+  },
 ];

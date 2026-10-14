@@ -27,6 +27,7 @@ In production, an unconfigured or failing form tells the visitor to call instead
 | Job photos and captions | `src/content/work.ts`, images in `src/assets/work/` |
 | Cities served | `src/content/areas.ts` |
 | FAQ | `src/content/faqs.ts` |
+| Spanish pages (home, 6 services, FAQ) | `src/content/es.ts`, URLs in `src/content/es-slugs.ts`, UI strings in `src/content/i18n.ts` |
 | Estimate form logic and delivery (tested) | `src/lib/lead.ts`, tests in `tests/` |
 | Conversion tracking helpers | `src/lib/track.ts`, `src/components/analytics.tsx` |
 
@@ -36,7 +37,7 @@ In production, an unconfigured or failing form tells the visitor to call instead
 2. **Texting**: confirm (510) 753-8649 receives SMS. If not, set `acceptsTexts: false` and the text buttons disappear.
 3. **Offer**: the site says 10% off for new customers; a Yelp post says 20%. Pick one and make the ads match.
 4. **Lead delivery**: set `RESEND_API_KEY` (and/or `LEAD_WEBHOOK_URL`) in Vercel. See `.env.example`. Send a test request after deploying.
-5. **Tracking**: set `NEXT_PUBLIC_GTM_ID`, or `NEXT_PUBLIC_GOOGLE_ADS_ID` plus the conversion labels. Events pushed to the dataLayer: `call_click`, `text_click`, `estimate_click`, `lead_submit`. Each lead also carries the `gclid` and UTM tags of the ad click.
+5. **Tracking**: set `NEXT_PUBLIC_GTM_ID`, or `NEXT_PUBLIC_GOOGLE_ADS_ID` plus the conversion labels. Events pushed to the dataLayer: `call_click`, `text_click`, `estimate_click`, `lead_submit` (plus `language_switch`, not a conversion). Each lead also carries the `gclid` and UTM tags of the ad click.
 6. **Reviews**: quotes are verbatim from Yelp. Yelp’s guidance is to quote word for word and in context; asking the reviewers first is the courteous route. Refresh `reviews.ts` and the Yelp numbers in `business.ts` every few months.
 
 ## Google Ads landing pages
@@ -53,6 +54,20 @@ Point each ad group at the page whose headline matches it:
 | Toilet, faucet, garbage disposal | `/services/fixtures` |
 | Generic “plumber near me” | `/` |
 
+Spanish-language ad groups (campaign language: Spanish) go to the Spanish twins:
+
+| Ad group | Landing page |
+| --- | --- |
+| Plomero de emergencia / 24 horas | `/es/servicios/plomeria-de-emergencia` |
+| Destapar drenaje, drenaje tapado | `/es/servicios/destape-de-drenajes` |
+| Calentador de agua, boiler | `/es/servicios/calentadores-de-agua` |
+| Línea de drenaje, sewer | `/es/servicios/lineas-de-drenaje` |
+| Fuga de agua, línea de agua | `/es/servicios/fugas-y-lineas-de-agua` |
+| Inodoro, llave, triturador | `/es/servicios/inodoros-llaves-y-trituradores` |
+| Plomero cerca de mí | `/es` |
+
+Leads from the Spanish form arrive flagged "Spanish speaker" in the email subject, so the right person calls back.
+
 ## SEO, AI assistants and indexing
 
 - **Structured data** (`src/lib/structured-data.ts`, tested): `Plumber` + `WebSite` on every page, `Service` and
@@ -65,6 +80,10 @@ Point each ad group at the page whose headline matches it:
 - **Service area**: one page (`/service-areas`) with the full city list and real reviews grouped by city. Do not add
   near-identical "plumber in {city}" pages: Google treats them as doorway pages (spam).
 - **Coverage map**: `src/content/bay-map.ts`, generated from U.S. Census coastline data. See `scripts/bay-map/`.
+- **Spanish**: the home page and the six service pages have Spanish twins under `/es`, with their own root layout
+  (`<html lang="es">`), hreflang pairs in the page metadata and the sitemap, and a Spanish section in llms.txt.
+  The site never redirects by language (Google advises against it). English pages show a small
+  "¿Prefiere español?" bar when the browser's first language is Spanish; closing it is remembered.
 
 ### After every production deploy
 

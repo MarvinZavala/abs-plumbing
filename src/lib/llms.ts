@@ -4,6 +4,7 @@
  */
 import { areas } from '../content/areas.ts';
 import { business } from '../content/business.ts';
+import { faqsEs, moreServicesEs, servicesEs } from '../content/es.ts';
 import { faqs } from '../content/faqs.ts';
 import { steps } from '../content/process.ts';
 import { formatReviewDate, reviewById, reviews } from '../content/reviews.ts';
@@ -28,6 +29,7 @@ function keyFacts(base: string): string[] {
     `- ${business.license ? `Licensed (California CSLB #${business.license}) and insured` : 'Licensed and insured in California'}`,
     '- Free estimates, with the price given before any work starts',
     '- Payment: cash, credit cards and Zelle',
+    '- Languages: the crew speaks English and Spanish (se habla español)',
     `- Reviews: ${business.yelp.rating} out of 5 stars from ${business.yelp.reviewCount} reviews on Yelp (checked ${checked})`,
     ...(business.aslProficient ? ['- ASL proficient'] : []),
     `- Email: ${business.email}`,
@@ -57,6 +59,13 @@ export function buildLlmsTxt(base: string): string {
     `- [Service areas](${abs(base, '/service-areas')}): every city served, with customer reviews grouped by city`,
     `- [Our work](${abs(base, '/gallery')}): photos from real jobs`,
     `- [About the crew](${abs(base, '/about')}): who we are and how we work`,
+    '',
+    '## En español',
+    '',
+    'The crew speaks Spanish. These pages are written in Spanish for Spanish-speaking customers.',
+    '',
+    `- [Plomero en Oakland y el Área de la Bahía](${abs(base, '/es')}): página principal en español`,
+    ...servicesEs.map((s) => `- [${s.name}](${abs(base, `/es/servicios/${s.slugEs}`)}): ${s.summary}`),
     '',
     '## Optional',
     '',
@@ -97,5 +106,25 @@ export function buildLlmsFullTxt(base: string): string {
     out.push(`- “${r.quote}” (${r.name}, ${r.city.replace(/, CA$/, '')}, ${formatReviewDate(r.date)}; job: ${r.job.toLowerCase()})`);
   }
   out.push('', `All reviews: ${business.yelp.url}`, '');
+
+  out.push(
+    '## En español',
+    '',
+    `${business.name} es una empresa familiar de plomería con base en ${business.base.city}, California. ` +
+      'Atiende toda el Área de la Bahía de San Francisco las 24 horas, los 7 días. Hablamos español. ' +
+      `Llame o mande un texto al ${business.phone.display}. Cotizaciones gratis, con el precio antes de empezar. ` +
+      'Servicios: emergencias de plomería, destape de drenajes, calentadores de agua (de tanque y sin tanque), ' +
+      'líneas de drenaje con inspección por cámara, fugas y líneas de agua, inodoros, llaves y trituradores.',
+    '',
+    `Página en español: ${abs(base, '/es')}`,
+    '',
+  );
+  for (const s of servicesEs) {
+    out.push(`### ${s.name}`, '', `Página: ${abs(base, `/es/servicios/${s.slugEs}`)}`, '', `${s.headline} ${s.lead}`, '');
+  }
+  out.push('### También', '', ...moreServicesEs.map((m) => `- ${m}`), '');
+  out.push('### Preguntas frecuentes', '');
+  for (const f of faqsEs) out.push(`- ${f.q} ${f.a}`);
+  out.push('');
   return out.join('\n');
 }

@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { breadcrumbJsonLd, businessJsonLd, faqJsonLd, serviceJsonLd } from '../src/lib/structured-data.ts';
+import { breadcrumbJsonLd, businessJsonLd, faqJsonLd, serviceJsonLd, spanishServiceJsonLd } from '../src/lib/structured-data.ts';
+import { sitemapEntries } from '../src/lib/sitemap.ts';
 import { buildLlmsFullTxt, buildLlmsTxt } from '../src/lib/llms.ts';
 import { extractSitemapUrls, indexNowBody } from '../src/lib/indexnow.ts';
 import { allCities } from '../src/content/areas.ts';
@@ -139,4 +140,75 @@ test('the IndexNow key file served from /public matches the key used for submiss
   const served = readFileSync(new URL(`../public/${INDEXNOW_KEY}.txt`, import.meta.url), 'utf8');
   assert.equal(served.trim(), INDEXNOW_KEY);
   assert.match(INDEXNOW_KEY, /^[A-Za-z0-9-]{8,128}$/);
+});
+
+test('structured data says the crew speaks English and Spanish', () => {
+  const b = businessJsonLd(BASE);
+  assert.deepEqual(b.knowsLanguage, ['en', 'es']);
+  assert.deepEqual(b.contactPoint, [
+    {
+      '@type': 'ContactPoint',
+      telephone: '+15107538649',
+      contactType: 'customer service',
+      availableLanguage: ['English', 'Spanish'],
+      areaServed: 'San Francisco Bay Area',
+    },
+  ]);
+});
+
+test('llms.txt tells AI assistants about Spanish and links the Spanish page', () => {
+  const txt = buildLlmsTxt(BASE);
+  assert.ok(txt.includes('English and Spanish'));
+  assert.ok(txt.includes(`](${BASE}/es)`));
+});
+
+test('llms-full.txt includes a Spanish summary', () => {
+  assert.ok(buildLlmsFullTxt(BASE).includes('Hablamos español'));
+});
+
+// --- Spanish pages -----------------------------------------------------------
+
+const SPANISH_SERVICE_URLS = [
+  `${BASE}/es/servicios/plomeria-de-emergencia`,
+  `${BASE}/es/servicios/destape-de-drenajes`,
+  `${BASE}/es/servicios/calentadores-de-agua`,
+  `${BASE}/es/servicios/lineas-de-drenaje`,
+  `${BASE}/es/servicios/fugas-y-lineas-de-agua`,
+  `${BASE}/es/servicios/inodoros-llaves-y-trituradores`,
+];
+
+test('the sitemap lists the Spanish pages', () => {
+  const urls = sitemapEntries(BASE).map((e) => e.url);
+  for (const url of [`${BASE}/`, `${BASE}/es`, ...SERVICE_URLS, ...SPANISH_SERVICE_URLS]) {
+    assert.ok(urls.includes(url), `missing ${url}`);
+  }
+  assert.equal(new Set(urls).size, urls.length, 'duplicate URLs');
+});
+
+test('the sitemap pairs each English page with its Spanish twin through hreflang', () => {
+  const byUrl = new Map(sitemapEntries(BASE).map((e) => [e.url, e]));
+  const pairs: [string, string][] = [
+    [`${BASE}/`, `${BASE}/es`],
+    [`${BASE}/services/water-heaters`, `${BASE}/es/servicios/calentadores-de-agua`],
+  ];
+  for (const [en, es] of pairs) {
+    const languages = { 'en-US': en, 'es-US': es, 'x-default': en };
+    assert.deepEqual(byUrl.get(en)?.alternates?.languages, languages);
+    assert.deepEqual(byUrl.get(es)?.alternates?.languages, languages);
+  }
+  assert.equal(byUrl.get(`${BASE}/about`)?.alternates, undefined, 'English-only pages have no alternates');
+});
+
+test('llms.txt links the Spanish home page and every Spanish service page', () => {
+  const txt = buildLlmsTxt(BASE);
+  for (const url of [`${BASE}/es`, ...SPANISH_SERVICE_URLS]) assert.ok(txt.includes(`](${url})`), `missing ${url}`);
+});
+
+test('Spanish service markup is in Spanish, on the Spanish URL, from the same business', () => {
+  const s = spanishServiceJsonLd('water-heaters', BASE);
+  assert.equal(s['@type'], 'Service');
+  assert.equal(s.url, `${BASE}/es/servicios/calentadores-de-agua`);
+  assert.equal(s.inLanguage, 'es-US');
+  assert.equal(s.name, 'Calentadores de agua');
+  assert.deepEqual(s.provider, { '@id': `${BASE}/#business` });
 });

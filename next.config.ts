@@ -2,6 +2,11 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  experimental: {
+    // English and Spanish have separate root layouts (for <html lang>), so the site-wide 404 is
+    // app/global-not-found.tsx instead of a not-found page inside one shared root layout.
+    globalNotFound: true,
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
   },
