@@ -50,4 +50,4 @@ npm run build
 - `src/lib/structured-data.ts` (JSON-LD), `src/lib/llms.ts` (/llms.txt, /llms-full.txt), `src/lib/indexnow.ts` + `npm run indexnow`; all covered by `tests/seo.test.ts`.
 - Canonical domain is `business.website` (https://www.abs-plumbingservices.com); override with `NEXT_PUBLIC_SITE_URL`.
 - Never add per-city doorway pages; city relevance comes from `/service-areas` (full list + real reviews by city).
-- The coverage map (`src/content/bay-map.ts`) is generated data from U.S. Census coastlines; regenerate with `scripts/bay-map/build-map.mjs`.
+- The coverage map (`src/content/bay-map.ts`) is generated from U.S. Census coastlines and city points, with a dot per city in `areas.ts` and precomputed label positions. Rerun `scripts/bay-map/build-map.mjs` after changing `areas.ts` (tests fail if a city is missing from the map).

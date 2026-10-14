@@ -52,13 +52,23 @@ export const ui = {
     // Coverage map
     mapTitle: 'Map of the San Francisco Bay Area',
     mapDesc:
-      'AB’s Plumbing is based in Oakland and serves the whole Bay Area, from Vallejo in the north to San Francisco, Walnut Creek, Fremont, Palo Alto and San Jose.',
+      'AB’s Plumbing is based in Oakland and serves the whole Bay Area: Marin and the North Bay, San Francisco and the Peninsula, the East Bay and Tri-Valley, and the South Bay down to San Jose.',
     mapBase: 'Home base: Oakland',
-    mapCaption: 'Rings mark 10, 25 and 40 miles from our base. Coastline: U.S. Census Bureau.',
+    mapCaption: 'Rings mark 10, 25 and 40 miles from our base. Map data: U.S. Census Bureau.',
+    /** Water and region names on the map, one entry per line. */
+    mapPlaces: {
+      pacific: ['Pacific', 'Ocean'],
+      'sf-bay': ['San Francisco', 'Bay'],
+      'san-pablo-bay': ['San Pablo', 'Bay'],
+      'north-bay': ['North Bay'],
+      'east-bay': ['East Bay'],
+      peninsula: ['Peninsula'],
+      'south-bay': ['South Bay'],
+    },
     // Coverage section
     coverageTitle: 'Serving all of the San Francisco Bay Area',
     coverageLead:
-      'Our crew is based in Oakland, right in the middle of the Bay. From here we cover San Francisco and the Peninsula, the East Bay, the South Bay and north to Vallejo.',
+      'Our crew is based in Oakland, right in the middle of the Bay. From here we cover San Francisco and the Peninsula, the East Bay and Tri-Valley, the South Bay, and the North Bay from Marin to Vallejo.',
     coverageAllCities: 'See every city we serve',
     coverageNotSure: 'Not sure about your address?',
     coverageCallAndAsk: 'Call and ask',
@@ -125,12 +135,21 @@ export const ui = {
     familyOwned: 'Empresa familiar.',
     mapTitle: 'Mapa del Área de la Bahía de San Francisco',
     mapDesc:
-      'AB’s Plumbing tiene su base en Oakland y atiende toda el Área de la Bahía, desde Vallejo al norte hasta San Francisco, Walnut Creek, Fremont, Palo Alto y San Jose.',
+      'AB’s Plumbing tiene su base en Oakland y atiende toda el Área de la Bahía: Marin y el North Bay, San Francisco y la Península, el East Bay y el Tri-Valley, y el South Bay hasta San Jose.',
     mapBase: 'Base: Oakland',
-    mapCaption: 'Los anillos marcan 10, 25 y 40 millas desde nuestra base. Costa: Oficina del Censo de EE. UU.',
+    mapCaption: 'Los anillos marcan 10, 25 y 40 millas desde nuestra base. Datos del mapa: Oficina del Censo de EE. UU.',
+    mapPlaces: {
+      pacific: ['Océano', 'Pacífico'],
+      'sf-bay': ['Bahía de', 'San Francisco'],
+      'san-pablo-bay': ['Bahía de', 'San Pablo'],
+      'north-bay': ['North Bay'],
+      'east-bay': ['East Bay'],
+      peninsula: ['Península'],
+      'south-bay': ['South Bay'],
+    },
     coverageTitle: 'Atendemos toda el Área de la Bahía de San Francisco',
     coverageLead:
-      'Nuestro equipo tiene su base en Oakland, en el centro de la Bahía. Desde aquí cubrimos San Francisco y la Península, el East Bay, el South Bay y hasta Vallejo al norte.',
+      'Nuestro equipo tiene su base en Oakland, en el centro de la Bahía. Desde aquí cubrimos San Francisco y la Península, el East Bay y el Tri-Valley, el South Bay, y el North Bay desde Marin hasta Vallejo.',
     coverageAllCities: 'Ver todas las ciudades (en inglés)',
     coverageNotSure: '¿No sabe si llegamos a su dirección?',
     coverageCallAndAsk: 'Llame y pregunte',

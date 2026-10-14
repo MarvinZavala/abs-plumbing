@@ -22,8 +22,9 @@
   --color-action-hover: #00b6d6;
   /* Rating stars only. */
   --color-star: #f2a900;
-  /* Water on the coverage map: a pale tint of the logo cyan. */
+  /* Water on the coverage map: a pale tint of the logo cyan, with darker water names on it (4.6:1). */
   --color-bay: #d5ebf7;
+  --color-water: #2f6c94;
   --color-concrete: #edf0f2;
   --color-line: #d3dae1;
   --color-go: #1e9e5a;
@@ -219,4 +220,11 @@
     0 0 2px #fff,
     0 0 3px #fff,
     0 0 6px #fff;
+}
+
+/* Water names get a halo in the water colour, so they read over the coastline without a white smudge. */
+.map-water {
+  text-shadow:
+    0 0 2px var(--color-bay),
+    0 0 4px var(--color-bay);
 }

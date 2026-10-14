@@ -79,7 +79,10 @@ Leads from the Spanish form arrive flagged "Spanish speaker" in the email subjec
   markdown. Both are built from `src/content/*`, so they never drift from the site.
 - **Service area**: one page (`/service-areas`) with the full city list and real reviews grouped by city. Do not add
   near-identical "plumber in {city}" pages: Google treats them as doorway pages (spam).
-- **Coverage map**: `src/content/bay-map.ts`, generated from U.S. Census coastline data. See `scripts/bay-map/`.
+- **Coverage map**: `src/content/bay-map.ts`, generated from U.S. Census coastline and city data: a dot for every
+  city in `src/content/areas.ts`, and name positions worked out so labels never overlap (one layout for phones, one
+  for wider screens). After changing `areas.ts`, rerun `node scripts/bay-map/build-map.mjs <bay-land.json>
+  <2023_gaz_place_06.txt>` (the script header says where both files come from); the tests fail if a city is missing.
 - **Spanish**: the home page and the six service pages have Spanish twins under `/es`, with their own root layout
   (`<html lang="es">`), hreflang pairs in the page metadata and the sitemap, and a Spanish section in llms.txt.
   The site never redirects by language (Google advises against it). English pages show a small

@@ -1,13 +1,43 @@
-import { bayMap } from '@/content/bay-map';
+import { bayMap, type MapAnchor } from '@/content/bay-map';
 import { t, type Locale } from '@/content/i18n';
 import { cn } from '@/lib/utils';
 import { PlacePlate } from './bits';
 
 const RINGS_MILES = [10, 25, 40];
+type Size = keyof typeof bayMap.labelSizes;
+type Tier = keyof typeof bayMap.dotRadius;
+
+/** Where a name sits next to its dot. Mirrors labelBox() in scripts/bay-map/build-map.mjs, which checked it fits. */
+function anchorTransform(anchor: MapAnchor, size: Size, tier: Tier) {
+  const s = bayMap.labelSizes[size];
+  const off = s.offset + (bayMap.dotRadius[tier] * s.width) / bayMap.width;
+  const d = off * 0.75;
+  switch (anchor) {
+    case 'right':
+      return `translate(${off}px, -50%)`;
+    case 'left':
+      return `translate(calc(-100% - ${off}px), -50%)`;
+    case 'above':
+      return `translate(-50%, calc(-100% - ${off}px))`;
+    case 'below':
+      return `translate(-50%, ${off}px)`;
+    case 'upper-right':
+      return `translate(${d}px, calc(-100% - ${d}px))`;
+    case 'lower-right':
+      return `translate(${d}px, ${d}px)`;
+    case 'upper-left':
+      return `translate(calc(-100% - ${d}px), calc(-100% - ${d}px))`;
+    case 'lower-left':
+      return `translate(calc(-100% - ${d}px), ${d}px)`;
+  }
+}
+
+const visibility: Record<Size, string> = { mobile: 'sm:hidden', desktop: 'hidden sm:block' };
 
 /**
- * Illustrative map of the Bay Area: real coastline, the Oakland home base and distance rings.
- * City names are HTML laid over the SVG so they stay readable at any size.
+ * Illustrative map of the Bay Area: real coastline, a dot for every city we serve, the Oakland home base and
+ * distance rings. Names are HTML laid over the SVG, at positions precomputed so they never overlap
+ * (one set for phones, one for wider screens).
  */
 export function CoverageMap({
   className,
@@ -19,8 +49,9 @@ export function CoverageMap({
   locale?: Locale;
 }) {
   const copy = t(locale);
-  const { viewBox, width, height, land, base, cities, milesToUnits } = bayMap;
+  const { viewBox, width, height, land, base, cities, places, milesToUnits, dotRadius, labelSizes } = bayMap;
   const outer = RINGS_MILES[RINGS_MILES.length - 1] * milesToUnits;
+  const sizes = Object.keys(labelSizes) as Size[];
   return (
     <figure className={className}>
       <div className="relative overflow-hidden rounded-[6px] border border-line bg-bay">
@@ -59,47 +90,98 @@ export function CoverageMap({
               key={c.name}
               cx={(c.x / 100) * width}
               cy={(c.y / 100) * height}
-              r={5}
-              className={cn('fill-ink', !c.mobile && 'hidden sm:block')}
+              r={dotRadius[c.tier]}
               stroke="#ffffff"
               strokeWidth={1.5}
+              className={cn(
+                // Named cities in ink; the rest, still served, in a quieter grey.
+                c.mobile ? 'fill-ink' : 'fill-mute',
+                c.desktop ? 'sm:fill-ink' : 'sm:fill-mute',
+                !c.dotMobile && 'max-sm:hidden',
+                !c.dotDesktop && 'sm:hidden',
+              )}
             />
           ))}
-          <circle cx={base.cx} cy={base.cy} r={11} className="fill-action stroke-ink" strokeWidth={3} />
+          <circle cx={base.cx} cy={base.cy} r={dotRadius.base} className="fill-action stroke-ink" strokeWidth={3} />
           <circle cx={base.cx} cy={base.cy} r={3.5} fill="#ffffff" />
         </svg>
 
         <div aria-hidden="true">
-          {cities.map((c) => (
-            <span
-              key={c.name}
-              style={{ left: `${c.x}%`, top: `${c.y}%` }}
-              className={cn(
-                'map-label absolute -translate-y-1/2 font-display text-[0.8rem] font-semibold whitespace-nowrap text-ink sm:text-[0.95rem]',
-                c.align === 'left' && '-translate-x-full pr-2',
-                c.align === 'right' && 'pl-2',
-                c.align === 'above' && '-translate-x-1/2 -translate-y-[150%]',
-                !c.mobile && 'hidden sm:block',
-              )}
-            >
-              {c.name}
-            </span>
-          ))}
+          {places.map((p) =>
+            sizes.map(
+              (size) =>
+                p[size] && (
+                  <span
+                    key={`${p.id}-${size}`}
+                    style={{
+                      left: `${p.x}%`,
+                      top: `${p.y}%`,
+                      fontSize: `${labelSizes[size].place}px`,
+                      letterSpacing: p.kind === 'region' ? `${bayMap.regionTracking}em` : undefined,
+                      transform: p.align === 'center' ? 'translate(-50%, -50%)' : 'translateY(-50%)',
+                    }}
+                    className={cn(
+                      'absolute font-display leading-[1.1] whitespace-nowrap',
+                      p.align === 'center' && 'text-center',
+                      p.kind === 'water' ? 'map-water font-medium text-water' : 'map-label font-semibold text-mute',
+                      visibility[size],
+                    )}
+                  >
+                    {copy.mapPlaces[p.id].map((line) => (
+                      <span key={line} className="block">
+                        {line}
+                      </span>
+                    ))}
+                  </span>
+                ),
+            ),
+          )}
+
+          {cities.map((c) =>
+            sizes.map((size) => {
+              const anchor = c[size];
+              if (!anchor) return null;
+              return (
+                <span
+                  key={`${c.name}-${size}`}
+                  style={{
+                    left: `${c.x}%`,
+                    top: `${c.y}%`,
+                    fontSize: `${labelSizes[size][c.tier]}px`,
+                    transform: anchorTransform(anchor, size, c.tier),
+                  }}
+                  className={cn(
+                    'map-label absolute font-display leading-none whitespace-nowrap text-ink',
+                    c.tier === 'major' ? 'font-semibold' : 'font-medium',
+                    visibility[size],
+                  )}
+                >
+                  {c.name}
+                </span>
+              );
+            }),
+          )}
+
           <span
             style={{ left: `${base.x}%`, top: `${base.y}%` }}
             className="base-pulse absolute size-4 -translate-x-1/2 -translate-y-1/2 rounded-full"
           />
+          {/* Phones: just the city. Wider screens: "Home base: Oakland". Sizes match build-map.mjs. */}
           <span
             style={{ left: `${base.x}%`, top: `${base.y}%` }}
-            className="absolute -translate-x-1/2 translate-y-5"
+            className="absolute -translate-x-1/2 translate-y-[14px] sm:hidden"
           >
-            <PlacePlate className="text-[0.85rem] whitespace-nowrap sm:text-[1rem]">{copy.mapBase}</PlacePlate>
+            <PlacePlate className="text-[12px] whitespace-nowrap">{base.name}</PlacePlate>
+          </span>
+          <span
+            style={{ left: `${base.x}%`, top: `${base.y}%` }}
+            className="absolute hidden -translate-x-1/2 translate-y-[18px] sm:block"
+          >
+            <PlacePlate className="text-[14px] whitespace-nowrap">{copy.mapBase}</PlacePlate>
           </span>
         </div>
       </div>
-      <figcaption className="mt-2 text-[0.85rem] leading-snug text-mute">
-        {copy.mapCaption}
-      </figcaption>
+      <figcaption className="mt-2 text-[0.85rem] leading-snug text-mute">{copy.mapCaption}</figcaption>
     </figure>
   );
 }

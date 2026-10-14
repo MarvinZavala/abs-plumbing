@@ -5,6 +5,7 @@ import { sitemapEntries } from '../src/lib/sitemap.ts';
 import { buildLlmsFullTxt, buildLlmsTxt } from '../src/lib/llms.ts';
 import { extractSitemapUrls, indexNowBody } from '../src/lib/indexnow.ts';
 import { allCities } from '../src/content/areas.ts';
+import { bayMap } from '../src/content/bay-map.ts';
 import { faqs } from '../src/content/faqs.ts';
 import { serviceBySlug } from '../src/content/services.ts';
 
@@ -211,4 +212,36 @@ test('Spanish service markup is in Spanish, on the Spanish URL, from the same bu
   assert.equal(s.inLanguage, 'es-US');
   assert.equal(s.name, 'Calentadores de agua');
   assert.deepEqual(s.provider, { '@id': `${BASE}/#business` });
+});
+
+// --- service area and coverage map ---------------------------------------------
+
+test('serves the Marin, Peninsula and South Bay cities the owner asked for', () => {
+  for (const city of ['Sausalito', 'San Rafael', 'Tiburon', 'Mill Valley', 'Milpitas', 'Union City', 'Los Altos', 'Atherton']) {
+    assert.ok(allCities.includes(city), `missing ${city}`);
+  }
+  assert.equal(new Set(allCities).size, allCities.length, 'a city is listed twice');
+});
+
+test('every city served has a dot on the coverage map (Oakland is the home base marker)', () => {
+  const onMap = bayMap.cities.map((c) => c.name).sort();
+  assert.deepEqual(onMap, allCities.filter((c) => c !== 'Oakland').sort());
+  for (const c of bayMap.cities) assert.ok(c.x > 0 && c.x < 100 && c.y > 0 && c.y < 100, `${c.name} is off the map`);
+});
+
+test('the map never shows a name without its dot', () => {
+  for (const c of bayMap.cities) {
+    if (c.mobile) assert.ok(c.dotMobile, `${c.name} is named on phones but its dot is hidden`);
+    if (c.desktop) assert.ok(c.dotDesktop, `${c.name} is named on wide screens but its dot is hidden`);
+  }
+});
+
+test('the map names the main cities on phones and the requested ones on wider screens', () => {
+  const named = (size: 'mobile' | 'desktop'): string[] => bayMap.cities.filter((c) => c[size]).map((c) => c.name);
+  for (const city of ['San Francisco', 'San Jose', 'Berkeley', 'Walnut Creek', 'San Rafael', 'Fremont', 'Palo Alto', 'Hayward']) {
+    assert.ok(named('mobile').includes(city), `${city} has no name on phones`);
+  }
+  for (const city of ['Sausalito', 'Tiburon', 'Mill Valley', 'San Rafael', 'Atherton', 'Los Altos', 'Milpitas', 'Union City']) {
+    assert.ok(named('desktop').includes(city), `${city} has no name on wide screens`);
+  }
 });

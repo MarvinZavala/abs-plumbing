@@ -1,6 +1,8 @@
 /**
- * Cities served. Sources: the service-area list on the previous site, plus cities where
- * Yelp reviewers live (Albany, El Cerrito, Walnut Creek, Danville, Union City).
+ * Cities served, by region. Sources: the service-area list on the previous site, cities where Yelp reviewers
+ * live (Albany, El Cerrito, Walnut Creek, Danville, Union City), and Marin, Peninsula, Tri-Valley and South Bay
+ * cities added on request (2026-10-14). Every city here is on the coverage map: rerun scripts/bay-map/build-map.mjs
+ * after changing this list.
  */
 export const areas = [
   {
@@ -8,29 +10,85 @@ export const areas = [
     note: 'Home base: Oakland',
     cities: [
       'Oakland',
+      'Piedmont',
       'Berkeley',
+      'Emeryville',
       'Alameda',
       'Albany',
       'El Cerrito',
       'Richmond',
+      'Pinole',
+      'Hercules',
+      'San Leandro',
+      'Castro Valley',
       'Hayward',
       'Union City',
+      'Newark',
       'Fremont',
+    ],
+  },
+  {
+    region: 'Contra Costa & Tri-Valley',
+    cities: [
+      'Orinda',
+      'Lafayette',
+      'Moraga',
       'Walnut Creek',
+      'Pleasant Hill',
+      'Concord',
+      'Alamo',
       'Danville',
+      'Blackhawk',
+      'San Ramon',
+      'Dublin',
+      'Pleasanton',
     ],
   },
   {
     region: 'San Francisco & Peninsula',
-    cities: ['San Francisco', 'Daly City', 'San Mateo', 'Redwood City', 'Palo Alto', 'Mountain View'],
+    cities: [
+      'San Francisco',
+      'Daly City',
+      'South San Francisco',
+      'Millbrae',
+      'Burlingame',
+      'Hillsborough',
+      'San Mateo',
+      'Foster City',
+      'Belmont',
+      'San Carlos',
+      'Redwood City',
+      'Atherton',
+      'Menlo Park',
+      'Woodside',
+      'Portola Valley',
+      'Palo Alto',
+      'Los Altos',
+      'Los Altos Hills',
+      'Mountain View',
+    ],
   },
   {
     region: 'South Bay',
-    cities: ['Sunnyvale', 'Santa Clara', 'San Jose'],
+    cities: ['San Jose', 'Santa Clara', 'Sunnyvale', 'Milpitas', 'Cupertino', 'Campbell', 'Saratoga', 'Los Gatos'],
   },
   {
     region: 'North Bay',
-    cities: ['Vallejo'],
+    cities: [
+      'San Rafael',
+      'Novato',
+      'Mill Valley',
+      'Sausalito',
+      'Tiburon',
+      'Belvedere',
+      'Corte Madera',
+      'Larkspur',
+      'Kentfield',
+      'Ross',
+      'San Anselmo',
+      'Vallejo',
+      'Benicia',
+    ],
   },
 ] as const;
 
