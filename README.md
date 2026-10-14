@@ -37,8 +37,8 @@ In production, an unconfigured or failing form tells the visitor to call instead
 2. **Texting**: confirm (510) 753-8649 receives SMS. If not, set `acceptsTexts: false` and the text buttons disappear.
 3. **Offer**: the site says 10% off for new customers; a Yelp post says 20%. Pick one and make the ads match.
 4. **Lead delivery**: set `RESEND_API_KEY` (and/or `LEAD_WEBHOOK_URL`) in Vercel. See `.env.example`. Send a test request after deploying.
-5. **Tracking**: set `NEXT_PUBLIC_GTM_ID`, or `NEXT_PUBLIC_GOOGLE_ADS_ID` plus the conversion labels. Events pushed to the dataLayer: `call_click`, `text_click`, `estimate_click`, `lead_submit` (plus `language_switch`, not a conversion). Each lead also carries the `gclid` and UTM tags of the ad click.
-6. **Reviews**: the heroes show Yelp's "Find us on Yelp" badge; Yelp's brand rules don't let businesses use the standalone Yelp logo or Yelp's star images, so keep it that way. Quotes are verbatim from Yelp. Yelp’s guidance is to quote word for word and in context; asking the reviewers first is the courteous route. Refresh `reviews.ts` and the Yelp numbers in `business.ts` every few months.
+5. **Tracking**: set `NEXT_PUBLIC_GTM_ID`, or `NEXT_PUBLIC_GOOGLE_ADS_ID` plus the conversion labels. Events pushed to the dataLayer: `call_click`, `text_click`, `estimate_click`, `lead_submit` (plus `language_switch` and `yelp_click`, not conversions). Each lead also carries the `gclid` and UTM tags of the ad click.
+6. **Reviews**: the heroes show Yelp's official icon, linking to the Yelp page in a new tab (`yelp_click` in the dataLayer). Yelp's brand rules don't let businesses use the standalone Yelp logo or Yelp's star images, so keep it that way. Quotes are verbatim from Yelp. Yelp’s guidance is to quote word for word and in context; asking the reviewers first is the courteous route. Refresh `reviews.ts` and the Yelp numbers in `business.ts` every few months.
 
 ## Google Ads landing pages
 

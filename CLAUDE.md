@@ -25,7 +25,7 @@ npm run build
 - English pages live in `src/app/(site)/`, Spanish pages in `src/app/es/`. Each has its own root layout (via `RootDocument`) so `<html lang>` is right; the site-wide 404 is `src/app/global-not-found.tsx` (`experimental.globalNotFound`).
 - `src/content/` is the single source of truth for copy and facts: `business.ts` (phone, hours, license, offer, Yelp snapshot), `services.ts` (each service is a landing page at `/services/[slug]`), `reviews.ts` (verbatim Yelp quotes), `work.ts` (job photos), `areas.ts`, `faqs.ts`, `process.ts`.
 - `src/lib/lead.ts`: estimate form validation, spam checks (hidden `ab_check` field + minimum fill time), email formatting and delivery (Resend REST API and/or a JSON webhook). Pure TypeScript with no Next imports so `node --test` can run it. `src/lib/submit-lead.ts` is the Server Action wrapper.
-- `src/lib/track.ts`: dataLayer events (`call_click`, `text_click`, `estimate_click`, `lead_submit`, `language_switch`), optional gtag conversions, gclid/UTM capture.
+- `src/lib/track.ts`: dataLayer events (`call_click`, `text_click`, `estimate_click`, `lead_submit`, `language_switch`, `yelp_click`), optional gtag conversions, gclid/UTM capture.
 - `src/components/`: server components by default. Client components only where needed: `estimate-form`, `mobile-menu`, `tracked-link`, `attribution-capture`, `language-link`, `language-suggestion`.
 - Spanish: copy in `src/content/es.ts` (services, FAQ, steps), URLs in `es-slugs.ts`, shared UI strings in `i18n.ts`, form strings in `form-ui.ts`. Components take a `locale` prop. `src/lib/i18n-routes.ts` pairs English and Spanish twins (hreflang, sitemap, language links). Never redirect by language; `language-preference.ts` only suggests Spanish.
 - Configuration is via environment variables, documented in `.env.example`.
@@ -44,7 +44,7 @@ npm run build
 - Spanish copy uses "usted" and Bay Area vocabulary (llave, fregadero, regadera, coladera, boiler). Keep facts identical to the English pages.
 - Photo captions describe only what is visible; name a place only if it is readable in the photo.
 - The CSLB license number stays `null` until the client confirms it; never show a placeholder.
-- Yelp branding (yelp.com/brand, rules for businesses): only the "Find us on Yelp" badge (`src/assets/brand/find-us-on-yelp.png`, cropped unaltered from Yelp's business resources). Never the standalone Yelp logo, a home-made Yelp graphic, or Yelp's red star images; rating stars stay our gold ones.
+- Yelp branding (yelp.com/brand, rules for businesses): only Yelp's official favicon (`src/assets/brand/yelp-favicon.svg`), as a link to the Yelp page, or the "Find us on Yelp" logo. Never the standalone Yelp logo, a home-made Yelp graphic, or Yelp's red star images; rating stars stay our gold ones.
 
 ## SEO and AI visibility
 
