@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { ExternalLink } from 'lucide-react';
 import yelpIcon from '@/assets/brand/yelp-favicon.svg';
 import { cn } from '@/lib/utils';
 import { business } from '@/content/business';
@@ -19,9 +20,10 @@ export function Stars({ className }: { className?: string }) {
 }
 
 /**
- * The rating line used in heroes: Yelp's icon, then "4.9 ★★★★★ 677 reviews on Yelp".
+ * The rating in heroes, as a button to the Yelp page: Yelp's icon, "4.9 ★★★★★ 677 reviews on Yelp", external-link icon.
+ * The proof and the way to check it are one control, so it doesn't compete with the call/text/estimate buttons.
  * Yelp's brand rules let businesses use its favicon as a shortcut to their Yelp page, but not the standalone
- * Yelp logo or Yelp's star images, so the stars stay ours. The link opens a new tab so ad visitors keep this page.
+ * Yelp logo or Yelp's star images, so the stars stay ours. Opens a new tab so ad visitors keep this page.
  */
 export function RatingLine({
   tone = 'light',
@@ -32,29 +34,42 @@ export function RatingLine({
   locale?: Locale;
   className?: string;
 }) {
+  const copy = t(locale);
+  const dark = tone === 'dark';
   return (
-    <p className={cn('flex flex-wrap items-center gap-x-2.5 gap-y-1', className)}>
+    <div className={className}>
       <TrackedLink
         href={business.yelp.url}
         target="_blank"
         rel="noopener noreferrer"
         event="yelp_click"
         placement="rating"
-        className="shrink-0 rounded-full transition-transform hover:scale-105"
+        aria-label={copy.yelpRatingLabel(business.yelp.rating, business.yelp.reviewCount)}
+        className={cn(
+          'group inline-flex min-h-11 items-center gap-2 rounded-full border py-1 pr-3.5 pl-1 transition-colors active:translate-y-px sm:gap-2.5 sm:pr-4',
+          dark ? 'border-white/30 hover:bg-white/10' : 'border-line bg-white hover:border-mute/50 hover:bg-concrete',
+        )}
       >
-        <Image src={yelpIcon} alt="" width={26} height={26} loading="eager" className="size-[26px]" />
-        <span className="sr-only">
-          {t(locale).yelpPage} {t(locale).opensNewTab}
+        <Image src={yelpIcon} alt="" width={36} height={36} loading="eager" className="size-8 shrink-0 sm:size-9" />
+        <span
+          className={cn('font-display text-[1.45rem] font-bold leading-none sm:text-[1.6rem]', dark ? 'text-white' : 'text-ink')}
+        >
+          {business.yelp.rating}
         </span>
+        <Stars className="text-[1.05rem] sm:text-[1.15rem]" />
+        <span
+          className={cn('text-[0.95rem] leading-none whitespace-nowrap sm:text-base', dark ? 'text-white/85' : 'text-slate')}
+        >
+          {copy.reviewsCount(business.yelp.reviewCount)}
+          {/* "on Yelp" drops on the narrowest phones (the Yelp icon already says it) to keep the button on one line. */}
+          <span className="max-[379px]:hidden">{copy.onYelp}</span>
+        </span>
+        <ExternalLink
+          className={cn('size-4 shrink-0 transition-colors', dark ? 'text-white/70' : 'text-mute group-hover:text-ink')}
+          aria-hidden="true"
+        />
       </TrackedLink>
-      <span className={cn('font-display text-2xl font-bold leading-none', tone === 'dark' ? 'text-white' : 'text-ink')}>
-        {business.yelp.rating}
-      </span>
-      <Stars className="text-xl" />
-      <span className={cn('text-[0.98rem]', tone === 'dark' ? 'text-white/80' : 'text-mute')}>
-        {t(locale).reviewsOnYelp(business.yelp.reviewCount)}
-      </span>
-    </p>
+    </div>
   );
 }
 
