@@ -17,7 +17,8 @@ export function SiteFooter() {
             <div>
               <p className="font-display text-[1.6rem] font-bold leading-none text-white">{business.name}</p>
               <p className="mt-1 text-[0.95rem]">
-                {business.base.neighborhood}, {business.base.city}. {business.hours}.
+                Based in {business.base.neighborhood}, {business.base.city}. Serving the whole San Francisco Bay Area,
+                24 hours a day.
               </p>
             </div>
           </div>

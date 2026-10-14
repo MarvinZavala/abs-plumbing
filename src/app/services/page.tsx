@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { EstimateSection } from '@/components/estimate-section';
+import { JsonLd } from '@/components/json-ld';
 import { FaqList } from '@/components/faq-list';
 import { PageHero } from '@/components/page-hero';
 import { ProcessSteps } from '@/components/process-steps';
@@ -7,6 +8,7 @@ import { ReviewsSection } from '@/components/reviews-section';
 import { ServiceList } from '@/components/service-list';
 import { moreServices } from '@/content/services';
 import { photoById } from '@/content/work';
+import { breadcrumbJsonLd } from '@/lib/structured-data';
 
 export const metadata: Metadata = {
   title: 'Plumbing Services in Oakland & the Bay Area',
@@ -18,6 +20,7 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd([{ name: 'Home', path: '/' }, { name: 'Services', path: '/services' }])} />
       <PageHero
         title="Plumbing services for Bay Area homes and businesses"
         lead="Repairs, replacements and emergencies, handled by our own crew. Pick the problem you’re dealing with."

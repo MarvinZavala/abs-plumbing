@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { CoverageSection } from '@/components/coverage-section';
 import { CrewSection } from '@/components/crew-section';
 import { EstimateSection } from '@/components/estimate-section';
 import { FaqList } from '@/components/faq-list';
@@ -6,7 +7,6 @@ import { FeaturedWork } from '@/components/featured-work';
 import { HomeHero } from '@/components/home-hero';
 import { ProcessSteps } from '@/components/process-steps';
 import { ReviewsSection } from '@/components/reviews-section';
-import { ServiceArea } from '@/components/service-area';
 import { ServiceList } from '@/components/service-list';
 import { WorkLog } from '@/components/work-log';
 
@@ -62,7 +62,7 @@ export default function HomePage() {
       </section>
 
       <CrewSection />
-      <ServiceArea />
+      <CoverageSection />
       <EstimateSection />
       <FaqList />
     </>

@@ -3,7 +3,7 @@ import { Barlow, Barlow_Condensed } from 'next/font/google';
 import { ActionBar } from '@/components/action-bar';
 import { Analytics } from '@/components/analytics';
 import { AttributionCapture } from '@/components/attribution-capture';
-import { BusinessJsonLd } from '@/components/json-ld';
+import { SiteJsonLd } from '@/components/json-ld';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { business } from '@/content/business';
@@ -37,6 +37,13 @@ export const metadata: Metadata = {
     locale: 'en_US',
   },
   alternates: { canonical: '/' },
+  // Search Console / Bing Webmaster verification tokens, set in Vercel when the properties are created.
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+      ? { 'msvalidate.01': process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
+      : undefined,
+  },
 };
 
 export const viewport: Viewport = {
@@ -60,7 +67,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main id="main">{children}</main>
         <SiteFooter />
         <ActionBar />
-        <BusinessJsonLd />
+        <SiteJsonLd />
+        <link rel="describedby" type="text/markdown" href="/llms.txt" />
         <AttributionCapture />
         <Analytics />
       </body>

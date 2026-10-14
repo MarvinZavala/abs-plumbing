@@ -1,4 +1,4 @@
-import { business } from './business';
+import { business } from './business.ts';
 
 export type Faq = { q: string; a: string };
 

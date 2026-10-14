@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Check, TriangleAlert } from 'lucide-react';
 import { EstimateSection } from '@/components/estimate-section';
+import { JsonLd } from '@/components/json-ld';
 import { FaqList } from '@/components/faq-list';
 import { PageHero } from '@/components/page-hero';
 import { ProcessSteps } from '@/components/process-steps';
@@ -11,6 +12,7 @@ import { WorkGrid } from '@/components/work-grid';
 import { reviewsFor } from '@/content/reviews';
 import { serviceBySlug, services } from '@/content/services';
 import { photoById, work } from '@/content/work';
+import { breadcrumbJsonLd, serviceJsonLd } from '@/lib/structured-data';
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -61,6 +63,14 @@ export default async function ServicePage({ params }: Props) {
 
   return (
     <>
+      <JsonLd data={serviceJsonLd(service)} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Services', path: '/services' },
+          { name: service.name, path: `/services/${service.slug}` },
+        ])}
+      />
       <PageHero
         title={service.headline}
         lead={service.lead}

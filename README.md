@@ -52,3 +52,36 @@ Point each ad group at the page whose headline matches it:
 | Leak repair, water line, water pressure | `/services/leaks-water-lines` |
 | Toilet, faucet, garbage disposal | `/services/fixtures` |
 | Generic “plumber near me” | `/` |
+
+## SEO, AI assistants and indexing
+
+- **Structured data** (`src/lib/structured-data.ts`, tested): `Plumber` + `WebSite` on every page, `Service` and
+  `BreadcrumbList` on service pages, `FAQPage` wherever the FAQ appears. No self-serving `aggregateRating`
+  (Google only allows it for sites that review *other* businesses).
+- **`/sitemap.xml`** and **`/robots.txt`** are generated. robots.txt allows every crawler and names the search and AI
+  agents explicitly (OAI-SearchBot is what puts a site in ChatGPT search).
+- **`/llms.txt`** and **`/llms-full.txt`** ([llmstxt.org](https://llmstxt.org)) give AI assistants the facts in plain
+  markdown. Both are built from `src/content/*`, so they never drift from the site.
+- **Service area**: one page (`/service-areas`) with the full city list and real reviews grouped by city. Do not add
+  near-identical "plumber in {city}" pages: Google treats them as doorway pages (spam).
+- **Coverage map**: `src/content/bay-map.ts`, generated from U.S. Census coastline data. See `scripts/bay-map/`.
+
+### After every production deploy
+
+```bash
+npm run indexnow   # pings Bing, Yandex, Seznam, Naver, Yep (shared with Internet Archive and Amazonbot)
+```
+
+The script checks that the key file (`public/<key>.txt`) is live before submitting.
+
+### Google (needs the owner's Google account)
+
+Google no longer accepts sitemap pings; use Search Console:
+
+1. https://search.google.com/search-console > Add property > URL prefix `https://www.abs-plumbingservices.com/`.
+2. Verify with the HTML tag: put the token in `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` on Vercel and redeploy
+   (or verify the domain with a DNS TXT record).
+3. Sitemaps > submit `sitemap.xml`. Then URL Inspection > Request indexing for the home page and service pages.
+4. In Bing Webmaster Tools, "Import from Google Search Console" adds the site in one step.
+
+Also keep the Google Business Profile consistent with the site: same name, phone, hours and website URL.

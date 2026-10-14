@@ -1,8 +1,9 @@
-/** Absolute site URL for metadata, sitemap and structured data. */
+import { business } from '../content/business.ts';
+
+/**
+ * Absolute site URL for canonical links, the sitemap, structured data and llms.txt.
+ * Defaults to the production domain so preview copies point search engines at the real site.
+ */
 export function siteUrl(): URL {
-  const explicit = process.env.NEXT_PUBLIC_SITE_URL;
-  if (explicit) return new URL(explicit);
-  const vercel = process.env.VERCEL_PROJECT_PRODUCTION_URL;
-  if (vercel) return new URL(`https://${vercel}`);
-  return new URL('http://localhost:3000');
+  return new URL(process.env.NEXT_PUBLIC_SITE_URL || business.website);
 }

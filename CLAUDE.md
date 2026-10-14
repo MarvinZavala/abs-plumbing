@@ -41,3 +41,10 @@ npm run build
 - Review quotes are verbatim; trim only at sentence boundaries and mark skipped sentences with an ellipsis.
 - Photo captions describe only what is visible; name a place only if it is readable in the photo.
 - The CSLB license number stays `null` until the client confirms it; never show a placeholder.
+
+## SEO and AI visibility
+
+- `src/lib/structured-data.ts` (JSON-LD), `src/lib/llms.ts` (/llms.txt, /llms-full.txt), `src/lib/indexnow.ts` + `npm run indexnow`; all covered by `tests/seo.test.ts`.
+- Canonical domain is `business.website` (https://www.abs-plumbingservices.com); override with `NEXT_PUBLIC_SITE_URL`.
+- Never add per-city doorway pages; city relevance comes from `/service-areas` (full list + real reviews by city).
+- The coverage map (`src/content/bay-map.ts`) is generated data from U.S. Census coastlines; regenerate with `scripts/bay-map/build-map.mjs`.
