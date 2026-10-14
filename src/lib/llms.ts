@@ -25,7 +25,7 @@ function keyFacts(base: string): string[] {
   return [
     `- Phone: ${business.phone.display}${business.acceptsTexts ? ' (calls and texts)' : ''}, open 24 hours, 7 days a week`,
     `- Based in: ${business.base.city}, California`,
-    '- Service area: the whole San Francisco Bay Area (East Bay and Tri-Valley, San Francisco and the Peninsula, South Bay, and the North Bay from Marin to Vallejo)',
+    '- Service area: the whole San Francisco Bay Area (East Bay, San Francisco and the Peninsula, South Bay, and the North Bay from Marin to Vallejo)',
     `- ${business.license ? `Licensed (California CSLB #${business.license}) and insured` : 'Licensed and insured in California'}`,
     '- Free estimates, with the price given before any work starts',
     '- Payment: cash, credit cards and Zelle',

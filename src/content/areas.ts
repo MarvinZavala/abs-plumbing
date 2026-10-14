@@ -1,6 +1,6 @@
 /**
  * Cities served, by region. Sources: the service-area list on the previous site, cities where Yelp reviewers
- * live (Albany, El Cerrito, Walnut Creek, Danville, Union City), and Marin, Peninsula, Tri-Valley and South Bay
+ * live (Albany, El Cerrito, Walnut Creek, Danville, Union City), and Marin, Peninsula, East Bay and South Bay
  * cities added on request (2026-10-14). Every city here is on the coverage map: rerun scripts/bay-map/build-map.mjs
  * after changing this list.
  */
@@ -25,11 +25,6 @@ export const areas = [
       'Union City',
       'Newark',
       'Fremont',
-    ],
-  },
-  {
-    region: 'Contra Costa & Tri-Valley',
-    cities: [
       'Orinda',
       'Lafayette',
       'Moraga',
