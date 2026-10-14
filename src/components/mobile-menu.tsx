@@ -1,11 +1,14 @@
 'use client';
 
 import { useEffect, useId, useRef, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { ExternalLink, Menu, Star, X } from 'lucide-react';
+import yelpIcon from '@/assets/brand/yelp-favicon.svg';
 import type { Locale } from '@/content/i18n';
 import { LanguageLink } from './language-link';
+import { TrackedLink } from './tracked-link';
 
 type Item = { href: string; label: string };
 
@@ -13,12 +16,15 @@ export function MobileMenu({
   nav,
   services,
   language,
+  yelp,
   labels,
 }: {
   nav: Item[];
   services: Item[];
   /** The other language, e.g. { locale: 'es', label: 'Español' }. */
   language: { locale: Locale; label: string };
+  /** Button to the Yelp page, right under the main links. */
+  yelp: { href: string; label: string; detail: string; newTab: string };
   labels: { open: string; close: string; nav: string; services: string };
 }) {
   const [open, setOpen] = useState(false);
@@ -80,6 +86,27 @@ export function MobileMenu({
                 </Link>
               </li>
             ))}
+            <li className="py-3">
+              <TrackedLink
+                href={yelp.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                event="yelp_click"
+                placement="mobile-menu"
+                className="flex items-center gap-3 rounded-button border-2 border-line px-3 py-2.5 transition-colors hover:bg-concrete active:translate-y-px"
+              >
+                <Image src={yelpIcon} alt="" width={40} height={40} className="size-10 shrink-0" />
+                <span className="min-w-0">
+                  <span className="block font-display text-[1.25rem] leading-tight font-semibold text-ink">{yelp.label}</span>
+                  <span className="mt-0.5 flex items-center gap-1 text-[0.92rem] text-slate">
+                    <Star className="size-4 fill-current text-star" aria-hidden="true" />
+                    {yelp.detail}
+                  </span>
+                </span>
+                <ExternalLink className="ml-auto size-5 shrink-0 text-mute" aria-hidden="true" />
+                <span className="sr-only"> {yelp.newTab}</span>
+              </TrackedLink>
+            </li>
             <li>
               <LanguageLink
                 to={language.locale}

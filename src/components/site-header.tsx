@@ -76,6 +76,12 @@ export function SiteHeader({ locale = 'en' }: { locale?: Locale }) {
             nav={copy.nav}
             services={serviceLinks(locale)}
             language={copy.otherLanguage}
+            yelp={{
+              href: business.yelp.url,
+              label: copy.yelpMenuLabel,
+              detail: copy.yelpMenuDetail(business.yelp.rating, business.yelp.reviewCount),
+              newTab: copy.opensNewTab,
+            }}
             labels={{ open: copy.openMenu, close: copy.closeMenu, nav: copy.mobileNavLabel, services: copy.whatWeFix }}
           />
         </div>
