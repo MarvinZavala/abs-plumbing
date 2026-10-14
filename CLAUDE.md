@@ -44,6 +44,7 @@ npm run build
 - Spanish copy uses "usted" and Bay Area vocabulary (llave, fregadero, regadera, coladera, boiler). Keep facts identical to the English pages.
 - Photo captions describe only what is visible; name a place only if it is readable in the photo.
 - The CSLB license number stays `null` until the client confirms it; never show a placeholder.
+- Yelp branding (yelp.com/brand, rules for businesses): only the "Find us on Yelp" badge (`src/assets/brand/find-us-on-yelp.png`, cropped unaltered from Yelp's business resources). Never the standalone Yelp logo, a home-made Yelp graphic, or Yelp's red star images; rating stars stay our gold ones.
 
 ## SEO and AI visibility
 

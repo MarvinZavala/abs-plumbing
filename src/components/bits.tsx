@@ -1,3 +1,5 @@
+import Image from 'next/image';
+import findUsOnYelp from '@/assets/brand/find-us-on-yelp.png';
 import { cn } from '@/lib/utils';
 import { business } from '@/content/business';
 import { t, type Locale } from '@/content/i18n';
@@ -15,7 +17,11 @@ export function Stars({ className }: { className?: string }) {
   );
 }
 
-/** "4.9 ★★★★★ 677 reviews on Yelp" — the rating line used in heroes. */
+/**
+ * "4.9 ★★★★★ 677 reviews" plus Yelp's "Find us on Yelp" badge: the rating line used in heroes.
+ * Yelp's brand rules for businesses allow that badge but not the standalone Yelp logo or Yelp's own star images,
+ * so the stars stay ours. The badge is not a link: paid visitors stay on the page (the reviews section links to Yelp).
+ */
 export function RatingLine({
   tone = 'light',
   locale = 'en',
@@ -26,15 +32,25 @@ export function RatingLine({
   className?: string;
 }) {
   return (
-    <p className={cn('flex flex-wrap items-center gap-x-2.5 gap-y-1', className)}>
-      <span className={cn('font-display text-2xl font-bold leading-none', tone === 'dark' ? 'text-white' : 'text-ink')}>
-        {business.yelp.rating}
-      </span>
-      <Stars className="text-xl" />
-      <span className={cn('text-[0.98rem]', tone === 'dark' ? 'text-white/80' : 'text-mute')}>
-        {t(locale).reviewsOnYelp(business.yelp.reviewCount)}
-      </span>
-    </p>
+    <div className={cn('flex flex-wrap items-center gap-x-3 gap-y-2', className)}>
+      <p className="flex items-center gap-x-2.5">
+        <span className={cn('font-display text-2xl font-bold leading-none', tone === 'dark' ? 'text-white' : 'text-ink')}>
+          {business.yelp.rating}
+        </span>
+        <Stars className="text-xl" />
+        <span className={cn('text-[0.98rem]', tone === 'dark' ? 'text-white/80' : 'text-mute')}>
+          {t(locale).reviewsCount(business.yelp.reviewCount)}
+          <span className="sr-only">{t(locale).onYelp}</span>
+        </span>
+      </p>
+      <Image
+        src={findUsOnYelp}
+        alt={t(locale).findUsOnYelp}
+        loading="eager"
+        sizes="(min-width: 640px) 96px, 86px"
+        className="h-8 w-auto sm:h-9"
+      />
+    </div>
   );
 }
 
