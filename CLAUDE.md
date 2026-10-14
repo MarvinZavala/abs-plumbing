@@ -1,92 +1,43 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code when working in this repository.
 
-## Project Overview
+## Project
 
-This is a Next.js 15 plumbing business website for "AB's Plumbing Services" in the San Francisco Bay Area. The project uses React 19, TypeScript, Tailwind CSS v4, and Framer Motion for animations.
+Website and Google Ads landing pages for AB’s Plumbing Services, a family-owned 24/7 plumbing crew based in Fruitvale, Oakland, CA.
+Visitors are mostly on phones, often mid-emergency, arriving from Google Ads. The site’s job is to get a call, a text or an estimate request fast.
+The brand is the crew (AB’s), not one person.
 
-## Development Commands
+Next.js 15 App Router, React 19, TypeScript strict, Tailwind CSS v4. Every page is statically generated.
+
+## Commands
 
 ```bash
-# Start development server with Turbopack
-npm run dev
-
-# Build for production
-npm run build
-
-# Start production server
-npm start
-
-# Run ESLint
+npm run dev         # dev server (Turbopack)
+npm test            # node --test tests/*.test.ts (lead form logic)
+npm run typecheck   # tsc --noEmit
 npm run lint
+npm run build
 ```
 
 ## Architecture
 
-### App Router Structure
-- Uses Next.js App Router with TypeScript
-- Pages located in `src/app/` with route-based file structure:
-  - `/` - Home page (`src/app/page.tsx`)
-  - `/about` - About page (`src/app/about/page.tsx`)
-  - `/services` - Services page (`src/app/services/page.tsx`)
-  - `/gallery` - Gallery page (`src/app/gallery/page.tsx`)
-  - `/service-areas` - Service areas page (`src/app/service-areas/page.tsx`)
+- `src/content/` is the single source of truth for copy and facts: `business.ts` (phone, hours, license, offer, Yelp snapshot), `services.ts` (each service is a landing page at `/services/[slug]`), `reviews.ts` (verbatim Yelp quotes), `work.ts` (job photos), `areas.ts`, `faqs.ts`, `process.ts`.
+- `src/lib/lead.ts`: estimate form validation, spam checks (hidden `ab_check` field + minimum fill time), email formatting and delivery (Resend REST API and/or a JSON webhook). Pure TypeScript with no Next imports so `node --test` can run it. `src/lib/submit-lead.ts` is the Server Action wrapper.
+- `src/lib/track.ts`: dataLayer events (`call_click`, `text_click`, `estimate_click`, `lead_submit`), optional gtag conversions, gclid/UTM capture.
+- `src/components/`: server components by default. Client components only where needed: `estimate-form`, `mobile-menu`, `tracked-link`, `attribution-capture`.
+- Configuration is via environment variables, documented in `.env.example`.
 
-### Component Organization
-- **Core Components** (`src/components/`):
-  - `navigation.tsx` - Sticky navigation with mobile menu
-  - `footer.tsx` - Site footer
-  - `hero-section.tsx` - Landing page hero with CSS modules
-  - `emergency-banner.tsx` - Emergency service banner
-  - `contact-form.tsx` - Contact form component
-  - `service-card.tsx` - Service display cards
-  - `testimonial-card.tsx` - Customer testimonial cards
+## Design system (see `src/app/globals.css`)
 
-- **UI Components** (`src/components/ui/`):
-  - `apple-cards-carousel.tsx` - Animated carousel component
-  - `layout-grid.tsx` - Grid layout component
+- Palette (all from the logo): ink `#0a2239`, slate body text, deep logo blue `#0670b8` for links/focus, logo water blue `#149ad6` reserved for actions (`bg-action`, ink text on it, hover to logo cyan `#00b6d6`), gold `#f2a900` only for rating stars, concrete `#edf0f2` bands. Default Tailwind colors are disabled.
+- Type: Barlow Condensed (display, `type-hero`, `type-page`, `type-h2`, `type-h3`) and Barlow (text). Sentence case. No all-caps eyebrows, no middle-dot meta strings, no arrows appended to button text.
+- Layout: left-aligned, full-bleed bands alternating white / concrete / ink. Place names use the street-sign `PlacePlate`.
+- Motion: only the open-now status dot and the mobile action bar reveal. Content is never hidden behind entrance animations.
 
-- **Hooks** (`src/hooks/`):
-  - `use-outside-click.tsx` - Custom hook for detecting outside clicks
+## Rules for content
 
-### Styling and Design System
-- **Tailwind CSS v4** with custom configuration
-- **Custom color palette**:
-  - Primary: `#0EA5E9` (sky-500)
-  - Primary Dark: `#0284C7` (sky-600)
-  - Primary Light: `#38BDF8` (sky-400)
-  - Primary Accent: `#7DD3FC` (sky-300)
-- **CSS Modules** for component-specific styles (e.g., `hero-section.module.css`)
-- **shadcn/ui integration** configured with "new-york" style
-- **Icon system**: Lucide React icons and Tabler icons
-
-### Key Libraries and Dependencies
-- **Framer Motion** (`framer-motion`) - Animations and transitions
-- **React Intersection Observer** - Scroll-based animations
-- **Class Variance Authority** + **clsx** + **tailwind-merge** - Conditional styling utility in `src/lib/utils.ts`
-
-### Business Context
-- **Service Area**: San Francisco Bay Area
-- **Services**: Emergency plumbing, water heater services, drain cleaning, general plumbing
-- **Contact**: Emergency phone number is (510) 753-8649
-- **Key Features**: 24/7 emergency service, 500+ 5-star reviews, licensed & insured
-
-## Development Notes
-
-### Configuration
-- ESLint ignores errors during builds (`ignoreDuringBuilds: true`)
-- Uses Turbopack for faster development builds
-- TypeScript strict mode enabled
-- shadcn/ui components use `@/` path aliasing
-
-### Content Management
-- Service data and testimonials are defined as JavaScript objects in `src/app/page.tsx`
-- Static images stored in `public/` directory
-- Business owner messaging and testimonials are hardcoded content
-
-### Responsive Design
-- Mobile-first responsive design
-- Sticky navigation with mobile hamburger menu
-- Emergency contact prominent on mobile
-- Grid layouts that adapt from 1-column mobile to 4-column desktop
+- Every claim must be true: facts from `business.ts`, or real customer words with name, city and date.
+- Review quotes are verbatim; trim only at sentence boundaries and mark skipped sentences with an ellipsis.
+- Photo captions describe only what is visible; name a place only if it is readable in the photo.
+- The CSLB license number stays `null` until the client confirms it; never show a placeholder.
