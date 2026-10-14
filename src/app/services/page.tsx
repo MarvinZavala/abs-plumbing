@@ -24,7 +24,7 @@ export default function ServicesPage() {
       <PageHero
         title="Plumbing services for Bay Area homes and businesses"
         lead="Repairs, replacements and emergencies, handled by our own crew. Pick the problem you’re dealing with."
-        photo={photoById('commercial-water-heaters-copper')}
+        photo={photoById('tankless-water-heater-shingle-wall')}
         placement="services"
       />
 

@@ -50,11 +50,11 @@ export default function HomePage() {
           <div className="mt-10">
             <FeaturedWork
               ids={[
-                'commercial-water-heaters-copper',
                 'commercial-kitchen-drain-line',
                 'tankless-water-heater-shingle-wall',
                 'sewer-lateral-street-patch',
                 'gas-water-heater-replacement',
+                'kitchen-sink-faucet-install',
               ]}
             />
           </div>
