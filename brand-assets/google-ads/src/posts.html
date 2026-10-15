@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AB’s Plumbing posts</title>
+<!--
+  Designed posts: 1200x1200 for Google Ads (Performance Max / Demand Gen) and 1200x900 for Google Business
+  Profile posts. Rendered by posts-render.mjs, which injects the coverage-map data (window.BAY_MAP) and calls
+  build(). Every fact mirrors src/content/*: change it there first, then here.
+-->
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&family=Barlow+Condensed:wght@500;600;700&display=block" rel="stylesheet">
+<style>
+  :root { --ink: #0a2239; --ink-soft: #16324f; --concrete: #edf0f2; --line: #d3dae1; --slate: #3a4b5c; --action: #149ad6; --cyan: #00b6d6; --blue: #0670b8; --star: #f2a900; --go: #2bb36b; --bay: #d5ebf7; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #c9d0d7; font-family: Barlow, sans-serif; padding: 40px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; }
+  .post { position: relative; overflow: hidden; background: var(--ink); color: #fff; flex: none; -webkit-font-smoothing: antialiased; }
+  .post.light { background: var(--concrete); color: var(--ink); }
+  /* The street-sign rule framing every post: the site's PlacePlate motif at poster scale. */
+  .post::after { content: ""; position: absolute; inset: 20px; border: 3px solid rgba(255, 255, 255, 0.9); border-radius: 12px; pointer-events: none; z-index: 5; }
+  .post.light::after { border-color: var(--ink); }
+  .abs { position: absolute; }
+  .photo { position: absolute; border-radius: 10px; background-size: cover; background-repeat: no-repeat; filter: contrast(1.05) saturate(1.08); }
+  .h { font-family: 'Barlow Condensed'; font-weight: 700; line-height: 0.95; letter-spacing: -0.006em; text-wrap: balance; }
+  .body { font-weight: 500; line-height: 1.32; color: rgba(255, 255, 255, 0.86); text-wrap: pretty; }
+  .light .body { color: var(--slate); }
+  .row { display: flex; align-items: center; }
+  .open { display: inline-flex; align-items: center; gap: 0.5em; font-weight: 600; line-height: 1; white-space: nowrap; }
+  .dot { width: 0.62em; height: 0.62em; border-radius: 50%; background: var(--go); box-shadow: 0 0 0 0.22em rgba(43, 179, 107, 0.3); flex: none; }
+  .plate { display: inline-block; background: var(--ink); border-radius: 8px; padding: 5px; color: #fff; }
+  .plate > span { display: block; border: 2px solid rgba(255, 255, 255, 0.92); border-radius: 5px; padding: 0.32em 0.62em; font-family: 'Barlow Condensed'; font-weight: 600; line-height: 1; white-space: nowrap; }
+  .stars { display: inline-flex; gap: 0.08em; color: var(--star); }
+  .stars svg { width: 1em; height: 1em; display: block; }
+  .chip { display: inline-flex; align-items: center; gap: 0.45em; border-radius: 999px; font-weight: 600; line-height: 1; white-space: nowrap; }
+  .chip svg { width: 1em; height: 1em; flex: none; }
+  .foot { position: absolute; left: 60px; right: 60px; display: flex; align-items: center; justify-content: space-between; border-top: 2px solid rgba(255, 255, 255, 0.16); padding-top: 26px; }
+  .light .foot { border-top-color: rgba(10, 34, 57, 0.16); }
+  .logo { background: #fff; border-radius: 12px; display: grid; place-items: center; flex: none; }
+  .logo img { width: 88%; height: 88%; object-fit: contain; }
+  .brand { font-family: 'Barlow Condensed'; font-weight: 700; line-height: 1; white-space: nowrap; }
+  .fsub { font-weight: 500; color: rgba(255, 255, 255, 0.72); line-height: 1.1; margin-top: 7px; white-space: nowrap; }
+  .light .fsub { color: var(--slate); }
+  .phone { font-family: 'Barlow Condensed'; font-weight: 700; line-height: 1; white-space: nowrap; }
+  .step { display: grid; grid-template-columns: auto 1fr; column-gap: 22px; align-items: start; }
+  .num { display: grid; place-items: center; border-radius: 50%; background: var(--action); color: var(--ink); font-family: 'Barlow Condensed'; font-weight: 700; line-height: 1; }
+  .stitle { font-family: 'Barlow Condensed'; font-weight: 700; line-height: 1; }
+  .sdesc { font-weight: 500; color: rgba(255, 255, 255, 0.78); line-height: 1.25; margin-top: 6px; }
+  .fact { background: var(--ink-soft); border-radius: 10px; padding: 7px; }
+  .fact > div { border: 2px solid rgba(255, 255, 255, 0.85); border-radius: 6px; height: 100%; display: grid; align-content: center; padding: 0 22px; }
+  .fact b { display: block; font-family: 'Barlow Condensed'; font-weight: 700; line-height: 1; }
+  .fact span { display: block; font-weight: 500; color: rgba(255, 255, 255, 0.8); line-height: 1.15; margin-top: 6px; }
+  .tile { position: relative; border-radius: 10px; overflow: hidden; }
+  .tile .photo { inset: 0; border-radius: 0; }
+  .tile .plate { position: absolute; left: 12px; bottom: 12px; }
+  .map-label { text-shadow: 0 0 2px #fff, 0 0 3px #fff, 0 0 6px #fff; }
+  .map-water { text-shadow: 0 0 2px var(--bay), 0 0 4px var(--bay); }
+</style>
+</head>
+<body>
+<script>
+  const ASSETS = {
+    logo: '../../abslogo-original.png',
+    work: (id) => `../../../src/assets/work/${id}.jpg`,
+  };
+  // Facts mirror src/content/business.ts. license: CSLB number (California requires it in advertising).
+  const FACTS = { rating: '4.9', reviews: 677, phone: '(510) 753-8649', license: null };
+  FACTS.license = new URLSearchParams(location.search).get('license') ?? FACTS.license;
+
+  const STAR = '<svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8L10 1.6z"/></svg>';
+  const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+
+  const COPY = {
+    en: {
+      footSub: 'Family-owned, based in Oakland',
+      open: 'Open 24/7',
+      lic: (n) => `CA Lic. #${n}`,
+      p247: {
+        h: 'Plumbing emergency?<br>We answer 24/7.',
+        body: 'Burst pipe, sewage backup or no hot water, day or night, anywhere in the Bay Area.',
+        status: 'Open now, nights and weekends',
+      },
+      rating: { reviews: `from ${FACTS.reviews} reviews on Yelp`, lead: 'Customers often mention', chips: ['Fast arrival', 'Clean work', 'Upfront prices'] },
+      estimates: {
+        h: 'Free estimates.<br>The price before we start.',
+        hL: 'Free estimates.<br>The price<br>before we start.',
+        steps: [
+          ['We find the cause', 'With a camera in the line when it helps.'],
+          ['You get the price', 'Before any work starts. No hidden fees.'],
+          ['We fix it and clean up', 'Shoe covers on, everything tested.'],
+        ],
+      },
+      map: {
+        h: 'Serving the entire<br>San Francisco Bay Area',
+        body: 'From Marin and Vallejo to San Jose. Our crew is based in Oakland, right in the middle of the Bay.',
+        base: 'Home base: Oakland',
+        regions: ['San Francisco', 'East Bay', 'Peninsula', 'South Bay', 'North Bay'],
+      },
+      trust: {
+        h: 'A local crew you can trust.',
+        facts: [['10+ years', 'of experience'], ['Licensed', 'and insured'], ['Family-owned', 'based in Oakland']],
+        body: 'Homes, apartment buildings and restaurants across the Bay Area.',
+        plate: 'Oakland',
+      },
+      services: {
+        h: 'What we fix',
+        tiles: [
+          ['sewer-lateral-street-patch', 'Emergencies', '50% 60%'],
+          ['commercial-kitchen-drain-line', 'Drain cleaning', '50% 50%'],
+          ['tankless-water-heater-shingle-wall', 'Water heaters', '50% 35%'],
+          ['sewer-line-foothill-blvd-oakland', 'Sewer lines', '50% 45%'],
+          ['water-line-trench-front-yard', 'Leaks & water lines', '50% 55%'],
+          ['kitchen-sink-faucet-install', 'Toilets & faucets', '50% 50%'],
+        ],
+      },
+      offer: { kicker: 'New customers', big: '10% off', rest: 'your first service', note: 'Mention the website when you call.' },
+      camera: {
+        h: 'See what’s really<br>in your sewer line.',
+        hL: 'See what’s<br>really in your<br>sewer line.',
+        body: 'We run a camera through the line and show you the cause before we fix it: roots, a crack or a sagging pipe.',
+      },
+      heaters: {
+        h: 'No hot water?<br>Tank or tankless,<br>installed to code.',
+        chips: ['Repair or replace', 'Seismic straps', 'Venting and gas lines'],
+      },
+    },
+    es: {
+      footSub: 'Empresa familiar de Oakland',
+      open: 'Abierto 24/7',
+      lic: (n) => `Lic. CA #${n}`,
+      espanol: {
+        h: '¿Problemas de plomería?<br>Hablamos español.',
+        body: 'Abierto 24/7 en toda el Área de la Bahía. Llame y le atendemos en su idioma.',
+        chips: ['Abierto 24/7', 'Cotización gratis', 'Con licencia y seguro'],
+      },
+      rating: { reviews: `de ${FACTS.reviews} reseñas en Yelp`, lead: 'Los clientes mencionan seguido', chips: ['Llegan rápido', 'Trabajo limpio', 'Precio por adelantado'] },
+      map: {
+        h: 'Atendemos toda<br>el Área de la Bahía',
+        body: 'Desde Marin y Vallejo hasta San Jose. Nuestro equipo tiene su base en Oakland, en el centro de la Bahía.',
+        base: 'Base: Oakland',
+        regions: ['San Francisco', 'East Bay', 'Península', 'South Bay', 'North Bay'],
+      },
+      services: {
+        h: 'Lo que reparamos',
+        tiles: [
+          ['sewer-lateral-street-patch', 'Emergencias', '50% 60%'],
+          ['commercial-kitchen-drain-line', 'Destape de drenajes', '50% 50%'],
+          ['tankless-water-heater-shingle-wall', 'Calentadores', '50% 35%'],
+          ['sewer-line-foothill-blvd-oakland', 'Líneas de drenaje', '50% 45%'],
+          ['water-line-trench-front-yard', 'Fugas y líneas de agua', '50% 55%'],
+          ['kitchen-sink-faucet-install', 'Inodoros y llaves', '50% 50%'],
+        ],
+      },
+      offer: { kicker: 'Clientes nuevos', big: '10% de descuento', rest: 'en su primer servicio', note: 'Mencione la página web cuando llame.' },
+    },
+  };
+
+  const stars = (size) => `<span class="stars" style="font-size:${size}px">${STAR.repeat(5)}</span>`;
+  const photo = (id, style, pos = '50% 50%') => `<div class="photo" style="background-image:url('${ASSETS.work(id)}');background-position:${pos};${style}"></div>`;
+  const plate = (text, size, style = '') => `<div class="plate" style="${style}"><span style="font-size:${size}px">${text}</span></div>`;
+  const chip = (text, size, light) =>
+    `<span class="chip" style="font-size:${size}px;padding:${size * 0.55}px ${size * 0.8}px;background:${light ? 'var(--ink)' : 'rgba(255,255,255,.1)'};color:#fff;border:2px solid ${light ? 'var(--ink)' : 'rgba(255,255,255,.35)'}">${CHECK.replace('<svg', '<svg style="color:#149ad6"')}${text}</span>`;
+
+  /** Landscape posts: text column to the right of a 640px-tall photo, centered on it. */
+  const rightCol = (left, inner) => `<div class="abs" style="left:${left}px;right:60px;top:60px;height:640px;display:flex;flex-direction:column;justify-content:center">${inner}</div>`;
+
+  /** Brand bar at the bottom of every post. */
+  function foot(c, v, light = false) {
+    const s = v === 's' ? 1 : 0.92;
+    const lic = FACTS.license ? `<div class="fsub" style="font-size:${20 * s}px;text-align:right">${c.lic(FACTS.license)}</div>` : '';
+    return `<div class="foot" style="bottom:${v === 's' ? 56 : 50}px">
+      <div class="row" style="gap:${20 * s}px">
+        <div class="logo" style="width:${84 * s}px;height:${84 * s}px"><img src="${ASSETS.logo}" alt=""></div>
+        <div><div class="brand" style="font-size:${46 * s}px">AB’s Plumbing Services</div><div class="fsub" style="font-size:${25 * s}px">${c.footSub}</div></div>
+      </div>
+      <div style="display:grid;justify-items:end;gap:${9 * s}px">
+        <span class="open" style="font-size:${25 * s}px;color:${light ? 'var(--ink)' : 'rgba(255,255,255,.9)'}"><span class="dot"></span>${c.open}</span>
+        <span class="phone" style="font-size:${54 * s}px">${FACTS.phone}</span>
+        ${lic}
+      </div>
+    </div>`;
+  }
+
+  // Each post: (copy, variant) => inner HTML. Variant 's' = 1200x1200, 'l' = 1200x900.
+  const POSTS = {
+    // 1. Open 24/7 (English) / Hablamos español (Spanish)
+    p247: (c, v) => {
+      const p = c.p247;
+      return v === 's'
+        ? `${photo('sewer-line-foothill-blvd-oakland', 'left:60px;top:60px;width:1080px;height:520px', '50% 22%')}
+           ${plate('Oakland', 30, 'position:absolute;left:84px;top:500px')}
+           <div class="abs" style="left:60px;top:618px;right:60px">
+             <span class="open" style="font-size:30px"><span class="dot"></span>${p.status}</span>
+             <p class="h" style="font-size:104px;margin-top:20px">${p.h}</p>
+             <p class="body" style="font-size:33px;margin-top:22px;max-width:960px">${p.body}</p>
+           </div>`
+        : `${photo('sewer-line-foothill-blvd-oakland', 'left:60px;top:60px;width:470px;height:640px', '42% 40%')}
+           ${plate('Oakland', 28, 'position:absolute;left:82px;top:628px')}
+           ${rightCol(574, `
+             <span class="open" style="font-size:27px"><span class="dot"></span>${p.status}</span>
+             <p class="h" style="font-size:90px;margin-top:22px">${p.h}</p>
+             <p class="body" style="font-size:30px;margin-top:24px">${p.body}</p>`)}`;
+    },
+    espanol: (c, v) => {
+      const p = c.espanol;
+      const chips = `<div class="row" style="flex-wrap:wrap;gap:12px;margin-top:${v === 's' ? 26 : 24}px">${p.chips.map((t) => chip(t, v === 's' ? 26 : 23)).join('')}</div>`;
+      return v === 's'
+        ? `${photo('sewer-line-foothill-blvd-oakland', 'left:60px;top:60px;width:1080px;height:470px', '50% 20%')}
+           ${plate('Oakland', 30, 'position:absolute;left:84px;top:450px')}
+           <div class="abs" style="left:60px;top:568px;right:60px">
+             <p class="h" style="font-size:100px">${p.h}</p>
+             <p class="body" style="font-size:33px;margin-top:20px;max-width:980px">${p.body}</p>
+             ${chips}
+           </div>`
+        : `${photo('sewer-line-foothill-blvd-oakland', 'left:60px;top:60px;width:470px;height:640px', '42% 40%')}
+           ${plate('Oakland', 28, 'position:absolute;left:82px;top:628px')}
+           ${rightCol(574, `
+             <p class="h" style="font-size:84px">${p.h}</p>
+             <p class="body" style="font-size:29px;margin-top:22px">${p.body}</p>
+             ${chips}`)}`;
+    },
+    // 2. Rating (light post)
+    rating: (c, v) => {
+      const p = c.rating;
+      const chips = p.chips.map((t) => chip(t, v === 's' ? 30 : 27, true)).join('');
+      return v === 's'
+        ? `<div class="abs" style="left:60px;top:84px;right:60px">
+             ${stars(118)}
+             <div class="row" style="gap:34px;margin-top:30px;align-items:flex-end">
+               <span class="h" style="font-size:330px;line-height:.8">${FACTS.rating}</span>
+               <span class="body" style="font-size:44px;font-weight:600;color:var(--ink);padding-bottom:22px;max-width:420px;line-height:1.15">${p.reviews}</span>
+             </div>
+             <p class="body" style="font-size:32px;margin-top:56px">${p.lead}</p>
+             <div class="row" style="flex-wrap:wrap;gap:16px;margin-top:20px">${chips}</div>
+           </div>
+           ${photo('sewer-line-foothill-blvd-oakland', 'left:60px;top:716px;width:348px;height:250px', '50% 25%')}
+           ${photo('commercial-water-heaters-copper', 'left:426px;top:716px;width:348px;height:250px', '50% 30%')}
+           ${photo('kitchen-sink-faucet-install', 'left:792px;top:716px;width:348px;height:250px', '50% 45%')}`
+        : `<div class="abs" style="left:60px;top:70px;right:60px;display:grid;grid-template-columns:auto 1fr;column-gap:56px;align-items:center">
+             <div>
+               ${stars(76)}
+               <span class="h" style="display:block;font-size:250px;line-height:.8;margin-top:24px">${FACTS.rating}</span>
+             </div>
+             <div>
+               <p class="body" style="font-size:40px;font-weight:600;color:var(--ink);line-height:1.15">${p.reviews}</p>
+               <p class="body" style="font-size:28px;margin-top:40px">${p.lead}</p>
+               <div style="display:grid;gap:14px;justify-items:start;margin-top:16px">${chips}</div>
+             </div>
+           </div>
+           ${photo('sewer-line-foothill-blvd-oakland', 'left:60px;top:536px;width:348px;height:168px', '50% 22%')}
+           ${photo('commercial-water-heaters-copper', 'left:426px;top:536px;width:348px;height:168px', '50% 28%')}
+           ${photo('kitchen-sink-faucet-install', 'left:792px;top:536px;width:348px;height:168px', '50% 45%')}`;
+    },
+    // 3. Free estimates, the price first (a real sequence, so it's numbered)
+    estimates: (c, v) => {
+      const p = c.estimates;
+      const steps = (size) => p.steps.map(([t, d], i) => `<div class="step"><span class="num" style="width:${size * 1.25}px;height:${size * 1.25}px;font-size:${size * 0.82}px">${i + 1}</span><div><p class="stitle" style="font-size:${size}px">${t}</p><p class="sdesc" style="font-size:${size * 0.54}px">${d}</p></div></div>`).join('');
+      return v === 's'
+        ? `<p class="h abs" style="left:60px;top:70px;right:60px;font-size:100px">${p.h}</p>
+           <div class="abs" style="left:60px;top:330px;width:620px;height:630px;display:flex;flex-direction:column;justify-content:center;gap:56px">${steps(52)}</div>
+           ${photo('commercial-water-heaters-copper', 'left:712px;top:330px;width:428px;height:630px', '50% 32%')}`
+        : `${photo('commercial-water-heaters-copper', 'left:60px;top:60px;width:400px;height:640px', '50% 30%')}
+           ${rightCol(504, `
+             <p class="h" style="font-size:80px">${p.hL}</p>
+             <div style="display:grid;gap:30px;margin-top:40px">${steps(42)}</div>`)}`;
+    },
+    // 4. Coverage map, drawn from the site's map data
+    map: (c, v) => {
+      const p = c.map;
+      const mapW = v === 's' ? 470 : 470;
+      const regions = p.regions.map((r) => plate(r, v === 's' ? 30 : 27)).join('');
+      return v === 's'
+        ? `<p class="h abs" style="left:60px;top:66px;right:60px;font-size:96px">${p.h}</p>
+           <div class="abs" style="left:60px;top:300px;width:480px">
+             <p class="body" style="font-size:31px">${p.body}</p>
+             <div style="display:grid;justify-items:start;gap:14px;margin-top:34px">${p.regions.map((r) => plate(r, 32)).join('')}</div>
+           </div>
+           <div class="abs" style="right:60px;top:290px">${drawMap(Math.round(696 * 0.7752), c, p.base)}</div>`
+        : `<div class="abs" style="left:60px;top:70px;width:560px">
+             <p class="h" style="font-size:${c === COPY.es ? 72 : 86}px">${p.h}</p>
+             <p class="body" style="font-size:28px;margin-top:22px">${p.body}</p>
+             <div class="row" style="flex-wrap:wrap;gap:11px;margin-top:30px">${regions}</div>
+           </div>
+           <div class="abs" style="right:60px;top:60px">${drawMap(Math.round(640 * 0.775), c, p.base)}</div>`;
+    },
+    // 5. Trust: family-owned, licensed, 10+ years
+    trust: (c, v) => {
+      const p = c.trust;
+      const facts = (bh, sh, hgt) => p.facts.map(([b, s]) => `<div class="fact" style="height:${hgt}px"><div><b style="font-size:${bh}px">${b}</b><span style="font-size:${sh}px">${s}</span></div></div>`).join('');
+      return v === 's'
+        ? `${photo('sewer-line-foothill-blvd-oakland', 'left:60px;top:60px;width:1080px;height:430px', '50% 24%')}
+           ${plate(p.plate, 30, 'position:absolute;left:84px;top:410px')}
+           <p class="h abs" style="left:60px;top:528px;right:60px;font-size:104px">${p.h}</p>
+           <div class="abs" style="left:60px;right:60px;top:660px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px">${facts(56, 26, 150)}</div>
+           <p class="body abs" style="left:60px;right:60px;top:846px;font-size:31px">${p.body}</p>`
+        : `${photo('sewer-line-foothill-blvd-oakland', 'left:60px;top:60px;width:470px;height:640px', '42% 40%')}
+           ${plate(p.plate, 28, 'position:absolute;left:82px;top:628px')}
+           ${rightCol(574, `
+             <p class="h" style="font-size:90px">${p.h}</p>
+             <div style="display:grid;gap:14px;margin-top:30px">${facts(46, 23, 104)}</div>
+             <p class="body" style="font-size:26px;margin-top:22px">${p.body}</p>`)}`;
+    },
+    // 6. Services: real job photos
+    services: (c, v) => {
+      const p = c.services;
+      const tiles = (h, size) => p.tiles.map(([id, label, pos]) => `<div class="tile" style="height:${h}px">${photo(id, '', pos)}${plate(label, size)}</div>`).join('');
+      return v === 's'
+        ? `<p class="h abs" style="left:60px;top:66px;font-size:112px">${p.h}</p>
+           <div class="abs" style="left:60px;right:60px;top:210px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px">${tiles(372, 27)}</div>`
+        : `<p class="h abs" style="left:60px;top:62px;font-size:92px">${p.h}</p>
+           <div class="abs" style="left:60px;right:60px;top:180px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px">${tiles(256, 24)}</div>`;
+    },
+    // 7. New-customer offer (Google Business Profile "Offer" post)
+    offer: (c, v) => {
+      const p = c.offer;
+      const big = (size) => `<p class="h" style="font-size:${size}px;color:var(--action);line-height:.86">${p.big}</p>`;
+      return v === 's'
+        ? `<div class="abs" style="left:60px;top:78px;right:60px">
+             <p class="h" style="font-size:66px;color:rgba(255,255,255,.88)">${p.kicker}</p>
+             ${big(c === COPY.es ? 170 : 250)}
+             <p class="h" style="font-size:92px;margin-top:10px">${p.rest}</p>
+             <p class="body" style="font-size:32px;margin-top:22px">${p.note}</p>
+           </div>
+           ${photo('kitchen-sink-faucet-install', 'left:60px;top:640px;width:1080px;height:322px', '50% 42%')}`
+        : `${photo('kitchen-sink-faucet-install', 'left:60px;top:60px;width:430px;height:640px', '50% 45%')}
+           ${rightCol(540, `
+             <p class="h" style="font-size:58px;color:rgba(255,255,255,.88)">${p.kicker}</p>
+             ${big(c === COPY.es ? 128 : 190)}
+             <p class="h" style="font-size:72px;margin-top:8px">${p.rest}</p>
+             <p class="body" style="font-size:28px;margin-top:22px">${p.note}</p>`)}`;
+    },
+    // 8. Camera inspection
+    camera: (c, v) => {
+      const p = c.camera;
+      return v === 's'
+        ? `${photo('sewer-lateral-street-patch', 'left:60px;top:60px;width:1080px;height:520px', '50% 62%')}
+           <div class="abs" style="left:60px;top:620px;right:60px">
+             <p class="h" style="font-size:104px">${p.h}</p>
+             <p class="body" style="font-size:33px;margin-top:22px;max-width:980px">${p.body}</p>
+           </div>`
+        : `${photo('sewer-lateral-street-patch', 'left:60px;top:60px;width:470px;height:640px', '50% 55%')}
+           ${rightCol(574, `
+             <p class="h" style="font-size:88px">${p.hL}</p>
+             <p class="body" style="font-size:30px;margin-top:26px">${p.body}</p>`)}`;
+    },
+    // 9. Water heaters
+    heaters: (c, v) => {
+      const p = c.heaters;
+      const chips = (size) => `<div class="row" style="flex-wrap:wrap;gap:12px">${p.chips.map((t) => chip(t, size)).join('')}</div>`;
+      return v === 's'
+        ? `${photo('tankless-water-heater-shingle-wall', 'left:60px;top:60px;width:470px;height:520px', '50% 28%')}
+           ${photo('gas-water-heater-replacement', 'left:550px;top:60px;width:590px;height:520px', '50% 36%')}
+           <div class="abs" style="left:60px;top:612px;right:60px">
+             <p class="h" style="font-size:92px">${p.h}</p>
+             <div style="margin-top:26px">${chips(26)}</div>
+           </div>`
+        : `${photo('tankless-water-heater-shingle-wall', 'left:60px;top:60px;width:430px;height:640px', '50% 30%')}
+           ${rightCol(534, `
+             <p class="h" style="font-size:80px">${p.h}</p>
+             <div style="margin-top:34px">${chips(26)}</div>`)}`;
+    },
+  };
+
+  /** The coverage map at a given width, using the site's precomputed desktop label layout. */
+  function drawMap(w, c, baseLabel) {
+    const m = window.BAY_MAP;
+    if (!m) return '';
+    const h = Math.round((w * m.height) / m.width);
+    const k = w / m.labelSizes.desktop.width; // scale label sizes with the map so the precomputed layout still holds
+    const RINGS = [10, 25, 40];
+    const outer = 40 * m.milesToUnits;
+    const off = (tier) => (m.labelSizes.desktop.offset + (m.dotRadius[tier] * m.labelSizes.desktop.width) / m.width) * k;
+    const tf = (a, o) => {
+      const d = o * 0.75;
+      return { right: `translate(${o}px,-50%)`, left: `translate(calc(-100% - ${o}px),-50%)`, above: `translate(-50%,calc(-100% - ${o}px))`, below: `translate(-50%,${o}px)`, 'upper-right': `translate(${d}px,calc(-100% - ${d}px))`, 'lower-right': `translate(${d}px,${d}px)`, 'upper-left': `translate(calc(-100% - ${d}px),calc(-100% - ${d}px))`, 'lower-left': `translate(calc(-100% - ${d}px),${d}px)` }[a];
+    };
+    const places = { en: { pacific: ['Pacific', 'Ocean'], 'sf-bay': ['San Francisco', 'Bay'], 'san-pablo-bay': ['San Pablo', 'Bay'], 'north-bay': ['North Bay'], 'east-bay': ['East Bay'], peninsula: ['Peninsula'], 'south-bay': ['South Bay'] }, es: { pacific: ['Océano', 'Pacífico'], 'sf-bay': ['Bahía de', 'San Francisco'], 'san-pablo-bay': ['Bahía de', 'San Pablo'], 'north-bay': ['North Bay'], 'east-bay': ['East Bay'], peninsula: ['Península'], 'south-bay': ['South Bay'] } }[c === COPY.es ? 'es' : 'en'];
+    const svg = `<svg viewBox="${m.viewBox}" width="${w}" height="${h}" style="display:block">
+      <defs><clipPath id="land${w}"><path d="${m.land}"/></clipPath></defs>
+      <path d="${m.land}" fill="#edf0f2"/>
+      <circle cx="${m.base.cx}" cy="${m.base.cy}" r="${outer}" fill="#fff" clip-path="url(#land${w})"/>
+      <path d="${m.land}" fill="none" stroke="#a9bccd" stroke-width="1.2" stroke-linejoin="round"/>
+      ${RINGS.map((mi) => `<circle cx="${m.base.cx}" cy="${m.base.cy}" r="${mi * m.milesToUnits}" fill="none" stroke="#149ad6" stroke-opacity=".6" stroke-width="1.6" stroke-dasharray="6 7"/>`).join('')}
+      ${m.cities.filter((ci) => ci.dotDesktop).map((ci) => `<circle cx="${(ci.x / 100) * m.width}" cy="${(ci.y / 100) * m.height}" r="${m.dotRadius[ci.tier]}" fill="${ci.desktop ? '#0a2239' : '#5b6b7b'}" stroke="#fff" stroke-width="1.5"/>`).join('')}
+      <circle cx="${m.base.cx}" cy="${m.base.cy}" r="${m.dotRadius.base}" fill="#149ad6" stroke="#0a2239" stroke-width="3"/>
+      <circle cx="${m.base.cx}" cy="${m.base.cy}" r="3.5" fill="#fff"/>
+    </svg>`;
+    const labels = m.cities.filter((ci) => ci.desktop).map((ci) => `<span class="abs map-label" style="left:${ci.x}%;top:${ci.y}%;font-family:'Barlow Condensed';font-weight:${ci.tier === 'major' ? 600 : 500};font-size:${m.labelSizes.desktop[ci.tier] * k}px;line-height:1;white-space:nowrap;color:#0a2239;transform:${tf(ci.desktop, off(ci.tier))}">${ci.name}</span>`).join('');
+    const placeLabels = m.places.filter((pl) => pl.desktop).map((pl) => `<span class="abs ${pl.kind === 'water' ? 'map-water' : 'map-label'}" style="left:${pl.x}%;top:${pl.y}%;font-family:'Barlow Condensed';font-weight:${pl.kind === 'water' ? 500 : 600};font-size:${m.labelSizes.desktop.place * k}px;line-height:1.1;white-space:nowrap;color:${pl.kind === 'water' ? '#2f6c94' : '#5b6b7b'};${pl.kind === 'region' ? `letter-spacing:${m.regionTracking}em;` : ''}text-align:${pl.align === 'center' ? 'center' : 'left'};transform:${pl.align === 'center' ? 'translate(-50%,-50%)' : 'translateY(-50%)'}">${places[pl.id].map((t) => `<span style="display:block">${t}</span>`).join('')}</span>`).join('');
+    const plateHtml = `<span class="abs" style="left:${m.base.x}%;top:${m.base.y}%;transform:translate(-50%, ${18 * k}px)">${plate(baseLabel, 15 * k)}</span>`;
+    return `<div style="position:relative;width:${w}px;height:${h}px;border-radius:10px;overflow:hidden;background:#d5ebf7;border:2px solid rgba(255,255,255,.9)">${svg}${placeLabels}${labels}${plateHtml}</div>`;
+  }
+
+  const SETS = {
+    en: ['p247', 'rating', 'estimates', 'map', 'trust', 'services', 'offer', 'camera', 'heaters'],
+    es: ['espanol', 'rating', 'map', 'services', 'offer'],
+  };
+  const LIGHT = new Set(['rating']);
+
+  window.build = () => {
+    for (const lang of Object.keys(SETS)) {
+      SETS[lang].forEach((key, i) => {
+        for (const v of ['s', 'l']) {
+          const el = document.createElement('div');
+          el.className = `post${LIGHT.has(key) ? ' light' : ''}`;
+          el.lang = lang;
+          el.dataset.name = `abs-post-${String(i + 1).padStart(2, '0')}-${key}-${lang}-${v === 's' ? '1200x1200' : '1200x900'}`;
+          el.style.width = '1200px';
+          el.style.height = v === 's' ? '1200px' : '900px';
+          el.innerHTML = POSTS[key](COPY[lang], v) + foot(COPY[lang], v, LIGHT.has(key));
+          document.body.appendChild(el);
+        }
+      });
+    }
+    return document.querySelectorAll('.post').length;
+  };
+</script>
+</body>
+</html>

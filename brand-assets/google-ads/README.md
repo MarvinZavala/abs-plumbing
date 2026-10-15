@@ -28,6 +28,20 @@ landing page, where the estimate form is.
   descriptions you type in Google Ads carry the message.
 - Logos: `abs-logo-1200x1200.png` (square) and `abs-logo-1200x300.png` (landscape).
 
+## `posts/`: designed posts
+
+One message per post, all from verified facts: open 24/7, the 4.9 rating from 677 Yelp reviews, free estimates
+with the price first, the whole Bay Area (drawn from the site's coverage map), family-owned and licensed with
+10+ years, what we fix (real job photos), the 10% new-customer offer, camera inspection and water heaters.
+Nine in English, five in Spanish. Open `posts-overview.jpg` to see them all.
+
+- `*-1200x900.jpg` (4:3): **Google Business Profile** posts ("Add update", or "Add offer" for the 10% post).
+- `*-1200x1200.jpg` (1:1): **Google Ads** image assets (Performance Max / Demand Gen) and social media. Google may
+  show designs with text less often than plain photos in those campaigns, so upload them next to the text-free
+  photos in `responsive/` and let Google pick.
+- The rating posts name Yelp as the source (it would be misleading otherwise). If Google Ads flags one for the
+  trademark, keep it for the Business Profile only.
+
 ## Before they run
 
 - **CSLB license number.** California requires contractors to show their license number in all advertising.
@@ -43,4 +57,5 @@ landing page, where the estimate form is.
 ```bash
 node brand-assets/google-ads/src/render.mjs      # display/ banners, logos and overview.jpg (needs Chrome + internet for fonts)
 node brand-assets/google-ads/src/responsive.mjs  # responsive/ photo crops
+node brand-assets/google-ads/src/posts-render.mjs  # posts/ (drawn at 2x, then downsized)
 ```
