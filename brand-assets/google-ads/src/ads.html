@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AB’s Plumbing display ads</title>
+<!--
+  Google Ads display banners (uploaded image ads), English and Spanish.
+  Each .ad is screenshotted at its exact size by render.mjs. Facts come from src/content/business.ts;
+  update COPY below if the rating, review count, offer or license change, then re-render.
+  The street-sign panel (ink with an inset white rule) is the site's PlacePlate motif.
+-->
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&family=Barlow+Condensed:wght@500;600;700&display=block" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a2239;
+    --ink-soft: #16324f;
+    --action: #149ad6;
+    --star: #f2a900;
+    --go: #2bb36b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #d3d9df; font-family: Barlow, sans-serif; padding: 32px; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+  .ad { position: relative; overflow: hidden; background: var(--ink); color: #fff; flex: none; -webkit-font-smoothing: antialiased; }
+  .photo { position: absolute; background-size: cover; background-repeat: no-repeat; filter: contrast(1.06) saturate(1.08); }
+  /* Street sign: ink panel with an inset white rule, like the plates on the site and in the crew's job photos. */
+  .sign { position: absolute; background: var(--ink); }
+  .sign::before { content: ""; position: absolute; inset: var(--inset, 5px); border: 2px solid rgba(255, 255, 255, 0.92); border-radius: var(--r, 4px); pointer-events: none; }
+  .logo { background: #fff; border-radius: 6px; display: grid; place-items: center; flex: none; }
+  .logo img { width: 88%; height: 88%; object-fit: contain; }
+  .brand { font-family: 'Barlow Condensed'; font-weight: 700; line-height: 1; white-space: nowrap; }
+  .sub { font-weight: 500; color: rgba(255, 255, 255, 0.78); line-height: 1.1; white-space: nowrap; }
+  .h { font-family: 'Barlow Condensed'; font-weight: 700; line-height: 0.98; letter-spacing: -0.005em; text-wrap: balance; }
+  .cta { display: inline-flex; align-items: center; justify-content: center; background: var(--action); color: var(--ink); font-family: 'Barlow Condensed'; font-weight: 700; border-radius: 8px; white-space: nowrap; line-height: 1; }
+  .rating { display: inline-flex; align-items: center; gap: 0.4em; white-space: nowrap; line-height: 1; }
+  .rating b { font-family: 'Barlow Condensed'; font-weight: 700; font-size: 1.35em; }
+  .rating .count { color: rgba(255, 255, 255, 0.78); font-weight: 500; }
+  .stars { display: inline-flex; gap: 0.06em; color: var(--star); }
+  .stars svg { width: 1em; height: 1em; display: block; }
+  .open { display: inline-flex; align-items: center; gap: 0.45em; font-weight: 600; color: rgba(255, 255, 255, 0.9); white-space: nowrap; line-height: 1; }
+  .dot { width: 0.6em; height: 0.6em; border-radius: 50%; background: var(--go); box-shadow: 0 0 0 0.2em rgba(43, 179, 107, 0.28); flex: none; }
+  .plate { position: absolute; background: var(--ink); border-radius: 5px; padding: 3px; }
+  .plate span { display: block; border: 1.5px solid rgba(255, 255, 255, 0.92); border-radius: 3px; padding: 0.3em 0.6em; font-family: 'Barlow Condensed'; font-weight: 600; line-height: 1; white-space: nowrap; }
+  .checks { list-style: none; display: grid; gap: 0.5em; }
+  .checks li { display: flex; align-items: center; gap: 0.5em; font-weight: 600; line-height: 1.1; white-space: nowrap; }
+  .checks svg { width: 1.05em; height: 1.05em; color: var(--action); flex: none; }
+  .offer { font-weight: 600; color: #fff; line-height: 1.2; }
+  .offer em { font-style: normal; color: var(--star); }
+  .phone { font-family: 'Barlow Condensed'; font-weight: 700; line-height: 1; white-space: nowrap; }
+  .lic { font-weight: 500; color: rgba(255, 255, 255, 0.6); line-height: 1; white-space: nowrap; }
+  .row { display: flex; align-items: center; }
+  .between { justify-content: space-between; }
+</style>
+</head>
+<body>
+<script>
+  const ASSETS = {
+    logo: '../../abslogo-original.png',
+    crew: '../../../src/assets/work/sewer-line-foothill-blvd-oakland.jpg',
+    copper: '../../../src/assets/work/commercial-water-heaters-copper.jpg',
+  };
+  // Facts mirror src/content/business.ts. license: CSLB number; California requires it in all advertising.
+  const FACTS = { rating: '4.9', reviews: 677, phone: '(510) 753-8649', license: null };
+  // ?license=… overrides it, only to preview layouts (render.mjs --license); never ship a made-up number.
+  FACTS.license = new URLSearchParams(location.search).get('license') ?? FACTS.license;
+  const COPY = {
+    en: {
+      brand: 'AB’s Plumbing',
+      tag: 'Oakland, open 24/7',
+      open: 'Open 24/7',
+      headline: 'Plumbing problem? Our crew picks up 24/7.',
+      q: 'Plumbing problem?',
+      a: 'Our crew picks\u00a0up 24/7.', // keep "picks up" together on narrow banners
+      headlineShort: 'Plumber open 24/7',
+      sub: 'Leaks, clogs, water heaters and sewer lines across the Bay Area.',
+      checks: ['Open 24/7, nights and weekends', 'Free estimates, price up front', 'Licensed and insured'],
+      reviews: `${FACTS.reviews} reviews`,
+      ratingFrom: `${FACTS.rating} from ${FACTS.reviews} reviews`,
+      offer: 'New customers: <em>10% off</em> the first service',
+      offerShort: '<em>10% off</em> for new customers',
+      cta: 'Get a free estimate',
+      ctaShort: 'Free estimate',
+      call: 'Call 24/7',
+      plate: 'Oakland',
+      lic: (n) => `CA Lic. #${n}`,
+    },
+    es: {
+      brand: 'AB’s Plumbing',
+      tag: 'Oakland, abierto 24/7',
+      open: 'Abierto 24/7',
+      headline: '¿Problemas de plomería? Nuestro equipo contesta 24/7.',
+      q: '¿Problemas de plomería?',
+      a: 'Nuestro equipo contesta 24/7.',
+      headlineShort: 'Plomero abierto 24/7',
+      sub: 'Fugas, drenajes tapados, calentadores y líneas de drenaje en toda la Bahía.',
+      checks: ['Hablamos español', 'Abierto 24/7, noche y fin de semana', 'Cotización gratis, precio primero'],
+      reviews: `${FACTS.reviews} reseñas`,
+      ratingFrom: `${FACTS.rating} de ${FACTS.reviews} reseñas`,
+      offer: 'Clientes nuevos: <em>10% de descuento</em>',
+      offerShort: '<em>10% de descuento</em> a clientes nuevos',
+      cta: 'Pida su cotización gratis',
+      ctaShort: 'Cotizar gratis',
+      call: 'Llame 24/7',
+      plate: 'Oakland',
+      lic: (n) => `Lic. CA #${n}`,
+    },
+  };
+
+  const STAR = '<svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8L10 1.6z"/></svg>';
+  const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+  const stars = (size) => `<span class="stars" style="font-size:${size}px">${STAR.repeat(5)}</span>`;
+  const logo = (size, radius = 6) => `<div class="logo" style="width:${size}px;height:${size}px;border-radius:${radius}px"><img src="${ASSETS.logo}" alt=""></div>`;
+  const rating = (c, size, starSize) => `<span class="rating" style="font-size:${size}px"><b>${FACTS.rating}</b>${stars(starSize)}<span class="count">${c.reviews}</span></span>`;
+  const open = (c, size) => `<span class="open" style="font-size:${size}px"><span class="dot"></span>${c.open}</span>`;
+  const plate = (c, size, pos) => `<div class="plate" style="${pos}"><span style="font-size:${size}px">${c.plate}</span></div>`;
+  const lic = (c, size) => (FACTS.license ? `<span class="lic" style="font-size:${size}px">${c.lic(FACTS.license)}</span>` : '');
+  // License as a small ink chip on a photo corner.
+  const licChip = (c, size, pos) =>
+    FACTS.license ? `<span class="lic" style="position:absolute;${pos};font-size:${size}px;background:rgba(10,34,57,.88);color:#fff;padding:3px 6px;border-radius:4px">${c.lic(FACTS.license)}</span>` : '';
+  // Break after the question so the headline never splits mid-phrase ("Our crew picks / up 24/7").
+  const hl = (c) => `${c.q}<br>${c.a}`;
+  const photo = (src, style) => `<div class="photo" style="background-image:url('${src}');${style}"></div>`;
+
+  const ADS = {
+    // Medium rectangle: photo on top, street sign below.
+    '300x250': (c, l) => `
+      ${photo(ASSETS.crew, 'left:0;top:0;width:300px;height:116px;background-position:50% 16%')}
+      ${plate(c, 12, 'left:9px;top:84px')}
+      ${licChip(c, 9.5, 'right:8px;top:8px')}
+      <div class="sign" style="left:0;bottom:0;width:300px;height:134px;--inset:5px;padding:14px 15px 0">
+        <div class="row between">
+          <div class="row" style="gap:7px">${logo(24, 5)}<span class="brand" style="font-size:16px">${c.brand}</span></div>
+          ${open(c, 10.5)}
+        </div>
+        <p class="h" style="font-size:${l === 'es' ? 18.5 : 20.5}px;margin-top:7px">${hl(c)}</p>
+        <div class="row between" style="margin-top:8px">
+          ${rating(c, 11, 11)}
+          <span class="cta" style="font-size:14px;height:27px;padding:0 11px">${c.ctaShort}</span>
+        </div>
+      </div>`,
+    // Large rectangle.
+    '336x280': (c, l) => `
+      ${photo(ASSETS.crew, 'left:0;top:0;width:336px;height:128px;background-position:50% 16%')}
+      ${plate(c, 13, 'left:10px;top:94px')}
+      ${licChip(c, 10, 'right:9px;top:9px')}
+      <div class="sign" style="left:0;bottom:0;width:336px;height:152px;--inset:5px;padding:16px 17px 0">
+        <div class="row between">
+          <div class="row" style="gap:8px">${logo(27, 5)}<span class="brand" style="font-size:17.5px">${c.brand}</span></div>
+          ${open(c, 11.5)}
+        </div>
+        <p class="h" style="font-size:${l === 'es' ? 21 : 23}px;margin-top:8px">${hl(c)}</p>
+        <div class="row between" style="margin-top:10px">
+          ${rating(c, 12, 12)}
+          <span class="cta" style="font-size:15.5px;height:30px;padding:0 13px">${l === 'es' ? c.ctaShort : c.cta}</span>
+        </div>
+      </div>`,
+    // Leaderboard: the whole banner is a long street sign.
+    '728x90': (c, l) => `
+      <div class="sign row" style="inset:0;--inset:4px;padding:0 18px 0 16px;gap:16px">
+        ${logo(56, 7)}
+        <div style="display:grid;gap:5px">
+          <span class="brand" style="font-size:21px">${c.brand}</span>
+          ${open(c, 11.5)}
+          ${lic(c, 9.5)}
+        </div>
+        <span style="width:1px;height:50px;background:rgba(255,255,255,.28);flex:none"></span>
+        <p class="h" style="font-size:${l === 'es' ? 19.5 : 21.5}px">${hl(c)}</p>
+        <div style="margin-left:auto;display:grid;gap:7px;justify-items:end">
+          ${rating(c, 11, 11)}
+          <span class="cta" style="font-size:16px;height:32px;padding:0 14px">${c.cta}</span>
+        </div>
+      </div>`,
+    // Mobile banner: a small street sign.
+    '320x50': (c, l) => `
+      <div class="sign row" style="inset:0;--inset:3px;--r:3px;padding:0 8px 0 8px;gap:8px">
+        ${logo(32, 4)}
+        <div style="display:grid;gap:4px">
+          <span class="brand" style="font-size:15.5px">${c.brand}</span>
+          <span class="row" style="gap:7px">${open(c, 9.5)}${FACTS.license ? lic(c, 9) : `<span class="row" style="gap:4px">${stars(8.5)}<span class="sub" style="font-size:9.5px;font-weight:600;color:#fff">${FACTS.rating}</span></span>`}</span>
+        </div>
+        <span class="cta" style="margin-left:auto;font-size:13px;height:27px;padding:0 9px;border-radius:6px">${c.ctaShort}</span>
+      </div>`,
+    // Large mobile banner.
+    '320x100': (c, l) => `
+      <div class="sign" style="inset:0;--inset:4px;padding:12px 13px 0">
+        <div class="row between">
+          <div class="row" style="gap:7px">${logo(26, 5)}<span class="brand" style="font-size:16px">${c.brand}</span></div>
+          ${rating(c, 10.5, 10)}
+        </div>
+        <div class="row between" style="margin-top:9px;gap:10px">
+          <p class="h" style="font-size:${l === 'es' ? 15.5 : 17.5}px">${hl(c)}</p>
+          <span class="cta" style="font-size:13.5px;height:29px;padding:0 10px;flex:none">${c.ctaShort}</span>
+        </div>
+        ${FACTS.license ? `<div style="position:absolute;right:13px;bottom:9px">${lic(c, 8.5)}</div>` : ''}
+      </div>`,
+    // Half page: photo, then a full street sign with proof points.
+    '300x600': (c, l) => `
+      ${photo(ASSETS.crew, 'left:0;top:0;width:300px;height:224px;background-position:50% 20%')}
+      ${plate(c, 14, 'left:11px;top:186px')}
+      <div class="sign" style="left:0;bottom:0;width:300px;height:376px;--inset:6px;padding:20px 20px 0">
+        <div class="row between">
+          <div class="row" style="gap:8px">${logo(30, 6)}<span class="brand" style="font-size:19px">${c.brand}</span></div>
+          ${open(c, 11.5)}
+        </div>
+        <p class="h" style="font-size:${l === 'es' ? 25.5 : 30}px;margin-top:13px">${hl(c)}</p>
+        <ul class="checks" style="font-size:13px;margin-top:13px">${c.checks.map((t) => `<li>${CHECK}${t}</li>`).join('')}</ul>
+        <div style="margin-top:14px">${rating(c, 12.5, 13)}</div>
+        <p class="offer" style="font-size:12.5px;margin-top:11px">${c.offer}</p>
+        <span class="cta" style="display:flex;font-size:19px;height:42px;margin-top:13px">${c.cta}</span>
+        <div class="row between" style="margin-top:11px">
+          <span class="phone" style="font-size:16px"><span style="color:rgba(255,255,255,.7);font-weight:600">${c.call}</span> ${FACTS.phone}</span>
+          ${lic(c, 10)}
+        </div>
+      </div>`,
+    // Wide skyscraper.
+    '160x600': (c, l) => `
+      <div class="sign" style="inset:0;--inset:5px"></div>
+      <div style="position:absolute;left:0;right:0;top:20px;display:grid;justify-items:center;gap:8px">
+        ${logo(58, 8)}
+        <span class="brand" style="font-size:19px">${c.brand}</span>
+        ${open(c, 11)}
+        ${lic(c, 9.5)}
+      </div>
+      ${photo(ASSETS.copper, 'left:12px;top:150px;width:136px;height:170px;border-radius:3px;background-position:50% 30%')}
+      <div style="position:absolute;left:16px;right:16px;top:336px">
+        <p class="h" style="font-size:${l === 'es' ? 20 : 22.5}px">${hl(c)}</p>
+        <div style="margin-top:12px;font-size:11px;display:grid;gap:6px">
+          ${stars(14)}
+          <span class="rating" style="font-size:11px"><b>${FACTS.rating}</b><span class="count">${c.reviews}</span></span>
+        </div>
+        <p class="offer" style="font-size:11.5px;margin-top:12px">${c.offerShort}</p>
+      </div>
+      <span class="cta" style="position:absolute;left:16px;right:16px;bottom:40px;font-size:${l === 'es' ? 15 : 16}px;height:38px">${c.ctaShort}</span>
+      <span class="phone" style="position:absolute;left:0;right:0;bottom:19px;text-align:center;font-size:13px">${FACTS.phone}</span>`,
+    // Billboard: photo left, street sign right.
+    '970x250': (c, l) => `
+      ${photo(ASSETS.crew, 'left:0;top:0;width:390px;height:250px;background-position:50% 22%')}
+      ${plate(c, 15, 'left:14px;bottom:14px')}
+      ${licChip(c, 11, 'left:14px;top:14px')}
+      <div class="sign" style="left:390px;top:0;width:580px;height:250px;--inset:6px;padding:24px 28px 0">
+        <div class="row between">
+          <div class="row" style="gap:10px">${logo(34, 6)}<span class="brand" style="font-size:22px">${c.brand}</span></div>
+          ${open(c, 13)}
+        </div>
+        <p class="h" style="font-size:${l === 'es' ? 33 : 37}px;margin-top:14px">${hl(c)}</p>
+        <div class="row" style="margin-top:14px;gap:18px;font-size:12.5px">${c.checks.map((t) => `<span class="row" style="gap:6px;font-weight:600;white-space:nowrap">${CHECK.replace('<svg', '<svg style="width:14px;height:14px;color:#149ad6"')}${t.split(',')[0]}</span>`).join('')}</div>
+        <div class="row between" style="margin-top:18px">
+          <div style="display:grid;gap:7px">${rating(c, 13, 14)}<p class="offer" style="font-size:12.5px">${c.offer}</p></div>
+          <span class="cta" style="font-size:20px;height:44px;padding:0 20px">${c.cta}</span>
+        </div>
+      </div>`,
+  };
+
+  // Logo assets for responsive display / Performance Max: square (1:1) and landscape (4:1), on white.
+  const LOGOS = {
+    'logo-1200x1200': () => `<div style="position:absolute;inset:0;background:#fff;display:grid;place-items:center"><img src="${ASSETS.logo}" alt="" style="width:76%;height:76%;object-fit:contain"></div>`,
+    'logo-1200x300': () => `<div class="row" style="position:absolute;inset:0;background:#fff;padding:0 70px;gap:36px">
+        <img src="${ASSETS.logo}" alt="" style="width:236px;height:236px;object-fit:contain">
+        <div style="display:grid;gap:12px">
+          <span class="brand" style="font-size:96px;color:var(--ink)">AB’s Plumbing <span style="color:#0670b8">Services</span></span>
+          <span style="font-size:34px;font-weight:600;color:#3a4b5c;line-height:1">Oakland, open 24/7</span>
+        </div>
+      </div>`,
+  };
+  for (const [name, build] of Object.entries(LOGOS)) {
+    const [w, h] = name.split('-')[1].split('x').map(Number);
+    const el = document.createElement('div');
+    el.className = 'ad';
+    el.dataset.name = `abs-${name}`;
+    el.dataset.folder = 'responsive';
+    el.style.cssText = `width:${w}px;height:${h}px;background:#fff`;
+    el.innerHTML = build();
+    document.body.appendChild(el);
+  }
+
+  for (const lang of ['en', 'es']) {
+    for (const [size, build] of Object.entries(ADS)) {
+      const [w, h] = size.split('x').map(Number);
+      const el = document.createElement('div');
+      el.className = 'ad';
+      el.dataset.name = `abs-${size}-${lang}`;
+      el.lang = lang;
+      el.style.width = `${w}px`;
+      el.style.height = `${h}px`;
+      el.innerHTML = build(COPY[lang], lang);
+      document.body.appendChild(el);
+    }
+  }
+</script>
+</body>
+</html>
