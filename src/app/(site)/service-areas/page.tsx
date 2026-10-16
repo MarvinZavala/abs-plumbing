@@ -9,7 +9,7 @@ import { photoById } from '@/content/work';
 import { breadcrumbJsonLd } from '@/lib/structured-data';
 
 export const metadata: Metadata = {
-  title: 'Service Areas: Plumber in Oakland, San Francisco & the Bay Area',
+  title: 'Plumber in Oakland, San Francisco & Bay Area',
   description:
     'AB’s Plumbing is based in Oakland and serves the whole Bay Area: San Francisco, Marin, the Peninsula, the East Bay and San Jose. Open 24/7.',
   alternates: { canonical: '/service-areas' },

@@ -8,6 +8,8 @@ const OFFER_PERCENT = 10;
 export const business = {
   name: 'AB’s Plumbing Services',
   shortName: 'AB’s Plumbing',
+  /** Appended to every page title. Short, so the keywords before it fit in a Google result. */
+  titleSuffix: ' | AB’s Plumbing',
   phone: {
     display: '(510) 753-8649',
     e164: '+15107538649',

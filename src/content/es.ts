@@ -47,7 +47,7 @@ const bySlug: Record<ServiceSlug, Omit<ServiceEs, 'slug' | 'slugEs'>> = {
       { title: 'El precio antes del trabajo', body: 'Le explicamos qué falla y cuánto cuesta antes de empezar la reparación.' },
     ],
     seo: {
-      title: 'Plomero de emergencia 24/7 en Oakland y la Bahía',
+      title: 'Plomero de emergencia 24/7 en Oakland',
       description:
         '¿Tubería rota, drenaje que se regresa o sin agua caliente? Abierto 24 horas, los 7 días. Hablamos español. 4.9 estrellas en Yelp. Llame al (510) 753-8649.',
     },
@@ -71,7 +71,7 @@ const bySlug: Record<ServiceSlug, Omit<ServiceEs, 'slug' | 'slugEs'>> = {
       { title: 'Inspección con cámara', body: 'Le mostramos en la pantalla dónde la línea está rota, hundida o llena de raíces.' },
     ],
     seo: {
-      title: 'Destape de drenajes y hydro-jetting en Oakland y la Bahía',
+      title: 'Destape de drenajes en Oakland y la Bahía',
       description:
         'Destapamos fregaderos, tinas, inodoros y líneas principales, con cámara cuando el tapón regresa. Abierto 24/7. Hablamos español. Llame al (510) 753-8649.',
     },
@@ -98,7 +98,7 @@ const bySlug: Record<ServiceSlug, Omit<ServiceEs, 'slug' | 'slugEs'>> = {
       { title: 'Según el código', body: 'Correas sísmicas, ventilación y conexiones de gas y agua bien hechas desde la primera vez.' },
     ],
     seo: {
-      title: 'Reparación y cambio de calentadores de agua en Oakland',
+      title: 'Calentadores de agua: reparación en Oakland',
       description:
         '¿Sin agua caliente? Reparamos y cambiamos calentadores de tanque y sin tanque (tankless), según el código. Hablamos español. Llame al (510) 753-8649.',
     },
@@ -122,7 +122,7 @@ const bySlug: Record<ServiceSlug, Omit<ServiceEs, 'slug' | 'slugEs'>> = {
       { title: 'Terminado limpio', body: 'Rellenamos las zanjas y dejamos el lugar limpio al irnos.' },
     ],
     seo: {
-      title: 'Reparación y cambio de líneas de drenaje en Oakland',
+      title: 'Reparación de líneas de drenaje en Oakland',
       description:
         '¿Se regresa el drenaje o hay raíces en la línea? Revisamos con cámara y reparamos o cambiamos su línea lateral. Abierto 24/7. Hablamos español.',
     },
@@ -149,7 +149,7 @@ const bySlug: Record<ServiceSlug, Omit<ServiceEs, 'slug' | 'slugEs'>> = {
       { title: 'Presión y calidad del agua', body: 'Reguladores de presión, filtros para toda la casa y suavizadores de agua.' },
     ],
     seo: {
-      title: 'Reparación de fugas y líneas de agua en Oakland',
+      title: 'Reparación de fugas de agua en Oakland',
       description:
         'Fugas, cambio de líneas de agua y reguladores de presión. 4.9 estrellas de 677 reseñas en Yelp. Hablamos español. Llame al (510) 753-8649, abierto 24/7.',
     },
@@ -175,7 +175,7 @@ const bySlug: Record<ServiceSlug, Omit<ServiceEs, 'slug' | 'slugEs'>> = {
       { title: 'Con cubrezapatos', body: 'Tratamos su cocina y su baño como si fueran nuestros, y limpiamos al terminar.' },
     ],
     seo: {
-      title: 'Reparación de inodoros, llaves y trituradores en Oakland',
+      title: 'Inodoros, llaves y trituradores en Oakland',
       description:
         '¿Inodoro que no para, llave que gotea o triturador descompuesto? Reparamos e instalamos, a menudo el mismo día. Hablamos español. (510) 753-8649.',
     },

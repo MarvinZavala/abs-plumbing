@@ -7,7 +7,7 @@ import { serviceBySlug, type ServiceSlug } from '@/content/services';
 import { photoById, work } from '@/content/work';
 
 export const metadata: Metadata = {
-  title: 'Our Work: Real Plumbing Jobs Around the Bay Area',
+  title: 'Our Work: Real Plumbing Jobs in the Bay Area',
   description:
     'Photos from real AB’s Plumbing jobs: tankless and tank water heaters, sewer laterals, drain lines, water lines and fixtures across the Bay Area.',
   alternates: { canonical: '/gallery' },

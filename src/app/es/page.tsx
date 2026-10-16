@@ -13,7 +13,7 @@ import { moreServicesEs } from '@/content/es';
 import { languageAlternates } from '@/lib/i18n-routes';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Plomero 24/7 en Oakland y la Bahía | AB’s Plumbing Services' },
+  title: { absolute: `Plomero 24/7 en Oakland y la Bahía${business.titleSuffix}` },
   description: `Plomeros de Oakland, abiertos 24/7: fugas, drenajes tapados, calentadores de agua y líneas de drenaje en toda la Bahía. Hablamos español. Llame al ${business.phone.display}.`,
   alternates: { canonical: '/es', languages: languageAlternates('/', '/es') },
 };

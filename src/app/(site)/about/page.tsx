@@ -7,7 +7,7 @@ import { WorkGrid } from '@/components/work-grid';
 import { photoById } from '@/content/work';
 
 export const metadata: Metadata = {
-  title: 'About Our Crew',
+  title: 'About Our Oakland Plumbing Crew',
   description:
     'AB’s Plumbing is a family-owned plumbing company from Oakland, on call 24/7 across the Bay Area. Licensed, insured, 4.9 stars on Yelp.',
   alternates: { canonical: '/about' },

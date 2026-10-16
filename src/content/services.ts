@@ -62,7 +62,7 @@ export const services: Service[] = [
     featuredReviews: ['mary-s', 'jeffrey-j', 'natalye-b', 'james-p'],
     photos: ['sewer-lateral-street-patch', 'commercial-kitchen-drain-line', 'water-line-trench-front-yard'],
     seo: {
-      title: '24/7 Emergency Plumber in Oakland & the Bay Area',
+      title: '24/7 Emergency Plumber in Oakland & Bay Area',
       description:
         'Burst pipe, sewer backup or no hot water? AB’s Plumbing is open 24 hours, 7 days. 4.9 stars from 677 Yelp reviews. Call (510) 753-8649.',
     },
@@ -89,7 +89,7 @@ export const services: Service[] = [
     featuredReviews: ['claude-q', 'jeff-j', 'jeffrey-j', 'michelle-y'],
     photos: ['kitchen-sink-drain-disposal', 'commercial-kitchen-drain-line', 'apartment-complex-new-line'],
     seo: {
-      title: 'Drain Cleaning & Hydro-Jetting in Oakland & the Bay Area',
+      title: 'Drain Cleaning & Hydro-Jetting in Oakland',
       description:
         'Clogged sink, tub, toilet or main line cleared fast, with camera inspection when it keeps coming back. Open 24/7. Call AB’s Plumbing at (510) 753-8649.',
     },
@@ -121,7 +121,7 @@ export const services: Service[] = [
       'rheem-tankless-insulated-lines',
     ],
     seo: {
-      title: 'Water Heater Repair & Replacement in Oakland & the Bay Area',
+      title: 'Water Heater Repair & Replacement in Oakland',
       description:
         'No hot water? AB’s Plumbing repairs and replaces tank and tankless water heaters, installed to code. 4.9 stars on Yelp. Call (510) 753-8649.',
     },
@@ -153,7 +153,7 @@ export const services: Service[] = [
       'apartment-complex-new-line',
     ],
     seo: {
-      title: 'Sewer Line Repair & Replacement in Oakland & the Bay Area',
+      title: 'Sewer Line Repair & Replacement in Oakland',
       description:
         'Sewer backup or roots in the line? We inspect with a camera and repair or replace your sewer lateral. Open 24/7. Call AB’s Plumbing at (510) 753-8649.',
     },
@@ -180,7 +180,7 @@ export const services: Service[] = [
     featuredReviews: ['seiji-n', 'ahmer-s', 'avi-j', 'connie-b'],
     photos: ['water-line-trench-front-yard', 'outdoor-faucet-water-line', 'whole-house-water-filter', 'water-softener-install'],
     seo: {
-      title: 'Leak Repair & Water Line Replacement in Oakland & the Bay Area',
+      title: 'Leak & Water Line Repair in Oakland, CA',
       description:
         'Pipe leaks, water line replacement and pressure regulators by AB’s Plumbing. 4.9 stars from 677 Yelp reviews. Call (510) 753-8649, open 24/7.',
     },
@@ -206,7 +206,7 @@ export const services: Service[] = [
     featuredReviews: ['robert-w', 'jackie-r', 'cola-c', 'sam-i'],
     photos: ['kitchen-sink-faucet-install', 'toilet-install', 'kitchen-sink-drain-disposal'],
     seo: {
-      title: 'Toilet, Faucet & Garbage Disposal Repair in Oakland & the Bay Area',
+      title: 'Toilet, Faucet & Disposal Repair in Oakland',
       description:
         'Running toilet, leaky faucet or broken disposal? AB’s Plumbing repairs and installs fixtures, often same day. Call (510) 753-8649, open 24/7.',
     },

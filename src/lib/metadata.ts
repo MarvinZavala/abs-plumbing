@@ -4,12 +4,12 @@ import type { Locale } from '@/content/i18n';
 import { siteUrl } from '@/lib/site';
 
 const titles: Record<Locale, string> = {
-  en: 'AB’s Plumbing Services | 24/7 Plumber in Oakland & the Bay Area',
-  es: 'AB’s Plumbing Services | Plomero 24/7 en Oakland y la Bahía',
+  en: `24/7 Plumber in Oakland & the Bay Area${business.titleSuffix}`,
+  es: `Plomero 24/7 en Oakland y la Bahía${business.titleSuffix}`,
 };
 
 const descriptions: Record<Locale, string> = {
-  en: `Family-owned plumbing crew from Oakland, open 24/7 for leaks, clogs, water heaters and sewer lines across the Bay Area. ${business.yelp.rating} stars from ${business.yelp.reviewCount} Yelp reviews. Call ${business.phone.display}.`,
+  en: `Family-owned Oakland plumbers, open 24/7 for leaks, clogs, water heaters and sewer lines across the Bay Area. ${business.yelp.rating} stars on Yelp. Call ${business.phone.display}.`,
   es: `Plomeros de Oakland, empresa familiar abierta 24/7: fugas, drenajes tapados, calentadores de agua y líneas de drenaje en toda la Bahía. Hablamos español. Llame al ${business.phone.display}.`,
 };
 
@@ -17,7 +17,7 @@ const descriptions: Record<Locale, string> = {
 export function rootMetadata(locale: Locale): Metadata {
   return {
     metadataBase: siteUrl(),
-    title: { default: titles[locale], template: '%s | AB’s Plumbing Services' },
+    title: { default: titles[locale], template: `%s${business.titleSuffix}` },
     description: descriptions[locale],
     openGraph: {
       type: 'website',

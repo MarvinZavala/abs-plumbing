@@ -7,7 +7,9 @@ import { extractSitemapUrls, indexNowBody } from '../src/lib/indexnow.ts';
 import { allCities } from '../src/content/areas.ts';
 import { bayMap } from '../src/content/bay-map.ts';
 import { faqs } from '../src/content/faqs.ts';
-import { serviceBySlug } from '../src/content/services.ts';
+import { serviceBySlug, services } from '../src/content/services.ts';
+import { servicesEs } from '../src/content/es.ts';
+import { business } from '../src/content/business.ts';
 
 const BASE = 'https://www.abs-plumbingservices.com';
 const SERVICE_URLS = [
@@ -243,5 +245,15 @@ test('the map names the main cities on phones and the requested ones on wider sc
   }
   for (const city of ['Sausalito', 'Tiburon', 'Mill Valley', 'San Rafael', 'Atherton', 'Los Altos', 'Milpitas', 'Union City']) {
     assert.ok(named('desktop').includes(city), `${city} has no name on wide screens`);
+  }
+});
+
+// --- titles ----------------------------------------------------------------
+
+test('service page titles fit in a Google result (60 characters with the brand)', () => {
+  for (const s of [...services, ...servicesEs]) {
+    const full = s.seo.title + business.titleSuffix;
+    assert.ok(full.length <= 60, `${full.length} chars: ${full}`);
+    assert.match(s.seo.title, /Oakland/, `local keyword missing: ${s.seo.title}`);
   }
 });
