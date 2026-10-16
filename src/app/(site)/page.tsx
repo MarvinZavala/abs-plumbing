@@ -24,7 +24,7 @@ export default function HomePage() {
   return (
     <>
       <HomeHero />
-      <CampaignFlyerBand placement="home-flyer" />
+      <CampaignFlyerBand placement="home-flyer" className="hidden lg:block" />
       <WorkLog />
 
       <section aria-labelledby="services-title" className="bg-white">

@@ -4,6 +4,7 @@ import fallFlyer from '@/assets/offers/fall-specials-flyer.png';
 import { business, telHref } from '@/content/business';
 import type { Locale } from '@/content/i18n';
 import { campaign, isRunning } from '@/content/offers';
+import { cn } from '@/lib/utils';
 import { TrackedLink } from './tracked-link';
 
 /** The flyer for each campaign, with the box of its "Call to claim" button in percent of the image. */
@@ -42,6 +43,7 @@ export function CampaignFlyer({
   placement,
   priority = false,
   showDetailsLink = false,
+  className,
 }: {
   locale?: Locale;
   /** For click tracking, e.g. "home-flyer". */
@@ -49,13 +51,14 @@ export function CampaignFlyer({
   /** Only when the flyer is the first big image on the page. */
   priority?: boolean;
   showDetailsLink?: boolean;
+  className?: string;
 }) {
   const flyer = flyers[campaign.id as keyof typeof flyers];
   if (!flyer || !isRunning(campaign, new Date())) return null;
   const c = copy[locale];
   const { button } = flyer;
   return (
-    <figure>
+    <figure className={className}>
       <TrackedLink
         href={telHref}
         event="call_click"
@@ -90,10 +93,18 @@ export function CampaignFlyer({
 }
 
 /** The flyer as its own band right under a hero. */
-export function CampaignFlyerBand({ locale = 'en', placement }: { locale?: Locale; placement: string }) {
+export function CampaignFlyerBand({
+  locale = 'en',
+  placement,
+  className,
+}: {
+  locale?: Locale;
+  placement: string;
+  className?: string;
+}) {
   if (!isRunning(campaign, new Date())) return null;
   return (
-    <section aria-label={campaign.heading[locale]} className="bg-white">
+    <section aria-label={campaign.heading[locale]} className={cn('bg-white', className)}>
       <div className="wrap pb-12 lg:pb-16">
         <CampaignFlyer locale={locale} placement={placement} showDetailsLink />
       </div>

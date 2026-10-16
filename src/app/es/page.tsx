@@ -27,7 +27,7 @@ export default function SpanishHomePage() {
   return (
     <>
       <HomeHero locale="es" />
-      <CampaignFlyerBand locale="es" placement="home-flyer" />
+      <CampaignFlyerBand locale="es" placement="home-flyer" className="hidden lg:block" />
 
       <section id="servicios" aria-labelledby="services-title" className="scroll-mt-20 bg-white">
         <div className="wrap grid gap-8 py-14 lg:grid-cols-[1fr_1.6fr] lg:gap-16 lg:py-20">

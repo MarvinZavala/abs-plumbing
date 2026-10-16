@@ -3,6 +3,7 @@ import { t, type Locale } from '@/content/i18n';
 import { photoById } from '@/content/work';
 import { OpenStatus, RatingLine } from './bits';
 import { CtaGroup } from './cta';
+import { CampaignFlyer } from './offer-flyer';
 import { OfferNote } from './offer-note';
 import { SpanishNote } from './spanish-note';
 
@@ -33,6 +34,8 @@ export function HomeHero({ locale = 'en' }: { locale?: Locale }) {
           <OfferNote locale={locale} className="mt-4" />
           {locale === 'en' && <SpanishNote placement="hero" className="mt-2" />}
         </div>
+        {/* Phones and tablets see the offers flyer before the photo; desktops get it as a band under the hero. */}
+        <CampaignFlyer locale={locale} placement="home-flyer" showDetailsLink className="lg:hidden" />
         <figure className="lg:col-span-5 lg:self-center">
           <Image
             src={photo.image}
