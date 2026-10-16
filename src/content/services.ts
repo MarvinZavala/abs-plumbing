@@ -165,7 +165,6 @@ export const services: Service[] = [
     ],
     featuredReviews: ['natalye-b', 'cheryl-r', 'anthony-r', 'jeff-j'],
     photos: [
-      'sewer-line-foothill-blvd-oakland',
       'sewer-line-replacement-abs',
       'roots-sewer-cleanout',
       'sewer-camera-setup',

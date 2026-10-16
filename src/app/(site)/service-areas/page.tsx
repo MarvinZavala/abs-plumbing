@@ -22,7 +22,7 @@ export default function ServiceAreasPage() {
       <PageHero
         title="Plumbers serving Oakland and the entire San Francisco Bay Area"
         lead="Our crew is based in Oakland. From there we cover San Francisco and the Peninsula, the East Bay, the South Bay, and the North Bay from Marin to Vallejo, 24 hours a day."
-        photo={photoById('sewer-line-foothill-blvd-oakland')}
+        photo={photoById('sewer-lateral-street-patch')}
         placement="service-areas"
       />
       <CityDirectory />

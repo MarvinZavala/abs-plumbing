@@ -19,7 +19,7 @@ export default function AboutPage() {
       <PageHero
         title="A family-owned plumbing crew from Oakland"
         lead="We fix leaks, clogs, water heaters and sewer lines for homeowners, landlords and restaurants across the Bay Area, around the clock."
-        photo={photoById('sewer-line-foothill-blvd-oakland')}
+        photo={photoById('sewer-line-replacement-abs')}
         placement="about"
       />
 
@@ -59,7 +59,6 @@ export default function AboutPage() {
             <WorkGrid
               ids={[
                 'crew-at-work',
-                'sewer-line-replacement-abs',
                 'trench-apartment-building',
                 'apartment-complex-new-line',
                 'commercial-kitchen-drain-line',
