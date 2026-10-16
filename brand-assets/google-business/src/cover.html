@@ -3,22 +3,23 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@600&display=swap" rel="stylesheet">
 <style>
-  /* Google Business Profile cover, 16:9. Rendered at 2x by render.sh. ?brand=1 adds the logo and the 24/7 line. */
+  /* Google Business Profile cover. 16:9 canvas, but Google also crops it to a centered square (photo grid, some Maps
+     views), so everything that matters sits inside the middle 608x608 square. Rendered at 2x by render.sh. */
   html,body{margin:0;width:1080px;height:608px;overflow:hidden;background:#0a2239}
   .grid{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:6px;height:100%}
   .grid div{background-size:cover;background-position:center}
-  .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,34,57,0) 30%,rgba(10,34,57,.55) 55%,rgba(10,34,57,.94) 100%)}
-  .brand{position:absolute;left:0;right:0;bottom:26px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
-  .row{display:flex;align-items:center;gap:16px}
-  .badge{background:#fff;border-radius:16px;padding:8px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
-  .badge img{width:78px;height:auto;display:block}
-  h1{margin:0;font:800 54px/0.95 'Barlow Condensed',sans-serif;color:#fff;text-shadow:0 4px 20px rgba(0,0,0,.4)}
-  p{margin:0;font:600 21px/1.2 Barlow,sans-serif;color:rgba(255,255,255,.92)}
-  p b{color:#00b6d6;font-weight:600}
-  .facts{display:flex;gap:10px;margin:6px 0 0;padding:0;list-style:none}
-  .facts li{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.35);border-radius:999px;padding:7px 16px;font:600 17px/1 Barlow,sans-serif;color:#fff;backdrop-filter:blur(6px)}
-  .facts b{font-weight:700;color:#fff}
-  .stars{color:#f2a900;letter-spacing:1px;font-size:16px;margin-right:2px}
+  .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,34,57,0) 28%,rgba(10,34,57,.6) 55%,rgba(10,34,57,.95) 100%)}
+  .brand{position:absolute;left:236px;width:608px;bottom:30px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+  .badge{background:#fff;border-radius:18px;padding:9px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .badge img{width:92px;height:auto;display:block}
+  h1{margin:0;font:800 50px/0.95 'Barlow Condensed',sans-serif;color:#fff;text-shadow:0 4px 20px rgba(0,0,0,.45)}
+  p{margin:0;font:600 19px/1.2 Barlow,sans-serif;color:rgba(255,255,255,.92)}
+  .facts{display:flex;justify-content:center;gap:8px;margin:2px 0 0;padding:0;list-style:none}
+  .facts li{display:flex;align-items:center;gap:6px;background:rgba(10,34,57,.55);border:1.5px solid rgba(255,255,255,.4);border-radius:999px;padding:7px 13px;font:600 15px/1 Barlow,sans-serif;color:#fff;white-space:nowrap}
+  .facts b{font-weight:700}
+  .stars{color:#f2a900;letter-spacing:1px;font-size:14px}
+  /* ?guide=1 draws the square Google crops to, for checking only. */
+  .guide{position:absolute;left:236px;top:0;width:608px;height:608px;outline:3px dashed #ff0;display:none}
 </style></head>
 <body>
   <div class="grid">
@@ -29,16 +30,16 @@
   <div id="brand" hidden>
     <div class="shade"></div>
     <div class="brand">
-      <div class="row">
-        <div class="badge"><img src="../../abslogo-original.png" alt=""></div>
-        <div style="text-align:left"><h1>AB’s Plumbing Services</h1><p>Family-owned plumbers in Oakland, serving the whole Bay Area</p></div>
-      </div>
+      <div class="badge"><img src="../../abslogo-original.png" alt=""></div>
+      <h1>AB’s Plumbing Services</h1>
+      <p>Family-owned plumbers in Oakland and the Bay Area</p>
       <ul class="facts">
-        <li><span class="stars">★★★★★</span><span><b>4.9</b> from 676 reviews on Yelp</span></li>
-        <li><span><b>10+ years</b> in business</span></li>
-        <li><span><b>24/7</b> emergency service</span></li>
+        <li><span class="stars">★★★★★</span><span><b>4.9</b> · 676 Yelp reviews</span></li>
+        <li><span><b>10+</b> years</span></li>
+        <li><span><b>24/7</b> emergencies</span></li>
       </ul>
     </div>
   </div>
-  <script>if (new URLSearchParams(location.search).get('brand')) document.getElementById('brand').hidden = false;</script>
+  <div class="guide" id="guide"></div>
+  <script>const q = new URLSearchParams(location.search); if (q.get('brand')) document.getElementById('brand').hidden = false; if (q.get('guide')) document.getElementById('guide').style.display = 'block';</script>
 </body></html>
