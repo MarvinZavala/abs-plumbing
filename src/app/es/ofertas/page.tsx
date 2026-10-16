@@ -8,7 +8,7 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: 'Ofertas y descuentos de plomería en Oakland',
-  description: `Especiales de plomería de otoño de AB’s Plumbing en Oakland: ahorre hasta $150 y $125 en un calentador de agua nuevo. Hablamos español. Llame al ${business.phone.display}.`,
+  description: `Especiales de plomería de otoño de AB’s Plumbing en Oakland: ahorre hasta $150, y $150 en un calentador de agua nuevo. Hablamos español. Llame al ${business.phone.display}.`,
   alternates: { canonical: '/es/ofertas', languages: languageAlternates('/offers', '/es/ofertas') },
 };
 

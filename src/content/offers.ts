@@ -64,8 +64,8 @@ export const campaign: Campaign = {
   id: 'fall-specials',
   heading: { en: 'Fall plumbing specials', es: 'Especiales de plomería de otoño' },
   teaser: {
-    en: 'Save up to $150 on plumbing work, plus $125 off a new water heater.',
-    es: 'Ahorre hasta $150 en trabajos de plomería, y $125 en un calentador de agua nuevo.',
+    en: 'Save up to $150 on plumbing work, and $150 off a new water heater.',
+    es: 'Ahorre hasta $150 en trabajos de plomería, y $150 en un calentador de agua nuevo.',
   },
 };
 
@@ -77,7 +77,7 @@ const fallSpecials: Offer[] = ([
   spend(150, '$1,000'),
   {
     id: 'fall-water-heater',
-    amount: { en: '$125 off', es: '$125 de descuento' },
+    amount: { en: '$150 off', es: '$150 de descuento' },
     title: { en: 'New water heater installation', es: 'Instalación de un calentador de agua nuevo' },
     howTo: mentionIt,
     service: 'water-heaters',

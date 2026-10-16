@@ -70,7 +70,7 @@ test('the fall flyer offers are listed with their minimums, and the shared terms
     '$35 off: Any plumbing service of $250 or more',
     '$75 off: Any plumbing service of $500 or more',
     '$150 off: Any plumbing service of $1,000 or more',
-    '$125 off: New water heater installation',
+    '$150 off: New water heater installation',
   ]) assert.ok(titles.includes(line), `missing: ${line}`);
   assert.equal(offerTerms.length, 3);
   for (const t of offerTerms) assert.ok(t.en && t.es);
