@@ -6,11 +6,15 @@ import { EstimateSection } from '@/components/estimate-section';
 import { FaqList } from '@/components/faq-list';
 import { FeaturedWork } from '@/components/featured-work';
 import { HomeHero } from '@/components/home-hero';
+import { CampaignFlyerBand } from '@/components/offer-flyer';
 import { ProcessSteps } from '@/components/process-steps';
 import { ReviewsSection } from '@/components/reviews-section';
 import { ServiceList } from '@/components/service-list';
 import { WorkLog } from '@/components/work-log';
 import { languageAlternates } from '@/lib/i18n-routes';
+
+// Rebuilt every hour, so the offers flyer comes down the day its campaign ends.
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   alternates: { canonical: '/', languages: languageAlternates('/', '/es') },
@@ -20,6 +24,7 @@ export default function HomePage() {
   return (
     <>
       <HomeHero />
+      <CampaignFlyerBand placement="home-flyer" />
       <WorkLog />
 
       <section aria-labelledby="services-title" className="bg-white">

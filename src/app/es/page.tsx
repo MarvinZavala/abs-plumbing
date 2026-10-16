@@ -5,12 +5,16 @@ import { EstimateSection } from '@/components/estimate-section';
 import { FaqList } from '@/components/faq-list';
 import { FeaturedWork } from '@/components/featured-work';
 import { HomeHero } from '@/components/home-hero';
+import { CampaignFlyerBand } from '@/components/offer-flyer';
 import { ProcessSteps } from '@/components/process-steps';
 import { ReviewsSection } from '@/components/reviews-section';
 import { ServiceList } from '@/components/service-list';
 import { business } from '@/content/business';
 import { moreServicesEs } from '@/content/es';
 import { languageAlternates } from '@/lib/i18n-routes';
+
+// Rebuilt every hour, so the offers flyer comes down the day its campaign ends.
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: { absolute: `Plomero 24/7 en Oakland y la Bahía${business.titleSuffix}` },
@@ -23,6 +27,7 @@ export default function SpanishHomePage() {
   return (
     <>
       <HomeHero locale="es" />
+      <CampaignFlyerBand locale="es" placement="home-flyer" />
 
       <section id="servicios" aria-labelledby="services-title" className="scroll-mt-20 bg-white">
         <div className="wrap grid gap-8 py-14 lg:grid-cols-[1fr_1.6fr] lg:gap-16 lg:py-20">

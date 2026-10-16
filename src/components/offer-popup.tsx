@@ -42,7 +42,7 @@ function rememberClosed() {
 /**
  * A small card announcing the running offers, in a corner on desktop and above the call bar on phones.
  * It never covers the page (Google penalizes intrusive pop-ups on mobile), doesn't take focus, and stays
- * closed for a few days once dismissed. Not shown on the offers page itself or the privacy policy.
+ * closed for a few days once dismissed. Not shown on the offers page, the home pages (they show the flyer) or the privacy policy.
  */
 export function OfferPopup({ locale = 'en' }: { locale?: 'en' | 'es' }) {
   const c = copy[locale];
@@ -51,7 +51,8 @@ export function OfferPopup({ locale = 'en' }: { locale?: 'en' | 'es' }) {
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
-    if (pathname === c.href || pathname === '/privacy') return;
+    // The home pages already show the flyer under the hero.
+    if ([c.href, '/privacy', '/', '/es'].includes(pathname)) return;
     if (!isRunning(campaign, new Date()) || closedRecently()) return;
     const show = () => {
       setOpen(true);
