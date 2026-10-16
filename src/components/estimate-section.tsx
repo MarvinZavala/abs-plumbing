@@ -51,6 +51,17 @@ export function EstimateSection({
               {locale === 'en' && <span lang="es"> Hablamos español.</span>}
             </p>
           )}
+          <p className="mt-2 text-white/75">
+            {copy.orEmail}{' '}
+            <TrackedLink
+              href={`mailto:${business.email}`}
+              event="email_click"
+              placement="estimate"
+              className="font-semibold break-all text-white underline underline-offset-4"
+            >
+              {business.email}
+            </TrackedLink>
+          </p>
           {business.offer.enabled && (
             <p className="mt-8 inline-block rounded-plate border border-white/25 px-4 py-3 text-[0.98rem] text-white/90">
               {copy.offerDetail}

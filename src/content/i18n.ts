@@ -97,6 +97,7 @@ export const ui = {
     orTextBefore: 'Or',
     orTextLink: 'text us a photo',
     orTextAfter: 'of the problem.',
+    orEmail: 'Email us at',
     // FAQ
     faqTitle: 'Questions people ask before they call',
   },
@@ -182,6 +183,7 @@ export const ui = {
     orTextBefore: 'O',
     orTextLink: 'mándenos una foto',
     orTextAfter: 'del problema por texto.',
+    orEmail: 'O escríbanos a',
     faqTitle: 'Preguntas antes de llamar',
   },
 } satisfies Record<Locale, unknown>;

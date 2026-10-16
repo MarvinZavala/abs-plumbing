@@ -13,7 +13,8 @@ export type TrackEvent =
   | 'lead_submit'
   | 'language_switch'
   | 'yelp_click'
-  | 'offer_click';
+  | 'offer_click'
+  | 'email_click';
 
 const adsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
 const conversionLabels: Partial<Record<TrackEvent, string | undefined>> = {
