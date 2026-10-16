@@ -1,23 +1,40 @@
-import Image from 'next/image';
+import { getImageProps } from 'next/image';
 import Link from 'next/link';
-import fallFlyer from '@/assets/offers/fall-specials-flyer.png';
+import flyerTall from '@/assets/offers/fall-holiday-specials-tall.png';
+import flyerWide from '@/assets/offers/fall-holiday-specials-wide.png';
 import { business, telHref } from '@/content/business';
 import type { Locale } from '@/content/i18n';
 import { campaign, isRunning } from '@/content/offers';
 import { cn } from '@/lib/utils';
 import { TrackedLink } from './tracked-link';
 
-/** The flyer for each campaign, with the box of its "Call to claim" button in percent of the image. */
+type Box = { left: number; top: number; width: number; height: number };
+
+/**
+ * The flyers for each campaign: a tall one for phones and a wide one from tablets up, each with the box of
+ * its "Call to claim your offer" button in percent of the image (measured from the button's blue fill).
+ */
 const flyers = {
   'fall-specials': {
-    image: fallFlyer,
+    tall: { image: flyerTall, button: { left: 9.3, top: 75.2, width: 81.3, height: 5.3 } },
+    wide: { image: flyerWide, button: { left: 4.5, top: 67.9, width: 34, height: 8 } },
     alt: {
-      en: 'AB’s Plumbing fall plumbing specials, save up to $150: $35 off any plumbing service of $250 or more, $75 off any plumbing service of $500 or more, $150 off any plumbing service of $1,000 or more, and $125 off a new water heater installation. Call to claim your offer.',
-      es: 'Especiales de otoño de AB’s Plumbing, ahorre hasta $150: $35 de descuento en servicios de $250 o más, $75 en servicios de $500 o más, $150 en servicios de $1,000 o más y $125 en la instalación de un calentador de agua nuevo. Llame para usar su oferta.',
+      en: 'AB’s Plumbing fall holiday specials, save up to $150: $35 off any plumbing service of $250 or more, $75 off any plumbing service of $500 or more, $150 off any plumbing service of $1,000 or more, and $125 off a new water heater installation. Call to claim your offer.',
+      es: 'Especiales de otoño y fiestas de AB’s Plumbing, ahorre hasta $150: $35 de descuento en servicios de $250 o más, $75 en servicios de $500 o más, $150 en servicios de $1,000 o más y $125 en la instalación de un calentador de agua nuevo. Llame para usar su oferta.',
     },
-    button: { left: 2.3, top: 69.2, width: 36.8, height: 8.8 },
   },
 };
+
+/** The wide flyer takes over from this width (Tailwind md). */
+const WIDE_FROM = '(min-width: 768px)';
+
+const ButtonGlow = ({ box, className }: { box: Box; className: string }) => (
+  <span
+    aria-hidden="true"
+    className={cn('absolute rounded-[0.6rem] ring-cyan transition-shadow group-hover:ring-4 group-focus-visible:ring-4', className)}
+    style={{ left: `${box.left}%`, top: `${box.top}%`, width: `${box.width}%`, height: `${box.height}%` }}
+  />
+);
 
 const copy = {
   en: {
@@ -56,7 +73,13 @@ export function CampaignFlyer({
   const flyer = flyers[campaign.id as keyof typeof flyers];
   if (!flyer || !isRunning(campaign, new Date())) return null;
   const c = copy[locale];
-  const { button } = flyer;
+  const alt = flyer.alt[locale];
+  // Art direction: the browser downloads only the flyer that fits the screen.
+  const common = { alt, priority, quality: 80 };
+  const {
+    props: { srcSet: wideSrcSet, sizes: wideSizes, width: wideWidth, height: wideHeight },
+  } = getImageProps({ ...common, src: flyer.wide.image, sizes: '(min-width: 1280px) 1216px, calc(100vw - 2rem)' });
+  const { props: tallProps } = getImageProps({ ...common, src: flyer.tall.image, sizes: 'calc(100vw - 2rem)' });
   return (
     <figure className={className}>
       <TrackedLink
@@ -66,19 +89,13 @@ export function CampaignFlyer({
         aria-label={c.label}
         className="group relative block overflow-hidden rounded-plate shadow-[0_18px_40px_-20px_rgb(10_34_57/0.45)] outline-offset-4"
       >
-        <Image
-          src={flyer.image}
-          alt={flyer.alt[locale]}
-          priority={priority}
-          placeholder="blur"
-          sizes="(min-width: 1280px) 1216px, calc(100vw - 2rem)"
-          className="h-auto w-full"
-        />
-        <span
-          aria-hidden="true"
-          className="absolute rounded-[0.6rem] ring-cyan transition-shadow group-hover:ring-4 group-focus-visible:ring-4"
-          style={{ left: `${button.left}%`, top: `${button.top}%`, width: `${button.width}%`, height: `${button.height}%` }}
-        />
+        <picture>
+          <source media={WIDE_FROM} srcSet={wideSrcSet} sizes={wideSizes} width={wideWidth} height={wideHeight} />
+          {/* eslint-disable-next-line jsx-a11y/alt-text -- alt comes from getImageProps */}
+          <img {...tallProps} className="h-auto w-full" />
+        </picture>
+        <ButtonGlow box={flyer.tall.button} className="md:hidden" />
+        <ButtonGlow box={flyer.wide.button} className="hidden md:block" />
       </TrackedLink>
       <figcaption className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[0.95rem] text-mute">
         <span>{c.hint}</span>

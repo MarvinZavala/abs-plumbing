@@ -59,10 +59,10 @@ export type Campaign = {
   endsOn?: string;
 };
 
-/** The client's fall flyer ("Fall Plumbing Specials, save up to $150"). Set endsOn once the client confirms it. */
+/** The client's flyer ("Fall Holiday Specials, save up to $150"). Set endsOn once the client confirms it. */
 export const campaign: Campaign = {
   id: 'fall-specials',
-  heading: { en: 'Fall plumbing specials', es: 'Especiales de plomería de otoño' },
+  heading: { en: 'Fall holiday specials', es: 'Especiales de otoño y fiestas' },
   teaser: {
     en: 'Save up to $150 on plumbing work, plus $125 off a new water heater.',
     es: 'Ahorre hasta $150 en trabajos de plomería, y $125 en un calentador de agua nuevo.',

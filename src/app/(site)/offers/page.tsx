@@ -8,7 +8,7 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: 'Plumbing Deals & Discounts in Oakland',
-  description: `Fall plumbing specials from AB’s Plumbing in Oakland: save up to $150, plus $125 off a new water heater. Open 24/7. Call ${business.phone.display}.`,
+  description: `Fall holiday specials from AB’s Plumbing in Oakland: save up to $150, plus $125 off a new water heater. Open 24/7. Call ${business.phone.display}.`,
   alternates: { canonical: '/offers', languages: languageAlternates('/offers', '/es/ofertas') },
 };
 
