@@ -37,8 +37,8 @@ export const business = {
   yelp: {
     url: 'https://www.yelp.com/biz/abs-plumbing-services-oakland-13',
     rating: 4.9,
-    reviewCount: 677,
-    checkedOn: '2026-10-13',
+    reviewCount: 676,
+    checkedOn: '2026-10-16',
   },
   /** Current offer shown on the site. Must match whatever the ads promise. */
   offer: {

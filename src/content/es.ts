@@ -151,7 +151,7 @@ const bySlug: Record<ServiceSlug, Omit<ServiceEs, 'slug' | 'slugEs'>> = {
     seo: {
       title: 'Reparación de fugas de agua en Oakland',
       description:
-        'Fugas, cambio de líneas de agua y reguladores de presión. 4.9 estrellas de 677 reseñas en Yelp. Hablamos español. Llame al (510) 753-8649, abierto 24/7.',
+        'Fugas, cambio de líneas de agua y reguladores de presión. 4.9 estrellas de 676 reseñas en Yelp. Hablamos español. Llame al (510) 753-8649, abierto 24/7.',
     },
   },
   fixtures: {
@@ -195,13 +195,37 @@ export function serviceEsBySlugEs(slugEs: string): ServiceEs | undefined {
 
 
 export const moreServicesEs = [
-  'Líneas de gas y válvulas sísmicas de cierre',
+  'Líneas de gas',
   'Bombas de sumidero',
   'Válvulas antirretorno',
   'Bombas de recirculación de agua caliente',
   'Inspecciones de plomería',
   'Plomería nueva para remodelaciones',
   'Tinas y regaderas',
+];
+
+/** Same list and order as allServices in services.ts. */
+export const allServicesEs = [
+  'Reparaciones de plomería',
+  'Instalación y cambio de plomería',
+  'Inspecciones de plomería',
+  'Destape de drenajes',
+  'Hydro-jetting',
+  'Líneas de drenaje',
+  'Tuberías de agua',
+  'Reparación de calentadores de agua',
+  'Instalación de calentadores de agua',
+  'Bombas de recirculación de agua caliente',
+  'Líneas de gas',
+  'Válvulas antirretorno',
+  'Bombas de sumidero',
+  'Llaves',
+  'Fregaderos',
+  'Inodoros',
+  'Trituradores de basura',
+  'Regaderas',
+  'Tinas',
+  'Plomería nueva para remodelaciones',
 ];
 
 export const stepsEs = [

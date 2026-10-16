@@ -6,7 +6,7 @@ import { PageHero } from '@/components/page-hero';
 import { ProcessSteps } from '@/components/process-steps';
 import { ReviewsSection } from '@/components/reviews-section';
 import { ServiceList } from '@/components/service-list';
-import { moreServices } from '@/content/services';
+import { allServices } from '@/content/services';
 import { photoById } from '@/content/work';
 import { breadcrumbJsonLd } from '@/lib/structured-data';
 
@@ -39,15 +39,15 @@ export default function ServicesPage() {
             </div>
           </div>
           <div>
-            <h2 className="type-h3">We also handle</h2>
-            <ul className="mt-4 divide-y divide-line border-y border-line">
-              {moreServices.map((item) => (
-                <li key={item} className="py-3 text-ink">
+            <h2 className="type-h3">Every service we offer</h2>
+            <ul className="mt-4 grid border-t border-line sm:grid-cols-2 sm:gap-x-8">
+              {allServices.map((item) => (
+                <li key={item} className="border-b border-line py-3 text-ink">
                   {item}
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-[0.95rem] text-mute">Not listed? Call and ask. If it’s plumbing, we probably do it.</p>
+            <p className="mt-4 text-[0.95rem] text-mute">Not sure your job fits? Call and ask.</p>
           </div>
         </div>
       </section>

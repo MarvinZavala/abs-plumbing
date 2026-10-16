@@ -58,6 +58,8 @@ export default function AboutPage() {
           <div className="mt-8">
             <WorkGrid
               ids={[
+                'crew-at-work',
+                'sewer-line-replacement-abs',
                 'trench-apartment-building',
                 'apartment-complex-new-line',
                 'commercial-kitchen-drain-line',

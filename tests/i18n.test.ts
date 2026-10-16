@@ -88,3 +88,25 @@ test('the pre-paint script is self-contained and flags <html> for Spanish browse
   assert.equal(run(null, ['en-US', 'es-US']), undefined);
   assert.equal(run('en', ['es-MX']), undefined);
 });
+
+test('the full service list matches what AB’s verified on Yelp, in both languages', async () => {
+  const { allServices } = await import('../src/content/services.ts');
+  const { allServicesEs } = await import('../src/content/es.ts');
+  // Yelp "Services Offered, verified by business" (checked 2026-10-16), plus remodel plumbing confirmed by the client.
+  const verified = [
+    'Plumbing repair', 'Plumbing installation and replacement', 'Plumbing inspections', 'Drain cleaning', 'Hydro-jetting',
+    'Sewer lines', 'Water pipes', 'Water heater repair', 'Water heater installation', 'Hot water recirculation pumps',
+    'Gas lines', 'Backflow preventers', 'Sump pumps', 'Faucets', 'Sinks', 'Toilets', 'Garbage disposals', 'Showers',
+    'Bathtubs', 'New plumbing for remodels',
+  ];
+  assert.deepEqual(allServices, verified);
+  assert.equal(allServicesEs.length, verified.length);
+  for (const s of allServicesEs) assert.ok(s.trim());
+});
+
+test('extra services name only work AB’s verified (no earthquake shut-off valves)', async () => {
+  const { moreServices } = await import('../src/content/services.ts');
+  const { moreServicesEs } = await import('../src/content/es.ts');
+  assert.ok(!moreServices.some((s) => /earthquake/i.test(s)));
+  assert.ok(!moreServicesEs.some((s) => /sísmic/i.test(s)));
+});

@@ -8,7 +8,7 @@ import { faqsEs, moreServicesEs, servicesEs } from '../content/es.ts';
 import { faqs } from '../content/faqs.ts';
 import { steps } from '../content/process.ts';
 import { formatReviewDate, reviewById, reviews } from '../content/reviews.ts';
-import { moreServices, services } from '../content/services.ts';
+import { allServices, moreServices, services } from '../content/services.ts';
 
 const abs = (base: string, path: string) => new URL(path, base).toString();
 const checked = formatReviewDate(business.factsCheckedOn);
@@ -88,6 +88,7 @@ export function buildLlmsFullTxt(base: string): string {
     out.push(...s.includes.map((i) => `- ${i.title}: ${i.body}`), '');
   }
   out.push('### Other work', '', ...moreServices.map((m) => `- ${m}`), '');
+  out.push('### Every service we offer', '', ...allServices.map((m) => `- ${m}`), '');
 
   out.push('## How a job goes', '');
   steps.forEach((step, i) => {

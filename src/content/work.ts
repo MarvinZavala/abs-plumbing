@@ -25,6 +25,31 @@ import trenchApartmentBuilding from '@/assets/work/trench-apartment-building.jpg
 import waterLineTrenchFrontYard from '@/assets/work/water-line-trench-front-yard.jpg';
 import waterSoftenerInstall from '@/assets/work/water-softener-install.jpg';
 import wholeHouseWaterFilter from '@/assets/work/whole-house-water-filter.jpg';
+import rheem50GallonWaterHeater from '@/assets/work/rheem-50-gallon-water-heater.jpg';
+import twoTanklessWaterHeaters from '@/assets/work/two-tankless-water-heaters.jpg';
+import fortyGallonWaterHeaterReplacement from '@/assets/work/40-gallon-water-heater-replacement.jpg';
+import navienTanklessWaterHeater from '@/assets/work/navien-tankless-water-heater.jpg';
+import burstPipeBefore from '@/assets/work/burst-pipe-before.jpg';
+import burstPipeRepaired from '@/assets/work/burst-pipe-repaired.jpg';
+import pressureRegulatorIrrigationLine from '@/assets/work/pressure-regulator-irrigation-line.jpg';
+import wrappedWaterLineWall from '@/assets/work/wrapped-water-line-wall.jpg';
+import waterLinesTrenchAlongHouse from '@/assets/work/water-lines-trench-along-house.jpg';
+import copperLaundryWaterLines from '@/assets/work/copper-laundry-water-lines.jpg';
+import rootsSewerCleanout from '@/assets/work/roots-sewer-cleanout.jpg';
+import newSdrSewerPipeTrench from '@/assets/work/new-sdr-sewer-pipe-trench.jpg';
+import sewerLineReplacementAbs from '@/assets/work/sewer-line-replacement-abs.jpg';
+import sewerCameraView from '@/assets/work/sewer-camera-view.jpg';
+import sewerCameraSetup from '@/assets/work/sewer-camera-setup.jpg';
+import drainMachineOutdoorCleanout from '@/assets/work/drain-machine-outdoor-cleanout.jpg';
+import toiletClogAuger from '@/assets/work/toilet-clog-auger.jpg';
+import sumpPumpBasin from '@/assets/work/sump-pump-basin.jpg';
+import sewerPumpBox from '@/assets/work/sewer-pump-box.jpg';
+import bathtubShowerRemodel from '@/assets/work/bathtub-shower-remodel.jpg';
+import moenShowerValve from '@/assets/work/moen-shower-valve.jpg';
+import kitchenFaucetStainlessSink from '@/assets/work/kitchen-faucet-stainless-sink.jpg';
+import garbageDisposalReplacement from '@/assets/work/garbage-disposal-replacement.jpg';
+import newToiletInstall from '@/assets/work/new-toilet-install.jpg';
+import crewAtWork from '@/assets/work/crew-at-work.jpg';
 
 export type WorkPhoto = {
   id: string;
@@ -250,6 +275,282 @@ export const work: WorkPhoto[] = [
       alt: 'Tanque de resina y tanque de salmuera de un suavizador de agua instalados en una esquina de servicio',
     },
     services: ['leaks-water-lines'],
+  },
+  // Added 2026-10-16 from AB's own captioned photos on Yelp (originals, upscaled 1.5x).
+  {
+    id: 'rheem-50-gallon-water-heater',
+    image: rheem50GallonWaterHeater,
+    caption: 'New 50-gallon Rheem gas water heater',
+    alt: 'New 50-gallon Rheem gas water heater with seismic straps, a new vent and a yellow gas line in a garage corner',
+    es: {
+      caption: 'Calentador de agua Rheem nuevo de 50 galones',
+      alt: 'Calentador de agua de gas Rheem nuevo de 50 galones con correas sísmicas, ventilación nueva y línea de gas amarilla en una esquina del garaje',
+    },
+    services: ['water-heaters'],
+  },
+  {
+    id: 'two-tankless-water-heaters',
+    image: twoTanklessWaterHeaters,
+    caption: 'Two tankless water heaters, side by side',
+    alt: 'Two white tankless water heaters mounted side by side on a wall, with new vent pipes and copper lines below',
+    es: {
+      caption: 'Dos calentadores sin tanque, uno junto al otro',
+      alt: 'Dos calentadores de agua sin tanque blancos montados uno junto al otro en la pared, con ventilación nueva y tubería de cobre abajo',
+    },
+    services: ['water-heaters'],
+  },
+  {
+    id: '40-gallon-water-heater-replacement',
+    image: fortyGallonWaterHeaterReplacement,
+    caption: 'Replacement 40-gallon water heater',
+    alt: 'New 40-gallon tank water heater with seismic straps, set on a stand in a utility closet',
+    es: {
+      caption: 'Calentador de 40 galones de reemplazo',
+      alt: 'Calentador de agua nuevo de 40 galones con correas sísmicas, sobre una base en un clóset de servicio',
+    },
+    services: ['water-heaters'],
+  },
+  {
+    id: 'navien-tankless-water-heater',
+    image: navienTanklessWaterHeater,
+    caption: 'New Navien tankless water heater',
+    alt: 'White Navien tankless water heater on a wooden wall, with a yellow gas line and new water connections below',
+    es: {
+      caption: 'Calentador sin tanque Navien nuevo',
+      alt: 'Calentador de agua sin tanque Navien blanco en una pared de madera, con línea de gas amarilla y conexiones de agua nuevas abajo',
+    },
+    services: ['water-heaters'],
+  },
+  {
+    id: 'burst-pipe-before',
+    image: burstPipeBefore,
+    caption: 'Before: a burst pipe spraying water',
+    alt: 'A white plastic water pipe bursting and spraying water beside a house wall, among tall green plants',
+    es: {
+      caption: 'Antes: un tubo reventado echando agua',
+      alt: 'Un tubo de agua blanco de plástico reventado, echando agua junto a la pared de una casa, entre plantas altas',
+    },
+    services: ['leaks-water-lines', 'emergency-plumbing'],
+  },
+  {
+    id: 'burst-pipe-repaired',
+    image: burstPipeRepaired,
+    caption: 'After: the same line rebuilt with new pipe',
+    alt: 'The same spot after the repair: new white pipe and fittings with a brass hose bib against the house wall',
+    es: {
+      caption: 'Después: la misma línea con tubería nueva',
+      alt: 'El mismo lugar después de la reparación: tubería y conexiones blancas nuevas con una llave de manguera de bronce junto a la pared',
+    },
+    services: ['leaks-water-lines', 'emergency-plumbing'],
+  },
+  {
+    id: 'pressure-regulator-irrigation-line',
+    image: pressureRegulatorIrrigationLine,
+    caption: 'Pressure regulator, gauge and shutoff on a water line',
+    alt: 'Brass pressure regulator, pressure gauge and red shutoff valve on a wrapped water line against a gray house wall',
+    es: {
+      caption: 'Regulador de presión, manómetro y llave de paso',
+      alt: 'Regulador de presión de bronce, manómetro y llave de paso roja en una línea de agua forrada junto a la pared gris de una casa',
+    },
+    services: ['leaks-water-lines'],
+  },
+  {
+    id: 'wrapped-water-line-wall',
+    image: wrappedWaterLineWall,
+    caption: 'New water line, wrapped where it enters the wall',
+    alt: 'New water line wrapped in blue protective tape with a red shutoff valve, entering a stucco wall above an open trench',
+    es: {
+      caption: 'Línea de agua nueva, forrada donde entra a la pared',
+      alt: 'Línea de agua nueva forrada con cinta protectora azul y llave de paso roja, entrando a una pared de estuco sobre una zanja abierta',
+    },
+    services: ['leaks-water-lines'],
+  },
+  {
+    id: 'water-lines-trench-along-house',
+    image: waterLinesTrenchAlongHouse,
+    caption: 'New water lines in a trench along the house',
+    alt: 'Two new blue-sleeved water lines laid in a long open trench beside a brick wall',
+    es: {
+      caption: 'Líneas de agua nuevas en una zanja junto a la casa',
+      alt: 'Dos líneas de agua nuevas con funda azul en una zanja larga abierta junto a una pared de ladrillo',
+    },
+    services: ['leaks-water-lines'],
+  },
+  {
+    id: 'copper-laundry-water-lines',
+    image: copperLaundryWaterLines,
+    caption: 'New copper lines and valves for a laundry hookup',
+    alt: 'New copper hot and cold water lines with red-handled valves, checked with a blue level on a white wall',
+    es: {
+      caption: 'Líneas de cobre y llaves nuevas para la lavadora',
+      alt: 'Líneas de cobre nuevas de agua fría y caliente con llaves de manija roja, revisadas con un nivel azul en una pared blanca',
+    },
+    services: ['leaks-water-lines'],
+  },
+  {
+    id: 'roots-sewer-cleanout',
+    image: rootsSewerCleanout,
+    caption: 'Roots pulled out of a sewer line at the cleanout',
+    alt: 'A mass of tree roots pulled from a sewer line, lying on the ground next to an open cleanout among plants',
+    es: {
+      caption: 'Raíces sacadas de una línea de drenaje',
+      alt: 'Un montón de raíces de árbol sacadas de una línea de drenaje, en el suelo junto a un registro abierto entre plantas',
+    },
+    services: ['sewer-lines', 'drain-cleaning'],
+  },
+  {
+    id: 'new-sdr-sewer-pipe-trench',
+    image: newSdrSewerPipeTrench,
+    caption: 'New sewer pipe going into an open trench',
+    alt: 'New white sewer pipe and fittings set in a deep open trench, before backfill',
+    es: {
+      caption: 'Tubo de drenaje nuevo en una zanja abierta',
+      alt: 'Tubo y conexiones de drenaje blancos nuevos colocados en una zanja profunda abierta, antes de rellenar',
+    },
+    services: ['sewer-lines'],
+  },
+  {
+    id: 'sewer-line-replacement-abs',
+    image: sewerLineReplacementAbs,
+    caption: 'Crew replacing a sewer line with new ABS pipe',
+    alt: 'Crew members around an open trench where a new black ABS sewer line runs from the house, with shovels and tools nearby',
+    es: {
+      caption: 'El equipo cambiando una línea de drenaje por tubo ABS',
+      alt: 'Miembros del equipo alrededor de una zanja abierta con una línea de drenaje nueva de tubo negro ABS que sale de la casa, con palas y herramientas cerca',
+    },
+    services: ['sewer-lines'],
+  },
+  {
+    id: 'sewer-camera-view',
+    image: sewerCameraView,
+    caption: 'Camera view from inside a sewer line',
+    alt: 'Screen of a RIDGID inspection camera showing the inside of a sewer pipe',
+    es: {
+      caption: 'Vista de la cámara dentro de una línea de drenaje',
+      alt: 'Pantalla de una cámara de inspección RIDGID que muestra el interior de un tubo de drenaje',
+    },
+    services: ['sewer-lines', 'drain-cleaning'],
+  },
+  {
+    id: 'sewer-camera-setup',
+    image: sewerCameraSetup,
+    caption: 'Inspection camera set up to find the problem',
+    alt: 'Sewer inspection camera reel and monitor set up on a floor mat, with the cable running to the drain',
+    es: {
+      caption: 'Cámara de inspección lista para encontrar el problema',
+      alt: 'Carrete y monitor de una cámara de inspección de drenaje sobre un tapete, con el cable hacia el drenaje',
+    },
+    services: ['sewer-lines', 'drain-cleaning'],
+  },
+  {
+    id: 'drain-machine-outdoor-cleanout',
+    image: drainMachineOutdoorCleanout,
+    caption: 'Drain machine clearing a main line from an outdoor cleanout',
+    alt: 'Red drain cleaning machine on the grass with its cable fed into an outdoor cleanout',
+    es: {
+      caption: 'Máquina destapando la línea principal desde el registro de afuera',
+      alt: 'Máquina destapadora roja sobre el pasto con el cable metido en un registro de afuera',
+    },
+    services: ['drain-cleaning', 'sewer-lines'],
+  },
+  {
+    id: 'toilet-clog-auger',
+    image: toiletClogAuger,
+    caption: 'Clearing a clogged toilet with a drain auger',
+    alt: 'A red power drain auger fed into a clogged toilet, plumber wearing shoe covers',
+    es: {
+      caption: 'Destapando un inodoro con una sonda',
+      alt: 'Una sonda eléctrica roja metida en un inodoro tapado, el plomero con cubrezapatos',
+    },
+    services: ['drain-cleaning', 'fixtures'],
+  },
+  {
+    id: 'sump-pump-basin',
+    image: sumpPumpBasin,
+    caption: 'New sump pump in its basin',
+    alt: 'New sump pump sitting in an orange basin set into gravel, with its discharge pipe',
+    es: {
+      caption: 'Bomba de sumidero nueva en su depósito',
+      alt: 'Bomba de sumidero nueva dentro de un depósito naranja enterrado en grava, con su tubo de descarga',
+    },
+    services: ['drain-cleaning'],
+  },
+  {
+    id: 'sewer-pump-box',
+    image: sewerPumpBox,
+    caption: 'New sewage pump box',
+    alt: 'New black sewage pump and basin set in a pit, with new black discharge piping',
+    es: {
+      caption: 'Caja de bomba de drenaje nueva',
+      alt: 'Bomba y depósito de drenaje negros nuevos dentro de un foso, con tubería de descarga negra nueva',
+    },
+    services: ['sewer-lines'],
+  },
+  {
+    id: 'bathtub-shower-remodel',
+    image: bathtubShowerRemodel,
+    caption: 'New bathtub and shower in a bathroom remodel',
+    alt: 'New white bathtub and shower walls with a chrome shower head and grab bar, during a bathroom remodel',
+    es: {
+      caption: 'Tina y regadera nuevas en una remodelación de baño',
+      alt: 'Tina y paredes de regadera blancas nuevas con regadera cromada y barra de apoyo, durante una remodelación de baño',
+    },
+    services: ['fixtures'],
+  },
+  {
+    id: 'moen-shower-valve',
+    image: moenShowerValve,
+    caption: 'New Moen shower valve and tub spout',
+    alt: 'New chrome Moen shower valve handle and tub spout on brown marble tile',
+    es: {
+      caption: 'Llave de regadera Moen nueva',
+      alt: 'Manija de llave de regadera Moen cromada nueva y salida de tina sobre azulejo de mármol café',
+    },
+    services: ['fixtures'],
+  },
+  {
+    id: 'kitchen-faucet-stainless-sink',
+    image: kitchenFaucetStainlessSink,
+    caption: 'New faucet on a stainless kitchen sink',
+    alt: 'New tall stainless kitchen faucet running into a deep stainless sink, with white tile behind',
+    es: {
+      caption: 'Llave nueva en un fregadero de acero inoxidable',
+      alt: 'Llave de cocina alta de acero inoxidable nueva con agua corriendo en un fregadero hondo de acero inoxidable, con azulejo blanco atrás',
+    },
+    services: ['fixtures'],
+  },
+  {
+    id: 'garbage-disposal-replacement',
+    image: garbageDisposalReplacement,
+    caption: 'Replacement garbage disposal under the sink',
+    alt: 'New gray garbage disposal and drain connections under a kitchen sink',
+    es: {
+      caption: 'Triturador de basura de reemplazo',
+      alt: 'Triturador de basura gris nuevo y conexiones de drenaje debajo de un fregadero de cocina',
+    },
+    services: ['fixtures'],
+  },
+  {
+    id: 'new-toilet-install',
+    image: newToiletInstall,
+    caption: 'New toilet, installed',
+    alt: 'New white one-piece toilet with the lid open, installed on a wood-look floor',
+    es: {
+      caption: 'Inodoro nuevo, instalado',
+      alt: 'Inodoro blanco nuevo de una pieza con la tapa abierta, instalado en un piso tipo madera',
+    },
+    services: ['fixtures'],
+  },
+  {
+    id: 'crew-at-work',
+    image: crewAtWork,
+    caption: 'The crew at work',
+    alt: 'Three people kneeling on a floor during a repair, one in an AB’s Plumbing shirt, with tools and an open floor section',
+    es: {
+      caption: 'El equipo trabajando',
+      alt: 'Tres personas arrodilladas en el piso durante una reparación, una con camiseta de AB’s Plumbing, con herramientas y una sección del piso abierta',
+    },
+    services: ['emergency-plumbing'],
   },
 ];
 

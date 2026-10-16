@@ -60,11 +60,18 @@ export const services: Service[] = [
       },
     ],
     featuredReviews: ['mary-s', 'jeffrey-j', 'natalye-b', 'james-p'],
-    photos: ['sewer-lateral-street-patch', 'commercial-kitchen-drain-line', 'water-line-trench-front-yard'],
+    photos: [
+      'sewer-lateral-street-patch',
+      'burst-pipe-before',
+      'burst-pipe-repaired',
+      'crew-at-work',
+      'commercial-kitchen-drain-line',
+      'water-line-trench-front-yard',
+    ],
     seo: {
       title: '24/7 Emergency Plumber in Oakland & Bay Area',
       description:
-        'Burst pipe, sewer backup or no hot water? AB’s Plumbing is open 24 hours, 7 days. 4.9 stars from 677 Yelp reviews. Call (510) 753-8649.',
+        'Burst pipe, sewer backup or no hot water? AB’s Plumbing is open 24 hours, 7 days. 4.9 stars from 676 Yelp reviews. Call (510) 753-8649.',
     },
   },
   {
@@ -87,7 +94,15 @@ export const services: Service[] = [
       { title: 'Camera inspection', body: 'We show you on screen where the line is broken, sagging or full of roots.' },
     ],
     featuredReviews: ['claude-q', 'jeff-j', 'jeffrey-j', 'michelle-y'],
-    photos: ['kitchen-sink-drain-disposal', 'commercial-kitchen-drain-line', 'apartment-complex-new-line'],
+    photos: [
+      'kitchen-sink-drain-disposal',
+      'drain-machine-outdoor-cleanout',
+      'sewer-camera-view',
+      'toilet-clog-auger',
+      'roots-sewer-cleanout',
+      'commercial-kitchen-drain-line',
+      'apartment-complex-new-line',
+    ],
     seo: {
       title: 'Drain Cleaning & Hydro-Jetting in Oakland',
       description:
@@ -116,6 +131,9 @@ export const services: Service[] = [
     featuredReviews: ['james-p', 'wesley-b', 'jacob-s'],
     photos: [
       'gas-water-heater-replacement',
+      'two-tankless-water-heaters',
+      'navien-tankless-water-heater',
+      'rheem-50-gallon-water-heater',
       'tankless-water-heater-shingle-wall',
       'commercial-water-heaters-copper',
       'rheem-tankless-insulated-lines',
@@ -148,6 +166,10 @@ export const services: Service[] = [
     featuredReviews: ['natalye-b', 'cheryl-r', 'anthony-r', 'jeff-j'],
     photos: [
       'sewer-line-foothill-blvd-oakland',
+      'sewer-line-replacement-abs',
+      'roots-sewer-cleanout',
+      'sewer-camera-setup',
+      'new-sdr-sewer-pipe-trench',
       'sewer-lateral-street-patch',
       'trench-apartment-building',
       'apartment-complex-new-line',
@@ -178,11 +200,20 @@ export const services: Service[] = [
       { title: 'Pressure and water quality', body: 'Pressure regulators, whole-house filters and water softeners.' },
     ],
     featuredReviews: ['seiji-n', 'ahmer-s', 'avi-j', 'connie-b'],
-    photos: ['water-line-trench-front-yard', 'outdoor-faucet-water-line', 'whole-house-water-filter', 'water-softener-install'],
+    photos: [
+      'water-line-trench-front-yard',
+      'burst-pipe-before',
+      'burst-pipe-repaired',
+      'pressure-regulator-irrigation-line',
+      'copper-laundry-water-lines',
+      'outdoor-faucet-water-line',
+      'whole-house-water-filter',
+      'water-softener-install',
+    ],
     seo: {
       title: 'Leak & Water Line Repair in Oakland, CA',
       description:
-        'Pipe leaks, water line replacement and pressure regulators by AB’s Plumbing. 4.9 stars from 677 Yelp reviews. Call (510) 753-8649, open 24/7.',
+        'Pipe leaks, water line replacement and pressure regulators by AB’s Plumbing. 4.9 stars from 676 Yelp reviews. Call (510) 753-8649, open 24/7.',
     },
   },
   {
@@ -204,7 +235,16 @@ export const services: Service[] = [
       { title: 'Shoe covers on', body: 'We treat your kitchen and bathroom like our own and clean up after.' },
     ],
     featuredReviews: ['robert-w', 'jackie-r', 'cola-c', 'sam-i'],
-    photos: ['kitchen-sink-faucet-install', 'toilet-install', 'kitchen-sink-drain-disposal'],
+    photos: [
+      'kitchen-sink-faucet-install',
+      'kitchen-faucet-stainless-sink',
+      'moen-shower-valve',
+      'bathtub-shower-remodel',
+      'new-toilet-install',
+      'garbage-disposal-replacement',
+      'toilet-install',
+      'kitchen-sink-drain-disposal',
+    ],
     seo: {
       title: 'Toilet, Faucet & Disposal Repair in Oakland',
       description:
@@ -214,14 +254,42 @@ export const services: Service[] = [
 ];
 
 /** Other work the crew handles (from the services verified on Yelp), without dedicated pages. */
+/** Work beyond the six service pages. Only what AB's lists as "verified by business" on Yelp, or the client confirmed. */
 export const moreServices = [
-  'Gas lines and earthquake shut-off valves',
+  'Gas lines',
   'Sump pumps',
   'Backflow preventers',
   'Hot water recirculation pumps',
   'Plumbing inspections',
   'New plumbing for remodels',
   'Bathtubs and showers',
+];
+
+/**
+ * Every service AB's offers: Yelp "Services Offered, verified by business" (checked 2026-10-16), plus remodel
+ * plumbing the client confirmed. Don't add anything that isn't on that list or confirmed by the client.
+ */
+export const allServices = [
+  'Plumbing repair',
+  'Plumbing installation and replacement',
+  'Plumbing inspections',
+  'Drain cleaning',
+  'Hydro-jetting',
+  'Sewer lines',
+  'Water pipes',
+  'Water heater repair',
+  'Water heater installation',
+  'Hot water recirculation pumps',
+  'Gas lines',
+  'Backflow preventers',
+  'Sump pumps',
+  'Faucets',
+  'Sinks',
+  'Toilets',
+  'Garbage disposals',
+  'Showers',
+  'Bathtubs',
+  'New plumbing for remodels',
 ];
 
 export function serviceBySlug(slug: string): Service | undefined {

@@ -20,7 +20,7 @@ export function Stars({ className }: { className?: string }) {
 }
 
 /**
- * The rating in heroes, as a button to the Yelp page: Yelp's icon, "4.9 ★★★★★ 677 reviews on Yelp", external-link icon.
+ * The rating in heroes, as a button to the Yelp page: Yelp's icon, "4.9 ★★★★★ 676 reviews on Yelp", external-link icon.
  * The proof and the way to check it are one control, so it doesn't compete with the call/text/estimate buttons.
  * Yelp's brand rules let businesses use its favicon as a shortcut to their Yelp page, but not the standalone
  * Yelp logo or Yelp's star images, so the stars stay ours. Opens a new tab so ad visitors keep this page.
