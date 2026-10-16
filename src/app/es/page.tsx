@@ -17,8 +17,8 @@ import { languageAlternates } from '@/lib/i18n-routes';
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: { absolute: `Plomero 24/7 en Oakland y la Bahía${business.titleSuffix}` },
-  description: `Plomeros de Oakland, abiertos 24/7: fugas, drenajes tapados, calentadores de agua y líneas de drenaje en toda la Bahía. Hablamos español. Llame al ${business.phone.display}.`,
+  title: { absolute: `Plomero 24/7 en la Bahía de San Francisco${business.titleSuffix}` },
+  description: `Empresa familiar de plomería abierta 24/7 en toda el Área de la Bahía de San Francisco: fugas, drenajes tapados, calentadores de agua y líneas de drenaje. Hablamos español. Llame al ${business.phone.display}.`,
   alternates: { canonical: '/es', languages: languageAlternates('/', '/es') },
 };
 
