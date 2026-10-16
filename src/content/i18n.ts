@@ -31,6 +31,7 @@ export const ui = {
       { href: '/services', label: 'Services' },
       { href: '/gallery', label: 'Our work' },
       { href: '/about', label: 'About us' },
+      { href: '/offers', label: 'Offers' },
       { href: '/service-areas', label: 'Service areas' },
     ],
     /** Link to the other language, written in that language. */
@@ -43,6 +44,8 @@ export const ui = {
     estimateAnchor: 'estimate',
     reviewsAnchor: 'reviews',
     offerDetail: business.offer.detail,
+    offersHref: '/offers',
+    seeOffers: 'See all offers',
     fromOurJobs: ', from one of our jobs.',
     // Footer
     footerAbout: `Based in ${business.base.city}. Serving the whole San Francisco Bay Area, 24 hours a day.`,
@@ -120,6 +123,7 @@ export const ui = {
       { href: '/es#servicios', label: 'Servicios' },
       { href: '/es#como-trabajamos', label: 'Cómo trabajamos' },
       { href: '/es#cobertura', label: 'Cobertura' },
+      { href: '/es/ofertas', label: 'Ofertas' },
       { href: '/es#cotizacion', label: 'Cotización' },
     ],
     otherLanguage: { locale: 'en' as Locale, label: 'English' },
@@ -130,6 +134,8 @@ export const ui = {
     estimateAnchor: 'cotizacion',
     reviewsAnchor: 'resenas',
     offerDetail: offerEs,
+    offersHref: '/es/ofertas',
+    seeOffers: 'Ver todas las ofertas',
     fromOurJobs: ', de uno de nuestros trabajos.',
     footerAbout: `Con base en ${business.base.city}. Atendemos toda el Área de la Bahía de San Francisco, las 24 horas.`,
     footerServicesLabel: 'Servicios',

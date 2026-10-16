@@ -6,16 +6,23 @@ import { spanishSlugs } from '../content/es-slugs.ts';
 import type { Locale } from '../content/i18n.ts';
 import type { ServiceSlug } from '../content/services.ts';
 
+/** Pages that exist in both languages under different paths (besides home and the services). */
+export const pageTwins: readonly [en: string, es: string][] = [['/offers', '/es/ofertas']];
+
 /** The same page in the other language, or null when the page exists in one language only. */
 export function alternatePath(path: string, to: Locale): string | null {
   const clean = path.replace(/\/+$/, '') || '/';
   if (to === 'es') {
     if (clean === '/') return '/es';
+    const twin = pageTwins.find(([en]) => en === clean);
+    if (twin) return twin[1];
     const slug = clean.match(/^\/services\/([^/]+)$/)?.[1];
     const slugEs = slug && Object.hasOwn(spanishSlugs, slug) ? spanishSlugs[slug as ServiceSlug] : null;
     return slugEs ? `/es/servicios/${slugEs}` : null;
   }
   if (clean === '/es') return '/';
+  const twin = pageTwins.find(([, es]) => es === clean);
+  if (twin) return twin[0];
   const slugEs = clean.match(/^\/es\/servicios\/([^/]+)$/)?.[1];
   const slug = (Object.keys(spanishSlugs) as ServiceSlug[]).find((key) => spanishSlugs[key] === slugEs);
   return slug ? `/services/${slug}` : null;

@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import { business } from '@/content/business';
 import { t, type Locale } from '@/content/i18n';
 import { photoById } from '@/content/work';
 import { OpenStatus, RatingLine } from './bits';
 import { CtaGroup } from './cta';
+import { OfferNote } from './offer-note';
 import { SpanishNote } from './spanish-note';
 
 const copy = {
@@ -30,7 +30,7 @@ export function HomeHero({ locale = 'en' }: { locale?: Locale }) {
           <p className="type-lead measure mt-5">{c.lead}</p>
           <RatingLine locale={locale} className="mt-5" />
           <CtaGroup placement="hero" locale={locale} className="mt-7" />
-          {business.offer.enabled && <p className="mt-4 text-[0.95rem] text-mute">{t(locale).offerDetail}</p>}
+          <OfferNote locale={locale} className="mt-4" />
           {locale === 'en' && <SpanishNote placement="hero" className="mt-2" />}
         </div>
         <figure className="lg:col-span-5 lg:self-center">

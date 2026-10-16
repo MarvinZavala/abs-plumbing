@@ -5,7 +5,7 @@
 import { business } from '../content/business.ts';
 import { servicesEs } from '../content/es.ts';
 import { services } from '../content/services.ts';
-import { languageAlternates } from './i18n-routes.ts';
+import { languageAlternates, pageTwins } from './i18n-routes.ts';
 
 export type SitemapEntry = {
   url: string;
@@ -21,6 +21,7 @@ export function sitemapEntries(base: string): SitemapEntry[] {
 
   const twins: [string, string][] = [
     ['/', '/es'],
+    ...pageTwins,
     ...servicesEs.map((s): [string, string] => [`/services/${s.slug}`, `/es/servicios/${s.slugEs}`]),
   ];
   const languages = new Map<string, Record<string, string>>();
@@ -34,12 +35,14 @@ export function sitemapEntries(base: string): SitemapEntry[] {
     '/',
     '/services',
     ...services.map((s) => `/services/${s.slug}`),
+    '/offers',
     '/service-areas',
     '/gallery',
     '/about',
     '/privacy',
     '/es',
     ...servicesEs.map((s) => `/es/servicios/${s.slugEs}`),
+    '/es/ofertas',
   ];
   return paths.map((path) => {
     const pair = languages.get(path);
@@ -52,7 +55,7 @@ export function sitemapEntries(base: string): SitemapEntry[] {
           ? 1
           : path === '/es' || path.startsWith('/services') || path.startsWith('/es/servicios')
             ? 0.9
-            : path === '/service-areas'
+            : path === '/service-areas' || path === '/offers' || path === '/es/ofertas'
               ? 0.8
               : 0.6,
       ...(pair ? { alternates: { languages: pair } } : {}),

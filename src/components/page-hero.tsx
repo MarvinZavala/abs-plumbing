@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
-import { business } from '@/content/business';
-import { t, type Locale } from '@/content/i18n';
+import type { Locale } from '@/content/i18n';
 import type { WorkPhoto } from '@/content/work';
 import { OpenStatus, PlacePlate, RatingLine } from './bits';
 import { CtaGroup } from './cta';
+import { OfferNote } from './offer-note';
 import { SpanishNote } from './spanish-note';
 
 /** Hero for inner pages and service landing pages: same hierarchy as the home hero, smaller headline budget. */
@@ -16,6 +16,7 @@ export function PageHero({
   placement,
   back,
   locale = 'en',
+  showOffer = true,
 }: {
   title: string;
   lead: string;
@@ -24,6 +25,8 @@ export function PageHero({
   placement: string;
   back?: { href: string; label: string };
   locale?: Locale;
+  /** The new-customer offer line under the buttons (off on the offers page itself). */
+  showOffer?: boolean;
 }) {
   return (
     <section className="bg-white">
@@ -44,7 +47,7 @@ export function PageHero({
           <p className="type-lead measure mt-5">{lead}</p>
           <RatingLine locale={locale} className="mt-5" />
           <CtaGroup placement={placement} locale={locale} className="mt-7" />
-          {business.offer.enabled && <p className="mt-4 text-[0.95rem] text-mute">{t(locale).offerDetail}</p>}
+          {showOffer && <OfferNote locale={locale} className="mt-4" />}
           {locale === 'en' && <SpanishNote placement={placement} className="mt-2" />}
         </div>
         {photo && (

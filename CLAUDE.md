@@ -23,7 +23,7 @@ npm run build
 ## Architecture
 
 - English pages live in `src/app/(site)/`, Spanish pages in `src/app/es/`. Each has its own root layout (via `RootDocument`) so `<html lang>` is right; the site-wide 404 is `src/app/global-not-found.tsx` (`experimental.globalNotFound`).
-- `src/content/` is the single source of truth for copy and facts: `business.ts` (phone, hours, license, offer, Yelp snapshot), `services.ts` (each service is a landing page at `/services/[slug]`), `reviews.ts` (verbatim Yelp quotes), `work.ts` (job photos), `areas.ts`, `faqs.ts`, `process.ts`.
+- `src/content/` is the single source of truth for copy and facts: `business.ts` (phone, hours, license, offer, Yelp snapshot), `services.ts` (each service is a landing page at `/services/[slug]`), `offers.ts` (offers on `/offers` and `/es/ofertas`, with optional start/end dates; only real offers, terms word for word from the client), `reviews.ts` (verbatim Yelp quotes), `work.ts` (job photos), `areas.ts`, `faqs.ts`, `process.ts`.
 - `src/lib/lead.ts`: estimate form validation, spam checks (hidden `ab_check` field + minimum fill time), email formatting and delivery (Resend REST API and/or a JSON webhook). Pure TypeScript with no Next imports so `node --test` can run it. `src/lib/submit-lead.ts` is the Server Action wrapper.
 - `src/lib/track.ts`: dataLayer events (`call_click`, `text_click`, `estimate_click`, `lead_submit`, `language_switch`, `yelp_click`), optional gtag conversions, gclid/UTM capture.
 - `src/components/`: server components by default. Client components only where needed: `estimate-form`, `mobile-menu`, `tracked-link`, `attribution-capture`, `language-link`, `language-suggestion`.
