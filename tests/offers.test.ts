@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { activeOffers, endsLabel, offerTerms, offers, pacificDate, type Offer } from '../src/content/offers.ts';
+import { activeOffers, campaign, endsLabel, isRunning, offerTerms, offers, pacificDate, type Offer } from '../src/content/offers.ts';
 import { business } from '../src/content/business.ts';
 import { alternatePath } from '../src/lib/i18n-routes.ts';
 import { sitemapEntries } from '../src/lib/sitemap.ts';
@@ -74,4 +74,15 @@ test('the fall flyer offers are listed with their minimums, and the shared terms
   ]) assert.ok(titles.includes(line), `missing: ${line}`);
   assert.equal(offerTerms.length, 3);
   for (const t of offerTerms) assert.ok(t.en && t.es);
+});
+
+test('the fall specials share the campaign dates, so the coupons, flyer and pop-up end together', () => {
+  const fall = offers.filter((o) => o.id.startsWith('fall-'));
+  assert.equal(fall.length, 4);
+  for (const o of fall) {
+    assert.equal(o.startsOn, campaign.startsOn);
+    assert.equal(o.endsOn, campaign.endsOn);
+  }
+  assert.ok(campaign.heading.en && campaign.heading.es && campaign.teaser.en && campaign.teaser.es);
+  assert.equal(isRunning({ endsOn: '2026-11-30' }, new Date('2026-12-01T09:00:00Z')), false);
 });

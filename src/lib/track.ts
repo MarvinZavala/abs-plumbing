@@ -6,7 +6,14 @@ import { track as vercelTrack } from '@vercel/analytics';
  * - Also sends the event to Vercel Web Analytics (custom events show up on paid Vercel plans).
  * - Also fires a gtag conversion when NEXT_PUBLIC_GOOGLE_ADS_ID and the matching label are set.
  */
-export type TrackEvent = 'call_click' | 'text_click' | 'estimate_click' | 'lead_submit' | 'language_switch' | 'yelp_click';
+export type TrackEvent =
+  | 'call_click'
+  | 'text_click'
+  | 'estimate_click'
+  | 'lead_submit'
+  | 'language_switch'
+  | 'yelp_click'
+  | 'offer_click';
 
 const adsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
 const conversionLabels: Partial<Record<TrackEvent, string | undefined>> = {

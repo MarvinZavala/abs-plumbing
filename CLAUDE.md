@@ -26,7 +26,7 @@ npm run build
 - `src/content/` is the single source of truth for copy and facts: `business.ts` (phone, hours, license, offer, Yelp snapshot), `services.ts` (each service is a landing page at `/services/[slug]`), `offers.ts` (offers on `/offers` and `/es/ofertas`, with optional start/end dates; only real offers, terms word for word from the client), `reviews.ts` (verbatim Yelp quotes), `work.ts` (job photos), `areas.ts`, `faqs.ts`, `process.ts`.
 - `src/lib/lead.ts`: estimate form validation, spam checks (hidden `ab_check` field + minimum fill time), email formatting and delivery (Resend REST API and/or a JSON webhook). Pure TypeScript with no Next imports so `node --test` can run it. `src/lib/submit-lead.ts` is the Server Action wrapper.
 - `src/lib/track.ts`: dataLayer events (`call_click`, `text_click`, `estimate_click`, `lead_submit`, `language_switch`, `yelp_click`), optional gtag conversions, gclid/UTM capture.
-- `src/components/`: server components by default. Client components only where needed: `estimate-form`, `mobile-menu`, `tracked-link`, `attribution-capture`, `language-link`, `language-suggestion`.
+- `src/components/`: server components by default. Client components only where needed: `estimate-form`, `mobile-menu`, `tracked-link`, `attribution-capture`, `language-link`, `language-suggestion`, `offer-popup`.
 - Spanish: copy in `src/content/es.ts` (services, FAQ, steps), URLs in `es-slugs.ts`, shared UI strings in `i18n.ts`, form strings in `form-ui.ts`. Components take a `locale` prop. `src/lib/i18n-routes.ts` pairs English and Spanish twins (hreflang, sitemap, language links). Never redirect by language; `language-preference.ts` only suggests Spanish.
 - Configuration is via environment variables, documented in `.env.example`.
 
@@ -35,7 +35,8 @@ npm run build
 - Palette (all from the logo): ink `#0a2239`, slate body text, deep logo blue `#0670b8` for links/focus, logo water blue `#149ad6` reserved for actions (`bg-action`, ink text on it, hover to logo cyan `#00b6d6`), gold `#f2a900` only for rating stars, concrete `#edf0f2` bands. Default Tailwind colors are disabled.
 - Type: Barlow Condensed (display, `type-hero`, `type-page`, `type-h2`, `type-h3`) and Barlow (text). Sentence case. No all-caps eyebrows, no middle-dot meta strings, no arrows appended to button text.
 - Layout: left-aligned, full-bleed bands alternating white / concrete / ink. Place names use the street-sign `PlacePlate`.
-- Motion: only the open-now status dot and the mobile action bar reveal. Content is never hidden behind entrance animations.
+- Motion: only the open-now status dot, the mobile action bar reveal and the offer pop-up slide-in. Content is never hidden behind entrance animations.
+- The offer pop-up (`offer-popup.tsx`) is a small corner card, never a full-screen overlay (Google penalizes intrusive mobile pop-ups). It shows only while `campaign` in `offers.ts` is running.
 
 ## Rules for content
 

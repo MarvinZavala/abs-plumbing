@@ -1,11 +1,13 @@
 import { CalendarClock, ClipboardList, ReceiptText } from 'lucide-react';
 import type { Locale } from '@/content/i18n';
-import { activeOffers, offerTerms, offersHeading } from '@/content/offers';
+import fallFlyer from '@/assets/offers/fall-specials-flyer.png';
+import { activeOffers, campaign, isRunning, offerTerms } from '@/content/offers';
 import { breadcrumbJsonLd } from '@/lib/structured-data';
 import { CallButton } from './cta';
 import { EstimateSection } from './estimate-section';
 import { JsonLd } from './json-ld';
 import { OfferCoupon } from './offer-coupon';
+import { OfferFlyer } from './offer-flyer';
 import { PageHero } from './page-hero';
 import { ReviewsSection } from './reviews-section';
 
@@ -46,22 +48,44 @@ const copy = {
   },
 } satisfies Record<Locale, unknown>;
 
+/** The flyer for each campaign, with the box of its "Call to claim" button in percent of the image. */
+const flyers = {
+  'fall-specials': {
+    image: fallFlyer,
+    alt: {
+      en: 'AB’s Plumbing fall plumbing specials, save up to $150: $35 off any plumbing service of $250 or more, $75 off any plumbing service of $500 or more, $150 off any plumbing service of $1,000 or more, and $125 off a new water heater installation. Call to claim your offer.',
+      es: 'Especiales de otoño de AB’s Plumbing, ahorre hasta $150: $35 de descuento en servicios de $250 o más, $75 en servicios de $500 o más, $150 en servicios de $1,000 o más y $125 en la instalación de un calentador de agua nuevo. Llame para usar su oferta.',
+    },
+    button: { left: 2.3, top: 69.2, width: 36.8, height: 8.8 },
+  },
+};
+
 /** Reviews that talk about price and value. */
 const reviewIds = ['robert-w', 'cheryl-r', 'mary-s', 'jeffrey-j', 'connie-b', 'jacob-s'];
 
 /** /offers and /es/ofertas: the offers running today (from content/offers.ts), as coupons. */
 export function OffersPage({ locale = 'en' }: { locale?: Locale }) {
   const c = copy[locale];
-  const list = activeOffers(new Date());
+  const now = new Date();
+  const list = activeOffers(now);
+  const flyer = isRunning(campaign, now) ? flyers[campaign.id as keyof typeof flyers] : undefined;
   return (
     <>
       <JsonLd data={breadcrumbJsonLd([...c.crumbs, { name: c.crumb, path: c.path }])} />
       <PageHero title={c.title} lead={c.lead} placement="offers-hero" locale={locale} showOffer={false} />
 
+      {flyer && (
+        <section aria-label={campaign.heading[locale]} className="bg-white">
+          <div className="wrap pb-12 lg:pb-16">
+            <OfferFlyer image={flyer.image} alt={flyer.alt[locale]} button={flyer.button} locale={locale} />
+          </div>
+        </section>
+      )}
+
       <section aria-labelledby="offers-title" className="bg-concrete">
         <div className="wrap py-14 lg:py-20">
           <h2 id="offers-title" className="type-h2">
-            {list.length > 0 ? offersHeading[locale] : c.listTitle}
+            {flyer ? campaign.heading[locale] : c.listTitle}
           </h2>
           {list.length > 0 ? (
             <>

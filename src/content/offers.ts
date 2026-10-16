@@ -47,8 +47,31 @@ const spend = (off: number, minimum: string): Offer => ({
   howTo: mentionIt,
 });
 
-/** The client's fall flyer ("Fall Plumbing Specials"). */
-const fallSpecials: Offer[] = [
+/**
+ * A set of offers that run together: a heading over the coupons, a one-line teaser for the site-wide
+ * pop-up, and shared dates. The flyer image is matched by id in components/offers-page.tsx.
+ */
+export type Campaign = {
+  id: string;
+  heading: Text;
+  teaser: Text;
+  startsOn?: string;
+  endsOn?: string;
+};
+
+/** The client's fall flyer ("Fall Plumbing Specials, save up to $150"). Set endsOn once the client confirms it. */
+export const campaign: Campaign = {
+  id: 'fall-specials',
+  heading: { en: 'Fall plumbing specials', es: 'Especiales de plomería de otoño' },
+  teaser: {
+    en: 'Save up to $150 on plumbing work, plus $125 off a new water heater.',
+    es: 'Ahorre hasta $150 en trabajos de plomería, y $125 en un calentador de agua nuevo.',
+  },
+};
+
+const inCampaign = (offer: Offer): Offer => ({ ...offer, startsOn: campaign.startsOn, endsOn: campaign.endsOn });
+
+const fallSpecials: Offer[] = ([
   spend(35, '$250'),
   spend(75, '$500'),
   spend(150, '$1,000'),
@@ -59,7 +82,7 @@ const fallSpecials: Offer[] = [
     howTo: mentionIt,
     service: 'water-heaters',
   },
-];
+] satisfies Offer[]).map(inCampaign);
 
 export const offers: Offer[] = [...fallSpecials, ...(business.offer.enabled ? [newCustomer] : [])];
 
@@ -73,18 +96,20 @@ export const offerTerms: Text[] = [
   },
 ];
 
-/** Name of the current set of offers, used as the heading over the coupons. */
-export const offersHeading: Text = { en: 'Fall plumbing specials', es: 'Especiales de plomería de otoño' };
-
 /** Today's date in the Bay Area as YYYY-MM-DD, so offers start and end on local days. */
 export function pacificDate(now: Date): string {
   return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(now);
 }
 
+/** Whether something with optional first and last days is running on the given day. */
+export function isRunning(dated: { startsOn?: string; endsOn?: string }, now: Date): boolean {
+  const today = pacificDate(now);
+  return (!dated.startsOn || dated.startsOn <= today) && (!dated.endsOn || today <= dated.endsOn);
+}
+
 /** Offers running on the given day, in the order they are listed. */
 export function activeOffers(now: Date, list: Offer[] = offers): Offer[] {
-  const today = pacificDate(now);
-  return list.filter((o) => (!o.startsOn || o.startsOn <= today) && (!o.endsOn || today <= o.endsOn));
+  return list.filter((o) => isRunning(o, now));
 }
 
 /** "Ends November 30, 2026" / "Termina el 30 de noviembre de 2026". */

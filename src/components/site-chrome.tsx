@@ -1,6 +1,7 @@
 import { t, type Locale } from '@/content/i18n';
 import { ActionBar } from './action-bar';
 import { LanguageSuggestion } from './language-suggestion';
+import { OfferPopup } from './offer-popup';
 import { SiteFooter } from './site-footer';
 import { SiteHeader } from './site-header';
 
@@ -19,6 +20,7 @@ export function SiteChrome({ locale = 'en', children }: { locale?: Locale; child
       <main id="main">{children}</main>
       <SiteFooter locale={locale} />
       <ActionBar locale={locale} />
+      <OfferPopup locale={locale} />
     </>
   );
 }
