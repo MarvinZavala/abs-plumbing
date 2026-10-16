@@ -1,6 +1,9 @@
+import { track as vercelTrack } from '@vercel/analytics';
+
 /**
- * Conversion tracking for Google Ads / GTM.
+ * Conversion tracking for Google Ads / GTM and Vercel Web Analytics.
  * - Always pushes a dataLayer event (for Google Tag Manager triggers).
+ * - Also sends the event to Vercel Web Analytics (custom events show up on paid Vercel plans).
  * - Also fires a gtag conversion when NEXT_PUBLIC_GOOGLE_ADS_ID and the matching label are set.
  */
 export type TrackEvent = 'call_click' | 'text_click' | 'estimate_click' | 'lead_submit' | 'language_switch' | 'yelp_click';
@@ -24,6 +27,7 @@ export function track(event: TrackEvent, params: Record<string, string> = {}): v
   try {
     window.dataLayer = window.dataLayer ?? [];
     window.dataLayer.push({ event, ...params });
+    vercelTrack(event, params);
     const label = conversionLabels[event];
     if (adsId && label && typeof window.gtag === 'function') {
       window.gtag('event', 'conversion', { send_to: `${adsId}/${label}` });

@@ -1,6 +1,7 @@
 import type { Locale } from '@/content/i18n';
 import { barlow, barlowCondensed } from '@/lib/fonts';
 import { suggestSpanishScript } from '@/lib/language-preference';
+import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
 import { Analytics } from './analytics';
 import { AttributionCapture } from './attribution-capture';
 import { SiteJsonLd } from './json-ld';
@@ -21,6 +22,7 @@ export function RootDocument({ locale, children }: { locale: Locale; children: R
         <link rel="describedby" type="text/markdown" href="/llms.txt" />
         <AttributionCapture />
         <Analytics />
+        <VercelAnalytics />
       </body>
     </html>
   );

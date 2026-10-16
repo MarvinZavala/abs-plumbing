@@ -45,7 +45,8 @@ export default function PrivacyPage() {
             <a href="https://adssettings.google.com" className="text-blue underline underline-offset-4">
               adssettings.google.com
             </a>{' '}
-            and block cookies in your browser settings.
+            and block cookies in your browser settings. We also count visits with Vercel Web Analytics, which
+            uses no cookies and doesn’t identify you.
           </p>
           <h2>Your choices</h2>
           <p>
