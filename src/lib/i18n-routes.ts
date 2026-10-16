@@ -7,7 +7,10 @@ import type { Locale } from '../content/i18n.ts';
 import type { ServiceSlug } from '../content/services.ts';
 
 /** Pages that exist in both languages under different paths (besides home and the services). */
-export const pageTwins: readonly [en: string, es: string][] = [['/offers', '/es/ofertas']];
+export const pageTwins: readonly [en: string, es: string][] = [
+  ['/offers', '/es/ofertas'],
+  ['/services', '/es/servicios'],
+];
 
 /** The same page in the other language, or null when the page exists in one language only. */
 export function alternatePath(path: string, to: Locale): string | null {

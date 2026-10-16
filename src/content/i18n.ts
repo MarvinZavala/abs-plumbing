@@ -121,7 +121,7 @@ export const ui = {
     homeHref: '/es',
     mainNavLabel: 'Principal',
     nav: [
-      { href: '/es#servicios', label: 'Servicios' },
+      { href: '/es/servicios', label: 'Servicios' },
       { href: '/es#como-trabajamos', label: 'Cómo trabajamos' },
       { href: '/es#cobertura', label: 'Cobertura' },
       { href: '/es/ofertas', label: 'Ofertas' },

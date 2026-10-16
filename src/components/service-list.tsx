@@ -6,13 +6,28 @@ import type { Locale } from '@/content/i18n';
 import { services, type ServiceSlug } from '@/content/services';
 import { photoById } from '@/content/work';
 
+/** Thumbnail for services that have no job photo of their own yet. */
+const fallbackPhoto: Partial<Record<ServiceSlug, string>> = {
+  'recirculation-pumps': 'two-tankless-water-heaters',
+};
+
 /** Services as list rows with a real job photo each (not a grid of identical icon cards). */
-export function ServiceList({ exclude, locale = 'en' }: { exclude?: ServiceSlug; locale?: Locale }) {
-  const items = services.map((s) => {
+export function ServiceList({
+  exclude,
+  slugs,
+  locale = 'en',
+}: {
+  exclude?: ServiceSlug;
+  /** Which services to list, in this order (default: all). */
+  slugs?: ServiceSlug[];
+  locale?: Locale;
+}) {
+  const list = slugs ? slugs.map((slug) => services.find((s) => s.slug === slug)!) : services;
+  const items = list.map((s) => {
     const es = serviceEs(s.slug);
     return {
       slug: s.slug,
-      photo: s.photos[0],
+      photo: s.photos[0] ?? fallbackPhoto[s.slug] ?? 'crew-at-work',
       ...(locale === 'es'
         ? { href: `/es/servicios/${es.slugEs}`, name: es.name, summary: es.summary }
         : { href: `/services/${s.slug}`, name: s.name, summary: s.summary }),

@@ -1,8 +1,12 @@
+import Link from 'next/link';
 import { Check, TriangleAlert } from 'lucide-react';
-import { serviceEs } from '@/content/es';
+import { faqsEs, serviceEs } from '@/content/es';
+import { faqs } from '@/content/faqs';
 import type { Locale } from '@/content/i18n';
 import { reviewsFor } from '@/content/reviews';
 import { serviceBySlug, type ServiceSlug } from '@/content/services';
+import { campaign, isRunning } from '@/content/offers';
+import { coreServices, serviceGroups } from '@/content/service-groups';
 import { inLocale, photoById, work } from '@/content/work';
 import { breadcrumbJsonLd, serviceJsonLd, spanishServiceJsonLd } from '@/lib/structured-data';
 import { EstimateSection } from './estimate-section';
@@ -12,6 +16,7 @@ import { PageHero } from './page-hero';
 import { ProcessSteps } from './process-steps';
 import { ReviewsSection } from './reviews-section';
 import { ServiceList } from './service-list';
+import { ServiceOffer } from './service-offer';
 import { WorkGrid } from './work-grid';
 
 const copy = {
@@ -38,11 +43,14 @@ const copy = {
     reviewsTitle: (name: string) => `${name}, in our customers’ words`,
     photosTitle: (name: string) => `Recent ${name.toLowerCase()} work`,
     other: 'Other things we fix',
+    faqTitle: (name: string) => `${name}: questions people ask`,
+    allServices: 'See all our services',
+    allHref: '/services',
   },
   es: {
     home: { name: 'Inicio', path: '/es' },
-    services: null,
-    back: { href: '/es#servicios', label: 'Todos los servicios' },
+    services: { name: 'Servicios', path: '/es/servicios' },
+    back: { href: '/es/servicios', label: 'Todos los servicios' },
     whileTitle: 'Mientras llegamos',
     emergencySteps: [
       {
@@ -68,8 +76,14 @@ const copy = {
     reviewsTitle: (name: string) => `${name}, en palabras de nuestros clientes`,
     photosTitle: (name: string) => `Trabajos recientes de ${name.toLowerCase()}`,
     other: 'Otras cosas que reparamos',
+    faqTitle: (name: string) => `${name}: preguntas frecuentes`,
+    allServices: 'Ver todos nuestros servicios',
+    allHref: '/es/servicios',
   },
 };
+
+/** Real reviews about price, care and speed, used when a service has fewer than six of its own. */
+const generalReviews = ['robert-w', 'connie-b', 'mary-s', 'jeffrey-j', 'claude-q', 'cheryl-r'];
 
 /** A service landing page (the Google Ads destination), in English or Spanish. */
 export function ServiceLanding({ slug, locale = 'en' }: { slug: ServiceSlug; locale?: Locale }) {
@@ -78,23 +92,37 @@ export function ServiceLanding({ slug, locale = 'en' }: { slug: ServiceSlug; loc
   const c = copy[locale];
   const text =
     locale === 'es'
-      ? { name: es.name, headline: es.headline, lead: es.lead, problems: es.problems, includes: es.includes, path: `/es/servicios/${es.slugEs}` }
+      ? {
+          name: es.name,
+          headline: es.headline,
+          lead: es.lead,
+          problems: es.problems,
+          includes: es.includes,
+          faqs: es.faqs,
+          path: `/es/servicios/${es.slugEs}`,
+        }
       : { ...service, path: `/services/${slug}` };
 
   const [heroPhoto, ...morePhotos] = service.photos.map((id) => photoById(id, locale));
-  // Featured reviews first, then any other review that mentions this service.
+  // Featured reviews first, then any other review that mentions this service, then general ones so the section
+  // never looks empty on a service no review talks about yet.
   const reviewIds = [
-    ...service.featuredReviews,
-    ...reviewsFor(slug)
-      .map((r) => r.id)
-      .filter((id) => !service.featuredReviews.includes(id)),
+    ...new Set([...service.featuredReviews, ...reviewsFor(slug).map((r) => r.id), ...generalReviews]),
   ].slice(0, 6);
+  // This service's own questions first, then the general ones, in one FAQ list (one FAQPage per page).
+  const general = locale === 'es' ? faqsEs : faqs;
+  const faqItems = text.faqs?.length ? [...text.faqs, ...general.slice(0, 3)] : general;
+  // Related services: the same group first, then the core six.
+  const group = serviceGroups.find((g) => g.services.includes(slug));
+  const related = [...new Set([...(group?.services ?? []), ...coreServices])].filter((s) => s !== slug).slice(0, 6);
   // Photos tagged for this service that aren't already shown, to fill the grid.
   const gridPhotos = [
     ...morePhotos,
     ...work.filter((p) => p.services.includes(slug) && !service.photos.includes(p.id)).map((p) => inLocale(p, locale)),
   ].slice(0, 8);
   const isEmergency = slug === 'emergency-plumbing';
+  const campaignOn = isRunning(campaign, new Date());
+  const showGasWarning = isEmergency || slug === 'gas-lines';
 
   return (
     <>
@@ -107,23 +135,30 @@ export function ServiceLanding({ slug, locale = 'en' }: { slug: ServiceSlug; loc
         photo={heroPhoto}
         placement={locale === 'es' ? `lp-es-${slug}` : `lp-${slug}`}
         back={c.back}
+        offer={campaignOn && heroPhoto ? <ServiceOffer slug={slug} locale={locale} className="mt-6 max-w-xl" /> : undefined}
+        aside={campaignOn && !heroPhoto ? <ServiceOffer slug={slug} locale={locale} /> : undefined}
+        showOffer={!campaignOn}
       />
 
-      {isEmergency && (
-        <section aria-labelledby="while-title" className="border-y border-line bg-white">
-          <div className="wrap py-10">
-            <h2 id="while-title" className="type-h3">
-              {c.whileTitle}
-            </h2>
-            <ul className="mt-5 grid gap-5 md:grid-cols-3">
-              {c.emergencySteps.map((s) => (
-                <li key={s.title}>
-                  <p className="font-display text-[1.25rem] font-semibold text-ink">{s.title}</p>
-                  <p className="mt-1">{s.body}</p>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-6 flex gap-3 rounded-control border-2 border-alert/40 bg-alert/5 p-4 text-ink">
+      {showGasWarning && (
+        <section aria-labelledby={isEmergency ? 'while-title' : undefined} aria-label={isEmergency ? undefined : c.gas.lead} className="border-y border-line bg-white">
+          <div className={isEmergency ? 'wrap py-10' : 'wrap py-6'}>
+            {isEmergency && (
+              <>
+                <h2 id="while-title" className="type-h3">
+                  {c.whileTitle}
+                </h2>
+                <ul className="mt-5 grid gap-5 md:grid-cols-3">
+                  {c.emergencySteps.map((s) => (
+                    <li key={s.title}>
+                      <p className="font-display text-[1.25rem] font-semibold text-ink">{s.title}</p>
+                      <p className="mt-1">{s.body}</p>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            <p className={`${isEmergency ? 'mt-6 ' : ''}flex gap-3 rounded-control border-2 border-alert/40 bg-alert/5 p-4 text-ink`}>
               <TriangleAlert className="mt-0.5 size-5 shrink-0 text-alert" aria-hidden="true" />
               <span>
                 <strong>{c.gas.lead}</strong> {c.gas.before}{' '}
@@ -183,7 +218,7 @@ export function ServiceLanding({ slug, locale = 'en' }: { slug: ServiceSlug; loc
 
       <ProcessSteps locale={locale} />
       <EstimateSection locale={locale} defaultService={slug} defaultUrgency={isEmergency ? 'emergency' : 'soon'} />
-      <FaqList locale={locale} />
+      <FaqList locale={locale} items={faqItems} title={text.faqs?.length ? c.faqTitle(text.name) : undefined} />
 
       <section aria-labelledby="other-title" className="bg-concrete">
         <div className="wrap py-14 lg:py-20">
@@ -191,8 +226,11 @@ export function ServiceLanding({ slug, locale = 'en' }: { slug: ServiceSlug; loc
             {c.other}
           </h2>
           <div className="mt-8">
-            <ServiceList locale={locale} exclude={slug} />
+            <ServiceList locale={locale} slugs={related} />
           </div>
+          <Link href={c.allHref} className="mt-6 inline-flex min-h-11 items-center font-semibold text-blue underline underline-offset-4">
+            {c.allServices}
+          </Link>
         </div>
       </section>
     </>

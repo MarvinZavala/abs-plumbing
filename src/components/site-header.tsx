@@ -5,6 +5,7 @@ import logo from '@/assets/brand/ab-logo.png';
 import { business, telHref } from '@/content/business';
 import { servicesEs } from '@/content/es';
 import { t, type Locale } from '@/content/i18n';
+import { coreServices } from '@/content/service-groups';
 import { services } from '@/content/services';
 import { buttonStyles } from './cta';
 import { LanguageLink } from './language-link';
@@ -12,11 +13,18 @@ import { MobileMenu } from './mobile-menu';
 import { TrackedLink } from './tracked-link';
 import { cn } from '@/lib/utils';
 
-/** Service links for menus, in the given language. */
+/** Service links for the menu and footer: the six core services, then a link to all of them. */
 export function serviceLinks(locale: Locale) {
-  return locale === 'es'
-    ? servicesEs.map((s) => ({ href: `/es/servicios/${s.slugEs}`, label: s.name }))
-    : services.map((s) => ({ href: `/services/${s.slug}`, label: s.name }));
+  const core = coreServices.map((slug) =>
+    locale === 'es'
+      ? { href: `/es/servicios/${servicesEs.find((s) => s.slug === slug)!.slugEs}`, label: servicesEs.find((s) => s.slug === slug)!.name }
+      : { href: `/services/${slug}`, label: services.find((s) => s.slug === slug)!.name },
+  );
+  const all =
+    locale === 'es'
+      ? { href: '/es/servicios', label: `Ver los ${services.length} servicios` }
+      : { href: '/services', label: `All ${services.length} services` };
+  return [...core, all];
 }
 
 export function SiteHeader({ locale = 'en' }: { locale?: Locale }) {

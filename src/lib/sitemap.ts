@@ -41,6 +41,7 @@ export function sitemapEntries(base: string): SitemapEntry[] {
     '/about',
     '/privacy',
     '/es',
+    '/es/servicios',
     ...servicesEs.map((s) => `/es/servicios/${s.slugEs}`),
     '/es/ofertas',
   ];

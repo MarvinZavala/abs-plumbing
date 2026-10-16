@@ -31,10 +31,15 @@ test('ignores a trailing slash', () => {
 });
 
 test('pages that exist in one language only have no twin', () => {
-  for (const path of ['/about', '/gallery', '/services', '/service-areas', '/privacy', '/services/unknown']) {
+  for (const path of ['/about', '/gallery', '/service-areas', '/privacy', '/services/unknown']) {
     assert.equal(alternatePath(path, 'es'), null, path);
   }
   assert.equal(alternatePath('/es/servicios/desconocido', 'en'), null);
+});
+
+test('the services index has a Spanish twin', () => {
+  assert.equal(alternatePath('/services', 'es'), '/es/servicios');
+  assert.equal(alternatePath('/es/servicios', 'en'), '/services');
 });
 
 test('the Spanish interface has every string the English one has', () => {
@@ -104,9 +109,29 @@ test('the full service list matches what AB’s verified on Yelp, in both langua
   for (const s of allServicesEs) assert.ok(s.trim());
 });
 
-test('extra services name only work AB’s verified (no earthquake shut-off valves)', async () => {
-  const { moreServices } = await import('../src/content/services.ts');
-  const { moreServicesEs } = await import('../src/content/es.ts');
-  assert.ok(!moreServices.some((s) => /earthquake/i.test(s)));
-  assert.ok(!moreServicesEs.some((s) => /sísmic/i.test(s)));
+test('the full list names only work AB’s verified (no earthquake shut-off valves)', async () => {
+  const { allServices } = await import('../src/content/services.ts');
+  const { allServicesEs } = await import('../src/content/es.ts');
+  assert.ok(!allServices.some((s) => /earthquake/i.test(s)));
+  assert.ok(!allServicesEs.some((s) => /sísmic/i.test(s)));
+});
+
+test('every service is in exactly one group, and the six core services exist', async () => {
+  const { serviceGroups, coreServices } = await import('../src/content/service-groups.ts');
+  const grouped = serviceGroups.flatMap((g) => g.services);
+  assert.deepEqual([...grouped].sort(), services.map((s) => s.slug).sort());
+  assert.equal(new Set(grouped).size, grouped.length, 'a service is in two groups');
+  assert.equal(coreServices.length, 6);
+  for (const slug of coreServices) assert.ok(services.some((s) => s.slug === slug), slug);
+});
+
+test('every service page has a hook headline, problems, what we do, and its own FAQs in both languages', () => {
+  for (const s of services) {
+    assert.ok(s.headline.includes('?'), `${s.slug}: headline should open with a question`);
+    assert.ok(s.problems.length >= 3 && s.includes.length === 3, s.slug);
+    const es = servicesEs.find((e) => e.slug === s.slug)!;
+    assert.ok(es.headline.includes('?'), `${s.slug} (es)`);
+    assert.equal(es.problems.length, s.problems.length, `${s.slug}: problems differ between languages`);
+    assert.equal(es.faqs?.length ?? 0, s.faqs?.length ?? 0, `${s.slug}: FAQs differ between languages`);
+  }
 });

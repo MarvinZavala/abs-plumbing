@@ -51,7 +51,7 @@ export const reviews: Review[] = [
     date: '2026-10-12',
     job: 'Backup cleared, shown on camera',
     jobEs: 'Drenaje destapado y revisado con cámara',
-    services: ['drain-cleaning', 'sewer-lines', 'emergency-plumbing'],
+    services: ['drain-cleaning', 'sewer-lines', 'emergency-plumbing', 'plumbing-inspections'],
     quote:
       'They came out within the hour which was really helpful. They responded on the first call and gave text updates. They sent out multiple people, After 3hrs~ they cleared the issue and showed me with the camera where the issue started.',
   },
@@ -73,7 +73,7 @@ export const reviews: Review[] = [
     date: '2026-10-08',
     job: 'Garbage disposal replaced',
     jobEs: 'Cambio de triturador de basura',
-    services: ['fixtures'],
+    services: ['fixtures', 'garbage-disposals'],
     quote:
       'We needed a garbage disposal replaced. They came out on the same day I called and everything works great now. Very fast and efficient service',
   },
@@ -84,7 +84,7 @@ export const reviews: Review[] = [
     date: '2026-10-08',
     job: 'Sump pump for water under the house',
     jobEs: 'Bomba de sumidero para el agua bajo la casa',
-    services: ['sewer-lines'],
+    services: ['sewer-lines', 'sump-pumps'],
     quote:
       'Came out right away, fit me in for work the next day, fixed my standing water under the house problem by digging down through concrete & placing a sump pump then tied it into the sewer line. He and his team were professional, efficient, cleaned up perfectly afterward, all at a good price.',
   },
@@ -139,7 +139,7 @@ export const reviews: Review[] = [
     date: '2026-09-28',
     job: 'Garbage disposal replaced',
     jobEs: 'Cambio de triturador de basura',
-    services: ['fixtures'],
+    services: ['fixtures', 'garbage-disposals'],
     quote:
       'He responded to my request almost immediately on Sunday night and came out the next day. He was polite, courteous, and left everything clean.',
   },
@@ -160,7 +160,7 @@ export const reviews: Review[] = [
     date: '2026-08-31',
     job: 'Repair, plus help with faucet pressure',
     jobEs: 'Reparación y ayuda con la presión de una llave',
-    services: ['fixtures', 'leaks-water-lines'],
+    services: ['fixtures', 'leaks-water-lines', 'faucets-sinks'],
     quote:
       'The job was done cleanly and quickly and Issac was really great about giving helpful advice for next time as well as answering a lot of other questions I had. … Estimates were accurate and totally transparent.',
   },
@@ -171,7 +171,7 @@ export const reviews: Review[] = [
     date: '2026-08-25',
     job: 'Sink fixed',
     jobEs: 'Fregadero o lavabo reparado',
-    services: ['drain-cleaning', 'fixtures'],
+    services: ['drain-cleaning', 'fixtures', 'faucets-sinks'],
     quote:
       'Came right away within an hour of calling and fixed my sink immediately! Super responsive and handled everything immaculately!',
   },
@@ -182,7 +182,7 @@ export const reviews: Review[] = [
     date: '2026-08-24',
     job: 'Toilet reseated',
     jobEs: 'Inodoro reinstalado',
-    services: ['fixtures'],
+    services: ['fixtures', 'toilets'],
     quote:
       'They showed up about an hour after I called and had things completed right away. Fast and efficient service at a reasonable price.',
   },
@@ -193,7 +193,7 @@ export const reviews: Review[] = [
     date: '2026-08-17',
     job: 'Leaking toilet fixed',
     jobEs: 'Fuga del inodoro reparada',
-    services: ['fixtures'],
+    services: ['fixtures', 'toilets'],
     quote:
       'Worked with us quickly and sent some great plumbers who were considerate and able to fix our leaking toilet no problem.',
   },
@@ -215,7 +215,7 @@ export const reviews: Review[] = [
     date: '2026-07-27',
     job: 'After-hours faucet line leak',
     jobEs: 'Fuga en la línea de una llave, fuera de horario',
-    services: ['leaks-water-lines', 'fixtures'],
+    services: ['leaks-water-lines', 'fixtures', 'faucets-sinks'],
     quote:
       'We had a slow leak coming from a kitchen faucet line, after hours. Guy came on time, and did the job very quickly. The plumber they sent was super polite, used shoe coverings to enter the home, explained everything carefully, and cleaned up after himself.',
   },
@@ -226,7 +226,7 @@ export const reviews: Review[] = [
     date: '2026-07-03',
     job: 'Three outdoor faucets replaced',
     jobEs: 'Cambio de tres llaves de afuera',
-    services: ['leaks-water-lines', 'fixtures'],
+    services: ['leaks-water-lines', 'fixtures', 'faucets-sinks'],
     quote:
       'These guys are terrific. Every time they come over, they outdo themselves. I wish I could give them ten stars.',
   },
@@ -237,7 +237,7 @@ export const reviews: Review[] = [
     date: '2026-06-01',
     job: 'Sewer backup from tree roots',
     jobEs: 'Drenaje tapado por raíces de árbol',
-    services: ['sewer-lines', 'emergency-plumbing'],
+    services: ['sewer-lines', 'emergency-plumbing', 'plumbing-inspections'],
     quote:
       "He told me he'd be there within about an hour, and he was. … He then ran a camera through the line and showed me exactly what was causing the backup: tree roots had intruded into the sewer pipe.",
   },

@@ -10,7 +10,9 @@ import { ProcessSteps } from '@/components/process-steps';
 import { ReviewsSection } from '@/components/reviews-section';
 import { ServiceList } from '@/components/service-list';
 import { business } from '@/content/business';
-import { moreServicesEs } from '@/content/es';
+import Link from 'next/link';
+import { servicesEs } from '@/content/es';
+import { coreServices } from '@/content/service-groups';
 import { languageAlternates } from '@/lib/i18n-routes';
 
 // Rebuilt every hour, so the offers flyer comes down the day its campaign ends.
@@ -41,10 +43,10 @@ export default function SpanishHomePage() {
             </p>
           </div>
           <div>
-            <ServiceList locale="es" />
-            <p className="measure mt-6 text-slate">
-              <span className="font-semibold text-ink">También hacemos:</span> {moreServicesEs.join(', ').toLowerCase()}.
-            </p>
+            <ServiceList locale="es" slugs={coreServices} />
+            <Link href="/es/servicios" className="mt-6 inline-flex min-h-11 items-center font-semibold text-blue underline underline-offset-4">
+              Ver los {servicesEs.length} servicios
+            </Link>
           </div>
         </div>
       </section>

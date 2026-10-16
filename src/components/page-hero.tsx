@@ -17,6 +17,8 @@ export function PageHero({
   back,
   locale = 'en',
   showOffer = true,
+  offer,
+  aside,
 }: {
   title: string;
   lead: string;
@@ -27,11 +29,15 @@ export function PageHero({
   locale?: Locale;
   /** The new-customer offer line under the buttons (off on the offers page itself). */
   showOffer?: boolean;
+  /** Replaces the one-line offer note, e.g. the coupon on service landing pages. */
+  offer?: React.ReactNode;
+  /** Shown in the photo's place when there is no photo (e.g. the offer coupon). */
+  aside?: React.ReactNode;
 }) {
   return (
     <section className="bg-white">
       <div className="wrap grid gap-8 pt-5 pb-10 lg:grid-cols-12 lg:gap-12 lg:pt-12 lg:pb-16">
-        <div className={photo ? 'lg:col-span-7 lg:self-center' : 'lg:col-span-9'}>
+        <div className={photo || aside ? 'lg:col-span-7 lg:self-center' : 'lg:col-span-9'}>
           {back ? (
             <Link
               href={back.href}
@@ -47,9 +53,10 @@ export function PageHero({
           <p className="type-lead measure mt-5">{lead}</p>
           <RatingLine locale={locale} className="mt-5" />
           <CtaGroup placement={placement} locale={locale} className="mt-7" />
-          {showOffer && <OfferNote locale={locale} className="mt-4" />}
+          {offer ?? (showOffer && <OfferNote locale={locale} className="mt-4" />)}
           {locale === 'en' && <SpanishNote placement={placement} className="mt-2" />}
         </div>
+        {!photo && aside && <div className="lg:col-span-5 lg:self-center">{aside}</div>}
         {photo && (
           <figure className="lg:col-span-5">
             <div className="relative">

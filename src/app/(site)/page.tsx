@@ -10,6 +10,8 @@ import { CampaignFlyerBand } from '@/components/offer-flyer';
 import { ProcessSteps } from '@/components/process-steps';
 import { ReviewsSection } from '@/components/reviews-section';
 import { ServiceList } from '@/components/service-list';
+import { coreServices } from '@/content/service-groups';
+import { services } from '@/content/services';
 import { WorkLog } from '@/components/work-log';
 import { languageAlternates } from '@/lib/i18n-routes';
 
@@ -37,7 +39,12 @@ export default function HomePage() {
               From a dripping faucet to a sewer line under the street. Pick the problem to see how we handle it.
             </p>
           </div>
-          <ServiceList />
+          <div>
+            <ServiceList slugs={coreServices} />
+            <Link href="/services" className="mt-6 inline-flex min-h-11 items-center font-semibold text-blue underline underline-offset-4">
+              See all {services.length} services
+            </Link>
+          </div>
         </div>
       </section>
 

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { EstimateSection } from '@/components/estimate-section';
 import { PageHero } from '@/components/page-hero';
 import { WorkGrid } from '@/components/work-grid';
+import { serviceGroups } from '@/content/service-groups';
 import { serviceBySlug, type ServiceSlug } from '@/content/services';
 import { photoById, work } from '@/content/work';
 
@@ -13,18 +14,21 @@ export const metadata: Metadata = {
   alternates: { canonical: '/gallery' },
 };
 
-const groups: { title: string; service: ServiceSlug }[] = [
-  { title: 'Water heaters', service: 'water-heaters' },
-  { title: 'Sewer and drain lines', service: 'sewer-lines' },
-  { title: 'Water lines and water quality', service: 'leaks-water-lines' },
-  { title: 'Sinks, toilets and disposals', service: 'fixtures' },
+/** Gallery sections, each tied to a service group (content/service-groups.ts) and its main service page. */
+const groups: { title: string; service: ServiceSlug; group: string }[] = [
+  { title: 'Water heaters', service: 'water-heaters', group: 'water-heaters' },
+  { title: 'Sewer and drain lines', service: 'sewer-lines', group: 'drains' },
+  { title: 'Water lines, gas lines and water quality', service: 'leaks-water-lines', group: 'water-gas' },
+  { title: 'Kitchens and bathrooms', service: 'fixtures', group: 'fixtures' },
 ];
+const groupOf = (slug: ServiceSlug) => serviceGroups.find((g) => g.services.includes(slug))?.id;
 
 export default function GalleryPage() {
   const shown = new Set<string>();
   const sections = groups.map((group) => {
     const photos = work.filter((p) => {
-      const primary = p.services[0] === group.service || (group.service === 'sewer-lines' && p.services[0] === 'drain-cleaning');
+      // A photo goes in the section of its first service's group (emergency photos fall to their second service).
+      const primary = groupOf(p.services[0]) === group.group || (p.services[0] === 'emergency-plumbing' && !!p.services[1] && groupOf(p.services[1]) === group.group);
       if (!primary || shown.has(p.id)) return false;
       shown.add(p.id);
       return true;

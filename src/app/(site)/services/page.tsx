@@ -5,16 +5,17 @@ import { FaqList } from '@/components/faq-list';
 import { PageHero } from '@/components/page-hero';
 import { ProcessSteps } from '@/components/process-steps';
 import { ReviewsSection } from '@/components/reviews-section';
-import { ServiceList } from '@/components/service-list';
-import { allServices } from '@/content/services';
+import { ServicesDirectory } from '@/components/services-directory';
+import { services } from '@/content/services';
 import { photoById } from '@/content/work';
+import { languageAlternates } from '@/lib/i18n-routes';
 import { breadcrumbJsonLd } from '@/lib/structured-data';
 
 export const metadata: Metadata = {
   title: 'Plumbing Services in Oakland & the Bay Area',
   description:
-    'Emergency plumbing, drain cleaning, water heaters, sewer lines, leaks and fixtures. AB’s Plumbing is open 24/7 across the Bay Area. Call (510) 753-8649.',
-  alternates: { canonical: '/services' },
+    'Drain cleaning, water heaters, sewer, gas and water lines, toilets, faucets and more. AB’s Plumbing is open 24/7 across the Bay Area. Call (510) 753-8649.',
+  alternates: { canonical: '/services', languages: languageAlternates('/services', '/es/servicios') },
 };
 
 export default function ServicesPage() {
@@ -29,25 +30,15 @@ export default function ServicesPage() {
       />
 
       <section aria-labelledby="list-title" className="bg-concrete">
-        <div className="wrap grid gap-10 py-14 lg:grid-cols-[1.6fr_1fr] lg:gap-16 lg:py-20">
-          <div>
-            <h2 id="list-title" className="type-h2">
-              What we fix
-            </h2>
-            <div className="mt-8">
-              <ServiceList />
-            </div>
-          </div>
-          <div>
-            <h2 className="type-h3">Every service we offer</h2>
-            <ul className="mt-4 grid border-t border-line sm:grid-cols-2 sm:gap-x-8">
-              {allServices.map((item) => (
-                <li key={item} className="border-b border-line py-3 text-ink">
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-4 text-[0.95rem] text-mute">Not sure your job fits? Call and ask.</p>
+        <div className="wrap py-14 lg:py-20">
+          <h2 id="list-title" className="type-h2">
+            What we fix
+          </h2>
+          <p className="type-lead measure mt-4">
+            {services.length} services, each with its own page. Pick the one that matches what you’re dealing with.
+          </p>
+          <div className="mt-10">
+            <ServicesDirectory />
           </div>
         </div>
       </section>

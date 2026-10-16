@@ -19,6 +19,18 @@ const SERVICE_URLS = [
   `${BASE}/services/sewer-lines`,
   `${BASE}/services/leaks-water-lines`,
   `${BASE}/services/fixtures`,
+  `${BASE}/services/hydro-jetting`,
+  `${BASE}/services/plumbing-inspections`,
+  `${BASE}/services/sump-pumps`,
+  `${BASE}/services/backflow-preventers`,
+  `${BASE}/services/tankless-water-heaters`,
+  `${BASE}/services/recirculation-pumps`,
+  `${BASE}/services/gas-lines`,
+  `${BASE}/services/remodel-plumbing`,
+  `${BASE}/services/toilets`,
+  `${BASE}/services/faucets-sinks`,
+  `${BASE}/services/garbage-disposals`,
+  `${BASE}/services/showers-bathtubs`,
 ];
 
 // --- structured data -------------------------------------------------------

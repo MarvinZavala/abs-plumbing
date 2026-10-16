@@ -51,8 +51,8 @@ export function OfferPopup({ locale = 'en' }: { locale?: 'en' | 'es' }) {
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
-    // The home pages already show the flyer under the hero.
-    if ([c.href, '/privacy', '/', '/es'].includes(pathname)) return;
+    // The home pages show the flyer under the hero, and service pages show the offer in their hero.
+    if ([c.href, '/privacy', '/', '/es'].includes(pathname) || /^\/(services|es\/servicios)\/./.test(pathname)) return;
     if (!isRunning(campaign, new Date()) || closedRecently()) return;
     const show = () => {
       setOpen(true);

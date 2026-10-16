@@ -4,11 +4,11 @@
  */
 import { areas } from '../content/areas.ts';
 import { business } from '../content/business.ts';
-import { faqsEs, moreServicesEs, servicesEs } from '../content/es.ts';
+import { allServicesEs, faqsEs, servicesEs } from '../content/es.ts';
 import { faqs } from '../content/faqs.ts';
 import { steps } from '../content/process.ts';
 import { formatReviewDate, reviewById, reviews } from '../content/reviews.ts';
-import { allServices, moreServices, services } from '../content/services.ts';
+import { allServices, services } from '../content/services.ts';
 
 const abs = (base: string, path: string) => new URL(path, base).toString();
 const checked = formatReviewDate(business.factsCheckedOn);
@@ -50,7 +50,7 @@ export function buildLlmsTxt(base: string): string {
     '## Services',
     '',
     ...services.map((s) => `- [${s.name}](${abs(base, `/services/${s.slug}`)}): ${s.summary}`),
-    `- Also: ${moreServices.join(', ').toLowerCase()}.`,
+    `- Every service we offer: ${allServices.join(', ').toLowerCase()}.`,
     '',
     '## Company',
     '',
@@ -87,7 +87,6 @@ export function buildLlmsFullTxt(base: string): string {
     out.push(...s.problems.map((p) => `- ${p}`), '', 'What the crew does:', '');
     out.push(...s.includes.map((i) => `- ${i.title}: ${i.body}`), '');
   }
-  out.push('### Other work', '', ...moreServices.map((m) => `- ${m}`), '');
   out.push('### Every service we offer', '', ...allServices.map((m) => `- ${m}`), '');
 
   out.push('## How a job goes', '');
@@ -125,7 +124,7 @@ export function buildLlmsFullTxt(base: string): string {
   for (const s of servicesEs) {
     out.push(`### ${s.name}`, '', `Página: ${abs(base, `/es/servicios/${s.slugEs}`)}`, '', `${s.headline} ${s.lead}`, '');
   }
-  out.push('### También', '', ...moreServicesEs.map((m) => `- ${m}`), '');
+  out.push('### Todos nuestros servicios', '', ...allServicesEs.map((m) => `- ${m}`), '');
   out.push('### Preguntas frecuentes', '');
   for (const f of faqsEs) out.push(`- ${f.q} ${f.a}`);
   out.push('');

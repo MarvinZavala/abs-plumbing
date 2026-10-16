@@ -24,6 +24,8 @@ export type Offer = {
   terms?: Text[];
   /** The service page the offer is about, when it is about one. */
   service?: ServiceSlug;
+  /** Service landing pages that lead with this offer in their hero (others show the spend tiers). */
+  appliesTo?: ServiceSlug[];
   /** First and last day the offer runs (YYYY-MM-DD, Pacific time). Leave out for an ongoing offer. */
   startsOn?: string;
   endsOn?: string;
@@ -81,6 +83,7 @@ const fallSpecials: Offer[] = ([
     title: { en: 'New water heater installation', es: 'Instalación de un calentador de agua nuevo' },
     howTo: mentionIt,
     service: 'water-heaters',
+    appliesTo: ['water-heaters', 'tankless-water-heaters'],
   },
 ] satisfies Offer[]).map(inCampaign);
 

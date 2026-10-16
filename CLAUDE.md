@@ -23,7 +23,7 @@ npm run build
 ## Architecture
 
 - English pages live in `src/app/(site)/`, Spanish pages in `src/app/es/`. Each has its own root layout (via `RootDocument`) so `<html lang>` is right; the site-wide 404 is `src/app/global-not-found.tsx` (`experimental.globalNotFound`).
-- `src/content/` is the single source of truth for copy and facts: `business.ts` (phone, hours, license, offer, Yelp snapshot), `services.ts` (each service is a landing page at `/services/[slug]`), `offers.ts` (offers on `/offers` and `/es/ofertas`, with optional start/end dates; only real offers, terms word for word from the client), `reviews.ts` (verbatim Yelp quotes), `work.ts` (job photos), `areas.ts`, `faqs.ts`, `process.ts`.
+- `src/content/` is the single source of truth for copy and facts: `business.ts` (phone, hours, license, offer, Yelp snapshot), `services.ts` (each of the 18 services is a landing page at `/services/[slug]`, with its own hook headline, problems, what we do and FAQs; `service-groups.ts` groups them and names the six core ones for home and menus; only services AB’s verified on Yelp or the owner confirmed), `offers.ts` (offers on `/offers` and `/es/ofertas`, with optional start/end dates; only real offers, terms word for word from the client), `reviews.ts` (verbatim Yelp quotes), `work.ts` (job photos), `areas.ts`, `faqs.ts`, `process.ts`.
 - `src/lib/lead.ts`: estimate form validation, spam checks (hidden `ab_check` field + minimum fill time), email formatting and delivery (Resend REST API and/or a JSON webhook). Pure TypeScript with no Next imports so `node --test` can run it. `src/lib/submit-lead.ts` is the Server Action wrapper.
 - `src/lib/track.ts`: dataLayer events (`call_click`, `text_click`, `estimate_click`, `lead_submit`, `language_switch`, `yelp_click`, `offer_click`, `email_click`), optional gtag conversions, gclid/UTM capture.
 - `src/components/`: server components by default. Client components only where needed: `estimate-form`, `mobile-menu`, `tracked-link`, `attribution-capture`, `language-link`, `language-suggestion`, `offer-popup`.
@@ -37,6 +37,7 @@ npm run build
 - Layout: left-aligned, full-bleed bands alternating white / concrete / ink. Place names use the street-sign `PlacePlate`.
 - Motion: only the open-now status dot, the mobile action bar reveal and the offer pop-up slide-in. Content is never hidden behind entrance animations.
 - The offer pop-up (`offer-popup.tsx`) is a small corner card, never a full-screen overlay (Google penalizes intrusive mobile pop-ups). It shows only while `campaign` in `offers.ts` is running.
+- Service landing pages show the running offers as a coupon (`service-offer.tsx`) under the hero buttons, or in the photo's place when a page has no photo; an offer with `appliesTo` leads on those services (water heaters, tankless). The pop-up stays off service pages, home pages and /offers.
 
 ## Rules for content
 

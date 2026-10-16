@@ -25,6 +25,10 @@ import trenchApartmentBuilding from '@/assets/work/trench-apartment-building.jpg
 import waterLineTrenchFrontYard from '@/assets/work/water-line-trench-front-yard.jpg';
 import waterSoftenerInstall from '@/assets/work/water-softener-install.jpg';
 import wholeHouseWaterFilter from '@/assets/work/whole-house-water-filter.jpg';
+import backflowValveNew from '@/assets/work/backflow-valve-new.jpg';
+import backflowValveOld from '@/assets/work/backflow-valve-old.jpg';
+import gasLineBradfordWhiteWaterHeater from '@/assets/work/gas-line-bradford-white-water-heater.jpg';
+import gasLineValveWaterHeater from '@/assets/work/gas-line-valve-water-heater.jpg';
 import rheem50GallonWaterHeater from '@/assets/work/rheem-50-gallon-water-heater.jpg';
 import twoTanklessWaterHeaters from '@/assets/work/two-tankless-water-heaters.jpg';
 import fortyGallonWaterHeaterReplacement from '@/assets/work/40-gallon-water-heater-replacement.jpg';
@@ -109,7 +113,7 @@ export const work: WorkPhoto[] = [
       caption: 'Calentador sin tanque instalado en una pared de tejas',
       alt: 'Calentador de agua sin tanque blanco montado en una pared exterior de tejas grises, con líneas de suministro aisladas abajo',
     },
-    services: ['water-heaters'],
+    services: ['water-heaters', 'tankless-water-heaters'],
   },
   {
     id: 'sewer-lateral-street-patch',
@@ -131,7 +135,7 @@ export const work: WorkPhoto[] = [
       caption: 'Calentador de gas cambiado, con correas y ventilación',
       alt: 'Calentador de agua de gas Bradford White nuevo con correas sísmicas, tubo de ventilación nuevo y conector de gas en un clóset de la cocina',
     },
-    services: ['water-heaters'],
+    services: ['water-heaters', 'gas-lines'],
   },
   {
     id: 'trench-apartment-building',
@@ -153,7 +157,7 @@ export const work: WorkPhoto[] = [
       caption: 'Calentador sin tanque Rheem con líneas aisladas',
       alt: 'Calentador de agua sin tanque Rheem en una pared exterior café con tubos negros aislados y una línea de gas amarilla',
     },
-    services: ['water-heaters'],
+    services: ['water-heaters', 'tankless-water-heaters', 'gas-lines'],
   },
   {
     id: 'water-line-trench-front-yard',
@@ -175,7 +179,7 @@ export const work: WorkPhoto[] = [
       caption: 'Fregadero y llave de cocina, con llave de agua filtrada',
       alt: 'Fregadero nuevo de acero inoxidable con llave extraíble y una llave aparte para agua filtrada en una cubierta de granito',
     },
-    services: ['fixtures'],
+    services: ['fixtures', 'faucets-sinks'],
   },
   {
     id: 'apartment-complex-new-line',
@@ -197,7 +201,7 @@ export const work: WorkPhoto[] = [
       caption: 'Calentador sin tanque exterior con líneas nuevas de drenaje y de agua',
       alt: 'Calentador de agua sin tanque en una pared de madera con tubos de drenaje negros nuevos y líneas de agua de cobre y azules que entran al suelo',
     },
-    services: ['water-heaters'],
+    services: ['water-heaters', 'tankless-water-heaters'],
   },
   {
     id: 'kitchen-sink-drain-disposal',
@@ -208,7 +212,7 @@ export const work: WorkPhoto[] = [
       caption: 'Drenaje del fregadero y conexión del triturador',
       alt: 'Vista debajo del fregadero de una trampa de drenaje nueva y la conexión del triturador de basura con líneas de suministro de cobre',
     },
-    services: ['fixtures', 'drain-cleaning'],
+    services: ['fixtures', 'drain-cleaning', 'faucets-sinks', 'garbage-disposals'],
   },
   {
     id: 'whole-house-water-filter',
@@ -230,7 +234,7 @@ export const work: WorkPhoto[] = [
       caption: 'Línea de agua nueva para una llave de afuera',
       alt: 'Línea de agua nueva de cobre y azul a lo largo de una pared de estuco hasta una llave de afuera, con una zanja poco profunda',
     },
-    services: ['leaks-water-lines'],
+    services: ['leaks-water-lines', 'faucets-sinks'],
   },
   {
     id: 'tankless-indoor-service-valves',
@@ -241,7 +245,7 @@ export const work: WorkPhoto[] = [
       caption: 'Calentador sin tanque interior con válvulas de servicio',
       alt: 'Calentador de agua sin tanque montado en la pared de un garaje con tubería de cobre y válvulas de servicio rojas y azules',
     },
-    services: ['water-heaters'],
+    services: ['water-heaters', 'tankless-water-heaters'],
   },
   {
     id: 'tankless-outdoor-gas-meter',
@@ -252,7 +256,7 @@ export const work: WorkPhoto[] = [
       caption: 'Calentador sin tanque exterior junto al medidor de gas',
       alt: 'Calentador de agua sin tanque blanco en una pared azul junto a un medidor de gas y un tablero eléctrico',
     },
-    services: ['water-heaters'],
+    services: ['water-heaters', 'tankless-water-heaters'],
   },
   {
     id: 'toilet-install',
@@ -263,7 +267,7 @@ export const work: WorkPhoto[] = [
       caption: 'Inodoro nuevo instalado',
       alt: 'Inodoro blanco recién instalado en un baño con piso de azulejo oscuro',
     },
-    services: ['fixtures'],
+    services: ['fixtures', 'toilets'],
   },
   {
     id: 'water-softener-install',
@@ -286,7 +290,7 @@ export const work: WorkPhoto[] = [
       caption: 'Calentador de agua Rheem nuevo de 50 galones',
       alt: 'Calentador de agua de gas Rheem nuevo de 50 galones con correas sísmicas, ventilación nueva y línea de gas amarilla en una esquina del garaje',
     },
-    services: ['water-heaters'],
+    services: ['water-heaters', 'gas-lines'],
   },
   {
     id: 'two-tankless-water-heaters',
@@ -297,7 +301,7 @@ export const work: WorkPhoto[] = [
       caption: 'Dos calentadores sin tanque, uno junto al otro',
       alt: 'Dos calentadores de agua sin tanque blancos montados uno junto al otro en la pared, con ventilación nueva y tubería de cobre abajo',
     },
-    services: ['water-heaters'],
+    services: ['water-heaters', 'tankless-water-heaters'],
   },
   {
     id: '40-gallon-water-heater-replacement',
@@ -319,7 +323,7 @@ export const work: WorkPhoto[] = [
       caption: 'Calentador sin tanque Navien nuevo',
       alt: 'Calentador de agua sin tanque Navien blanco en una pared de madera, con línea de gas amarilla y conexiones de agua nuevas abajo',
     },
-    services: ['water-heaters'],
+    services: ['water-heaters', 'tankless-water-heaters', 'gas-lines'],
   },
   {
     id: 'burst-pipe-before',
@@ -385,7 +389,7 @@ export const work: WorkPhoto[] = [
       caption: 'Líneas de cobre y llaves nuevas para la lavadora',
       alt: 'Líneas de cobre nuevas de agua fría y caliente con llaves de manija roja, revisadas con un nivel azul en una pared blanca',
     },
-    services: ['leaks-water-lines'],
+    services: ['leaks-water-lines', 'remodel-plumbing'],
   },
   {
     id: 'roots-sewer-cleanout',
@@ -429,7 +433,7 @@ export const work: WorkPhoto[] = [
       caption: 'Vista de la cámara dentro de una línea de drenaje',
       alt: 'Pantalla de una cámara de inspección RIDGID que muestra el interior de un tubo de drenaje',
     },
-    services: ['sewer-lines', 'drain-cleaning'],
+    services: ['sewer-lines', 'drain-cleaning', 'plumbing-inspections'],
   },
   {
     id: 'sewer-camera-setup',
@@ -440,7 +444,7 @@ export const work: WorkPhoto[] = [
       caption: 'Cámara de inspección lista para encontrar el problema',
       alt: 'Carrete y monitor de una cámara de inspección de drenaje sobre un tapete, con el cable hacia el drenaje',
     },
-    services: ['sewer-lines', 'drain-cleaning'],
+    services: ['sewer-lines', 'drain-cleaning', 'plumbing-inspections'],
   },
   {
     id: 'drain-machine-outdoor-cleanout',
@@ -462,7 +466,7 @@ export const work: WorkPhoto[] = [
       caption: 'Destapando un inodoro con una sonda',
       alt: 'Una sonda eléctrica roja metida en un inodoro tapado, el plomero con cubrezapatos',
     },
-    services: ['drain-cleaning', 'fixtures'],
+    services: ['drain-cleaning', 'fixtures', 'toilets'],
   },
   {
     id: 'sump-pump-basin',
@@ -473,7 +477,7 @@ export const work: WorkPhoto[] = [
       caption: 'Bomba de sumidero nueva en su depósito',
       alt: 'Bomba de sumidero nueva dentro de un depósito naranja enterrado en grava, con su tubo de descarga',
     },
-    services: ['drain-cleaning'],
+    services: ['drain-cleaning', 'sump-pumps'],
   },
   {
     id: 'sewer-pump-box',
@@ -484,7 +488,7 @@ export const work: WorkPhoto[] = [
       caption: 'Caja de bomba de drenaje nueva',
       alt: 'Bomba y depósito de drenaje negros nuevos dentro de un foso, con tubería de descarga negra nueva',
     },
-    services: ['sewer-lines'],
+    services: ['sewer-lines', 'sump-pumps'],
   },
   {
     id: 'bathtub-shower-remodel',
@@ -495,7 +499,7 @@ export const work: WorkPhoto[] = [
       caption: 'Tina y regadera nuevas en una remodelación de baño',
       alt: 'Tina y paredes de regadera blancas nuevas con regadera cromada y barra de apoyo, durante una remodelación de baño',
     },
-    services: ['fixtures'],
+    services: ['fixtures', 'remodel-plumbing', 'showers-bathtubs'],
   },
   {
     id: 'moen-shower-valve',
@@ -506,7 +510,7 @@ export const work: WorkPhoto[] = [
       caption: 'Llave de regadera Moen nueva',
       alt: 'Manija de llave de regadera Moen cromada nueva y salida de tina sobre azulejo de mármol café',
     },
-    services: ['fixtures'],
+    services: ['fixtures', 'remodel-plumbing', 'showers-bathtubs'],
   },
   {
     id: 'kitchen-faucet-stainless-sink',
@@ -517,7 +521,7 @@ export const work: WorkPhoto[] = [
       caption: 'Llave nueva en un fregadero de acero inoxidable',
       alt: 'Llave de cocina alta de acero inoxidable nueva con agua corriendo en un fregadero hondo de acero inoxidable, con azulejo blanco atrás',
     },
-    services: ['fixtures'],
+    services: ['fixtures', 'faucets-sinks'],
   },
   {
     id: 'garbage-disposal-replacement',
@@ -528,7 +532,7 @@ export const work: WorkPhoto[] = [
       caption: 'Triturador de basura de reemplazo',
       alt: 'Triturador de basura gris nuevo y conexiones de drenaje debajo de un fregadero de cocina',
     },
-    services: ['fixtures'],
+    services: ['fixtures', 'garbage-disposals'],
   },
   {
     id: 'new-toilet-install',
@@ -539,7 +543,7 @@ export const work: WorkPhoto[] = [
       caption: 'Inodoro nuevo, instalado',
       alt: 'Inodoro blanco nuevo de una pieza con la tapa abierta, instalado en un piso tipo madera',
     },
-    services: ['fixtures'],
+    services: ['fixtures', 'toilets'],
   },
   {
     id: 'crew-at-work',
@@ -551,6 +555,50 @@ export const work: WorkPhoto[] = [
       alt: 'Tres personas arrodilladas en el piso durante una reparación, una con camiseta de AB’s Plumbing, con herramientas y una sección del piso abierta',
     },
     services: ['emergency-plumbing'],
+  },
+  {
+    id: 'backflow-valve-old',
+    image: backflowValveOld,
+    caption: 'Before: an old, rusted backflow valve',
+    alt: 'Old rusted backflow valve assembly taken out and lying on a wet wooden deck beside a garden hose',
+    es: {
+      caption: 'Antes: una válvula antirretorno vieja y oxidada',
+      alt: 'Válvula antirretorno vieja y oxidada ya retirada, sobre una terraza de madera mojada junto a una manguera',
+    },
+    services: ['backflow-preventers', 'leaks-water-lines'],
+  },
+  {
+    id: 'backflow-valve-new',
+    image: backflowValveNew,
+    caption: 'After: the new backflow valve in place',
+    alt: 'New brass backflow valve assembly installed on a copper water line against a white stucco wall',
+    es: {
+      caption: 'Después: la válvula antirretorno nueva en su lugar',
+      alt: 'Válvula antirretorno de bronce nueva instalada en una línea de agua de cobre junto a una pared de estuco blanca',
+    },
+    services: ['backflow-preventers', 'leaks-water-lines'],
+  },
+  {
+    id: 'gas-line-valve-water-heater',
+    image: gasLineValveWaterHeater,
+    caption: 'New gas line and valve to a water heater',
+    alt: 'New yellow flexible gas line and shutoff valve running to a Bradford White water heater with seismic straps',
+    es: {
+      caption: 'Línea de gas y válvula nuevas para un calentador',
+      alt: 'Línea de gas flexible amarilla y llave de paso nuevas conectadas a un calentador Bradford White con correas sísmicas',
+    },
+    services: ['gas-lines', 'water-heaters'],
+  },
+  {
+    id: 'gas-line-bradford-white-water-heater',
+    image: gasLineBradfordWhiteWaterHeater,
+    caption: 'New gas line and supply lines on a Bradford White water heater',
+    alt: 'Bradford White water heater in a closet with a new yellow gas line, new copper supply lines and seismic straps',
+    es: {
+      caption: 'Línea de gas y líneas de agua nuevas en un calentador Bradford White',
+      alt: 'Calentador Bradford White en un clóset con línea de gas amarilla nueva, líneas de agua de cobre nuevas y correas sísmicas',
+    },
+    services: ['gas-lines', 'water-heaters'],
   },
 ];
 
