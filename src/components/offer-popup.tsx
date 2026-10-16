@@ -16,6 +16,8 @@ const QUIET_DAYS = 3;
 /** It shows after this much scrolling (in screen heights) or this many seconds, whichever comes first. */
 const SCROLL_SCREENS = 0.6;
 const DELAY_MS = 12000;
+/** On service pages: after the hero and its coupon are out of view. */
+const SERVICE_SCROLL_SCREENS = 1.3;
 
 const copy = {
   en: { href: '/offers', label: 'Current offers', call: 'Call to claim', see: 'See all offers', close: 'Close' },
@@ -42,7 +44,8 @@ function rememberClosed() {
 /**
  * A small card announcing the running offers, in a corner on desktop and above the call bar on phones.
  * It never covers the page (Google penalizes intrusive pop-ups on mobile), doesn't take focus, and stays
- * closed for a few days once dismissed. Not shown on the offers page, the home pages (they show the flyer) or the privacy policy.
+ * closed for a few days once dismissed. Not shown on the offers page, the home pages (they show the flyer) or the privacy
+ * policy; on service pages it waits until the hero coupon has scrolled out of view.
  */
 export function OfferPopup({ locale = 'en' }: { locale?: 'en' | 'es' }) {
   const c = copy[locale];
@@ -51,17 +54,21 @@ export function OfferPopup({ locale = 'en' }: { locale?: 'en' | 'es' }) {
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
-    // The home pages show the flyer under the hero, and service pages show the offer in their hero.
-    if ([c.href, '/privacy', '/', '/es'].includes(pathname) || /^\/(services|es\/servicios)\/./.test(pathname)) return;
+    // The home pages show the flyer under the hero, so the card stays off them (and off the offers page itself).
+    if ([c.href, '/privacy', '/', '/es'].includes(pathname)) return;
     if (!isRunning(campaign, new Date()) || closedRecently()) return;
+    // Service pages already show the offer as a coupon in the hero: the card waits until that has scrolled away,
+    // and never shows on a timer alone.
+    const servicePage = /^\/(services|es\/servicios)\/./.test(pathname);
+    const screens = servicePage ? SERVICE_SCROLL_SCREENS : SCROLL_SCREENS;
     const show = () => {
       setOpen(true);
       cleanup();
     };
     const onScroll = () => {
-      if (window.scrollY > window.innerHeight * SCROLL_SCREENS) show();
+      if (window.scrollY > window.innerHeight * screens) show();
     };
-    const timer = window.setTimeout(show, DELAY_MS);
+    const timer = servicePage ? undefined : window.setTimeout(show, DELAY_MS);
     window.addEventListener('scroll', onScroll, { passive: true });
     function cleanup() {
       window.clearTimeout(timer);

@@ -37,7 +37,7 @@ npm run build
 - Layout: left-aligned, full-bleed bands alternating white / concrete / ink. Place names use the street-sign `PlacePlate`.
 - Motion: only the open-now status dot, the mobile action bar reveal and the offer pop-up slide-in. Content is never hidden behind entrance animations.
 - The offer pop-up (`offer-popup.tsx`) is a small corner card, never a full-screen overlay (Google penalizes intrusive mobile pop-ups). It shows only while `campaign` in `offers.ts` is running.
-- Service landing pages show the running offers as a coupon (`service-offer.tsx`) under the hero buttons, or in the photo's place when a page has no photo; an offer with `appliesTo` leads on those services (water heaters, tankless). The pop-up stays off service pages, home pages and /offers.
+- Service landing pages show the running offers as a coupon (`service-offer.tsx`) under the hero buttons, or in the photo's place when a page has no photo; an offer with `appliesTo` leads on those services (water heaters, tankless). The pop-up stays off home pages and /offers; on service pages it appears only after the hero coupon scrolls out of view.
 
 ## Rules for content
 
