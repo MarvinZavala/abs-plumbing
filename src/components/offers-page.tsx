@@ -1,6 +1,6 @@
 import { CalendarClock, ClipboardList, ReceiptText } from 'lucide-react';
 import type { Locale } from '@/content/i18n';
-import { activeOffers } from '@/content/offers';
+import { activeOffers, offerTerms, offersHeading } from '@/content/offers';
 import { breadcrumbJsonLd } from '@/lib/structured-data';
 import { CallButton } from './cta';
 import { EstimateSection } from './estimate-section';
@@ -61,14 +61,17 @@ export function OffersPage({ locale = 'en' }: { locale?: Locale }) {
       <section aria-labelledby="offers-title" className="bg-concrete">
         <div className="wrap py-14 lg:py-20">
           <h2 id="offers-title" className="type-h2">
-            {c.listTitle}
+            {list.length > 0 ? offersHeading[locale] : c.listTitle}
           </h2>
           {list.length > 0 ? (
-            <div className="mt-10 grid gap-8 md:grid-cols-2 lg:gap-10">
-              {list.map((offer) => (
-                <OfferCoupon key={offer.id} offer={offer} locale={locale} />
-              ))}
-            </div>
+            <>
+              <div className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                {list.map((offer) => (
+                  <OfferCoupon key={offer.id} offer={offer} locale={locale} />
+                ))}
+              </div>
+              <p className="measure mt-8 text-[0.95rem] text-mute">{offerTerms.map((term) => term[locale]).join(' ')}</p>
+            </>
           ) : (
             <div className="measure mt-8 rounded-plate bg-white p-6 sm:p-8">
               <p className="type-h3">{c.none}</p>

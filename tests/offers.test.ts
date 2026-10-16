@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { activeOffers, endsLabel, offers, pacificDate, type Offer } from '../src/content/offers.ts';
+import { activeOffers, endsLabel, offerTerms, offers, pacificDate, type Offer } from '../src/content/offers.ts';
 import { business } from '../src/content/business.ts';
 import { alternatePath } from '../src/lib/i18n-routes.ts';
 import { sitemapEntries } from '../src/lib/sitemap.ts';
@@ -26,7 +26,7 @@ test('every offer is written in English and Spanish, with a unique URL-safe id',
   assert.equal(new Set(ids).size, ids.length);
   for (const o of offers) {
     assert.match(o.id, /^[a-z0-9]+(-[a-z0-9]+)*$/);
-    for (const text of [o.amount, o.title, o.who, o.howTo, ...(o.terms ?? [])]) {
+    for (const text of [o.amount, o.title, o.howTo, ...(o.who ? [o.who] : []), ...(o.terms ?? [])]) {
       assert.ok(text.en.trim() && text.es.trim(), `${o.id}: missing translation`);
     }
     for (const d of [o.startsOn, o.endsOn]) if (d) assert.match(d, /^\d{4}-\d{2}-\d{2}$/);
@@ -62,4 +62,16 @@ test('both offers pages are in the sitemap, paired by hreflang', () => {
     assert.equal(entry.alternates?.languages['es-US'], `${BASE}/es/ofertas`);
     assert.equal(entry.alternates?.languages['en-US'], `${BASE}/offers`);
   }
+});
+
+test('the fall flyer offers are listed with their minimums, and the shared terms in both languages', () => {
+  const titles = offers.map((o) => `${o.amount.en}: ${o.title.en}`);
+  for (const line of [
+    '$35 off: Any plumbing service of $250 or more',
+    '$75 off: Any plumbing service of $500 or more',
+    '$150 off: Any plumbing service of $1,000 or more',
+    '$125 off: New water heater installation',
+  ]) assert.ok(titles.includes(line), `missing: ${line}`);
+  assert.equal(offerTerms.length, 3);
+  for (const t of offerTerms) assert.ok(t.en && t.es);
 });

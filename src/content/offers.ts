@@ -16,8 +16,8 @@ export type Offer = {
   amount: Text;
   /** What the saving is on. */
   title: Text;
-  /** Who can use it. */
-  who: Text;
+  /** Who can use it, when it is limited to some customers. */
+  who?: Text;
   /** How to claim it. */
   howTo: Text;
   /** Fine print, exactly as the client set it. */
@@ -37,7 +37,44 @@ const newCustomer: Offer = {
   howTo: { en: 'Mention the website when you call.', es: 'Mencione la página web cuando llame.' },
 };
 
-export const offers: Offer[] = [...(business.offer.enabled ? [newCustomer] : [])];
+const mentionIt: Text = { en: 'Mention the offer when booking.', es: 'Mencione la oferta al hacer su cita.' };
+
+/** Minimum-spend offer on any plumbing service (from the client's fall flyer). */
+const spend = (off: number, minimum: string): Offer => ({
+  id: `fall-${off}-off`,
+  amount: { en: `$${off} off`, es: `$${off} de descuento` },
+  title: { en: `Any plumbing service of ${minimum} or more`, es: `Cualquier servicio de plomería de ${minimum} o más` },
+  howTo: mentionIt,
+});
+
+/** The client's fall flyer ("Fall Plumbing Specials"). */
+const fallSpecials: Offer[] = [
+  spend(35, '$250'),
+  spend(75, '$500'),
+  spend(150, '$1,000'),
+  {
+    id: 'fall-water-heater',
+    amount: { en: '$125 off', es: '$125 de descuento' },
+    title: { en: 'New water heater installation', es: 'Instalación de un calentador de agua nuevo' },
+    howTo: mentionIt,
+    service: 'water-heaters',
+  },
+];
+
+export const offers: Offer[] = [...fallSpecials, ...(business.offer.enabled ? [newCustomer] : [])];
+
+/** Shown once under the offers. Word for word from the client's flyer. */
+export const offerTerms: Text[] = [
+  { en: 'One offer per job.', es: 'Una oferta por trabajo.' },
+  { en: 'Cannot be combined with other discounts.', es: 'No se puede combinar con otros descuentos.' },
+  {
+    en: 'Minimum service amounts apply before taxes and discounts.',
+    es: 'Los montos mínimos de servicio aplican antes de impuestos y descuentos.',
+  },
+];
+
+/** Name of the current set of offers, used as the heading over the coupons. */
+export const offersHeading: Text = { en: 'Fall plumbing specials', es: 'Especiales de plomería de otoño' };
 
 /** Today's date in the Bay Area as YYYY-MM-DD, so offers start and end on local days. */
 export function pacificDate(now: Date): string {

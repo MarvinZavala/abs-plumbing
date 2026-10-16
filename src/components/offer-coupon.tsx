@@ -33,10 +33,12 @@ export function OfferCoupon({ offer, locale = 'en' }: { offer: Offer; locale?: L
       {offer.endsOn && <p className="mt-2 font-semibold text-alert">{endsLabel(offer.endsOn, locale)}</p>}
 
       <dl className="mt-5 grid gap-3 border-t border-line pt-5">
-        <div className="grid gap-0.5 sm:grid-cols-[8.5rem_1fr]">
-          <dt className="font-semibold text-ink">{l.who}</dt>
-          <dd>{offer.who[locale]}</dd>
-        </div>
+        {offer.who && (
+          <div className="grid gap-0.5 sm:grid-cols-[8.5rem_1fr]">
+            <dt className="font-semibold text-ink">{l.who}</dt>
+            <dd>{offer.who[locale]}</dd>
+          </div>
+        )}
         <div className="grid gap-0.5 sm:grid-cols-[8.5rem_1fr]">
           <dt className="font-semibold text-ink">{l.howTo}</dt>
           <dd>{offer.howTo[locale]}</dd>
