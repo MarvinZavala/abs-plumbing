@@ -111,7 +111,8 @@ export function ServiceLanding({ slug, locale = 'en' }: { slug: ServiceSlug; loc
   ].slice(0, 6);
   // This service's own questions first, then the general ones, in one FAQ list (one FAQPage per page).
   const general = locale === 'es' ? faqsEs : faqs;
-  const faqItems = text.faqs?.length ? [...text.faqs, ...general.slice(0, 3)] : general;
+  const own = text.faqs ?? [];
+  const faqItems = own.length ? [...own, ...general.filter((g) => !own.some((o) => o.q === g.q)).slice(0, 3)] : general;
   // Related services: the same group first, then the core six.
   const group = serviceGroups.find((g) => g.services.includes(slug));
   const related = [...new Set([...(group?.services ?? []), ...coreServices])].filter((s) => s !== slug).slice(0, 6);

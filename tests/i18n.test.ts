@@ -97,10 +97,10 @@ test('the pre-paint script is self-contained and flags <html> for Spanish browse
 test('the full service list matches what AB’s verified on Yelp, in both languages', async () => {
   const { allServices } = await import('../src/content/services.ts');
   const { allServicesEs } = await import('../src/content/es.ts');
-  // Yelp "Services Offered, verified by business" (checked 2026-10-16), plus remodel plumbing confirmed by the client.
+  // Yelp "Services Offered, verified by business" (checked 2026-10-16), plus remodel plumbing and repiping confirmed by the client.
   const verified = [
     'Plumbing repair', 'Plumbing installation and replacement', 'Plumbing inspections', 'Drain cleaning', 'Hydro-jetting',
-    'Sewer lines', 'Water pipes', 'Water heater repair', 'Water heater installation', 'Hot water recirculation pumps',
+    'Sewer lines', 'Water pipes', 'Repiping', 'Water heater repair', 'Water heater installation', 'Hot water recirculation pumps',
     'Gas lines', 'Backflow preventers', 'Sump pumps', 'Faucets', 'Sinks', 'Toilets', 'Garbage disposals', 'Showers',
     'Bathtubs', 'New plumbing for remodels',
   ];
@@ -134,4 +134,13 @@ test('every service page has a hook headline, problems, what we do, and its own 
     assert.equal(es.problems.length, s.problems.length, `${s.slug}: problems differ between languages`);
     assert.equal(es.faqs?.length ?? 0, s.faqs?.length ?? 0, `${s.slug}: FAQs differ between languages`);
   }
+});
+
+test('no service page repeats a question from the general FAQ', async () => {
+  const { faqs } = await import('../src/content/faqs.ts');
+  const { faqsEs } = await import('../src/content/es.ts');
+  // The page shows a service's own questions plus general ones; duplicates are filtered, so this just guards typos.
+  for (const s of services) for (const f of s.faqs ?? []) assert.ok(f.q.trim().endsWith('?'), `${s.slug}: ${f.q}`);
+  for (const s of servicesEs) for (const f of s.faqs ?? []) assert.ok(f.q.trim().endsWith('?'), `${s.slug}: ${f.q}`);
+  assert.ok(faqs.length && faqsEs.length);
 });

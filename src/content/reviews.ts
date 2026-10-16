@@ -117,7 +117,7 @@ export const reviews: Review[] = [
     date: '2026-10-05',
     job: 'Kitchen drain line replaced',
     jobEs: 'Cambio de la línea de drenaje de la cocina',
-    services: ['drain-cleaning', 'sewer-lines'],
+    services: ['drain-cleaning', 'sewer-lines', 'sewer-line-replacement'],
     quote:
       'They were back on Tuesday to complete the repair, which involved replacing a significant section of our existing 2" drain line with new 3" ABS, correcting the slope, and adding a new cleanout.',
   },
@@ -237,7 +237,7 @@ export const reviews: Review[] = [
     date: '2026-06-01',
     job: 'Sewer backup from tree roots',
     jobEs: 'Drenaje tapado por raíces de árbol',
-    services: ['sewer-lines', 'emergency-plumbing', 'plumbing-inspections'],
+    services: ['sewer-lines', 'emergency-plumbing', 'plumbing-inspections', 'sewer-line-replacement'],
     quote:
       "He told me he'd be there within about an hour, and he was. … He then ran a camera through the line and showed me exactly what was causing the backup: tree roots had intruded into the sewer pipe.",
   },

@@ -19,7 +19,7 @@ export const serviceGroups: ServiceGroup[] = [
   {
     id: 'drains',
     name: { en: 'Drains and sewer lines', es: 'Drenajes y líneas de drenaje' },
-    services: ['drain-cleaning', 'hydro-jetting', 'sewer-lines', 'plumbing-inspections', 'sump-pumps'],
+    services: ['drain-cleaning', 'hydro-jetting', 'sewer-lines', 'sewer-line-replacement', 'plumbing-inspections', 'sump-pumps'],
   },
   {
     id: 'water-heaters',
@@ -29,7 +29,7 @@ export const serviceGroups: ServiceGroup[] = [
   {
     id: 'water-gas',
     name: { en: 'Water lines and gas lines', es: 'Líneas de agua y de gas' },
-    services: ['leaks-water-lines', 'gas-lines', 'backflow-preventers'],
+    services: ['leaks-water-lines', 'repiping', 'gas-lines', 'backflow-preventers'],
   },
   {
     id: 'fixtures',

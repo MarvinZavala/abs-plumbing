@@ -31,6 +31,8 @@ const SERVICE_URLS = [
   `${BASE}/services/faucets-sinks`,
   `${BASE}/services/garbage-disposals`,
   `${BASE}/services/showers-bathtubs`,
+  `${BASE}/services/repiping`,
+  `${BASE}/services/sewer-line-replacement`,
 ];
 
 // --- structured data -------------------------------------------------------

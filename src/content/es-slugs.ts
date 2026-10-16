@@ -24,4 +24,6 @@ export const spanishSlugs: Record<ServiceSlug, string> = {
   'faucets-sinks': 'llaves-y-fregaderos',
   'garbage-disposals': 'trituradores-de-basura',
   'showers-bathtubs': 'regaderas-y-tinas',
+  'repiping': 'cambio-de-tuberia',
+  'sewer-line-replacement': 'cambio-de-linea-de-drenaje',
 };

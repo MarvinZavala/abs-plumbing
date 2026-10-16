@@ -20,7 +20,9 @@ export type ServiceSlug =
   | 'toilets'
   | 'faucets-sinks'
   | 'garbage-disposals'
-  | 'showers-bathtubs';
+  | 'showers-bathtubs'
+  | 'repiping'
+  | 'sewer-line-replacement';
 
 export type Service = {
   slug: ServiceSlug;
@@ -188,7 +190,7 @@ export const services: Service[] = [
       'apartment-complex-new-line',
     ],
     seo: {
-      title: 'Sewer Line Repair & Replacement in Oakland',
+      title: 'Sewer Line Repair in Oakland & the Bay Area',
       description:
         'Sewer backup or roots in the line? We inspect with a camera and repair or replace your sewer lateral. Open 24/7. Call AB’s Plumbing at (510) 753-8649.',
     },
@@ -832,12 +834,116 @@ export const services: Service[] = [
     featuredReviews: [],
     photos: ['moen-shower-valve', 'bathtub-shower-remodel'],
   },
+  {
+    slug: 'repiping',
+    name: 'Repiping',
+    summary: 'Old galvanized or leaking water pipes replaced with new copper lines, from the main to the fixtures.',
+    headline: 'Leak after leak, low pressure, rusty water? Time to repipe.',
+    lead: 'When old galvanized or worn-out pipes keep leaking, we replace them with new copper water lines: the main line from the meter, and the lines to your kitchen, bathrooms, laundry and water heater.',
+    problems: [
+      'Leak after leak in the same old pipes',
+      'Low water pressure all over the house',
+      'Rusty or discolored water',
+      'Old galvanized main line',
+      'Remodel that needs new water lines',
+    ],
+    includes: [
+      {
+        title: 'New main line',
+        body: 'A new copper main line from the meter to the house, like the old galvanized mains we’ve replaced.',
+      },
+      {
+        title: 'New lines inside',
+        body: 'New copper lines to the kitchen, bathrooms, laundry and water heater, with new valves.',
+      },
+      {
+        title: 'A price before the work',
+        body: 'You see the plan and the price before we open a wall. Estimates are free.',
+      },
+    ],
+    seo: {
+      title: 'Repiping & Water Line Replacement in Oakland',
+      description: 'Old galvanized or leaking pipes? AB’s Plumbing repipes homes with new copper water lines, from the main to every fixture. Open 24/7. Call (510) 753-8649.',
+    },
+    faqs: [
+      {
+        q: 'What does repiping include?',
+        a: 'Replacing old water pipes with new ones. Depending on what your house needs, that can be the main line from the meter, the lines inside the house, or both. We look first and tell you what’s worth replacing.',
+      },
+      {
+        q: 'What pipe do you use?',
+        a: 'Our recent repipes use copper, including copper with press-fit (ProPress) fittings.',
+      },
+      {
+        q: 'Will I know the price before you start?',
+        a: 'Yes. We look at your pipes, explain what needs replacing and give you a price before any work starts. Estimates are free.',
+      },
+    ],
+    featuredReviews: [],
+    photos: [
+      'copper-repipe-laundry-sink',
+      'galvanized-main-line-replaced',
+      'copper-repipe-inside-wall',
+      'copper-repipe-crawl-space',
+      'new-copper-main-line-trench',
+      'new-copper-main-line-yard',
+    ],
+  },
+  {
+    slug: 'sewer-line-replacement',
+    name: 'Sewer line replacement',
+    summary: 'Broken clay or cast-iron sewer lines replaced with new pipe, from the house to the city main.',
+    headline: 'Sewer line broken or full of roots? We replace it, house to street.',
+    lead: 'Old clay and cast-iron sewer lines crack, sag and fill with roots. We put a camera down first, then replace the broken section or the whole line with new pipe, all the way to the connection at the street when it needs it.',
+    problems: [
+      'Roots keep coming back in an old clay line',
+      'Cracked or collapsed sewer pipe',
+      'Broken cast-iron sewer line',
+      'Backups that snaking no longer fixes for long',
+      'Broken connection at the city main',
+    ],
+    includes: [
+      { title: 'Camera first', body: 'You see the break on screen before anyone talks about digging.' },
+      {
+        title: 'New pipe, house to street',
+        body: 'The broken section or the whole line replaced with new ABS or SDR sewer pipe, with a new cleanout where it helps.',
+      },
+      { title: 'Clean finish', body: 'Trench backfilled, concrete or the street patched, and the site cleaned up.' },
+    ],
+    seo: {
+      title: 'Sewer Line Replacement in Oakland, CA',
+      description: 'Broken clay or cast-iron sewer line? AB’s Plumbing replaces it with new pipe, from the house to the city main, camera first. Open 24/7. Call (510) 753-8649.',
+    },
+    faqs: [
+      {
+        q: 'Do I need the whole sewer line replaced?',
+        a: 'Not always. We run a camera first and show you where the line is broken. Sometimes replacing one section is enough; when an old line is failing in several places, replacing it makes more sense. You decide with the price in hand.',
+      },
+      {
+        q: 'What pipe do you replace it with?',
+        a: 'Our recent sewer replacements use new ABS and SDR sewer pipe, with new cleanouts where they help.',
+      },
+      {
+        q: 'Can you replace the connection at the street?',
+        a: 'Yes. We’ve replaced broken sewer lines and the Y connection at the city main, and patched the street afterward.',
+      },
+    ],
+    featuredReviews: ['anthony-r', 'natalye-b'],
+    photos: [
+      'clay-sewer-line-roots',
+      'crew-removing-old-sewer-line',
+      'new-sewer-line-to-street',
+      'sewer-replacement-at-city-main',
+      'broken-clay-sewer-line',
+      'sewer-line-replacement-abs',
+    ],
+  },
 ];
 
 /** Other work the crew handles (from the services verified on Yelp), without dedicated pages. */
 /**
  * Every service AB's offers: Yelp "Services Offered, verified by business" (checked 2026-10-16), plus remodel
- * plumbing the client confirmed. Don't add anything that isn't on that list or confirmed by the client.
+ * plumbing and repiping the client confirmed. Don't add anything that isn't on that list or confirmed by the client.
  */
 export const allServices = [
   'Plumbing repair',
@@ -847,6 +953,7 @@ export const allServices = [
   'Hydro-jetting',
   'Sewer lines',
   'Water pipes',
+  'Repiping',
   'Water heater repair',
   'Water heater installation',
   'Hot water recirculation pumps',

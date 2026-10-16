@@ -713,6 +713,93 @@ const bySlug: Record<ServiceSlug, Omit<ServiceEs, 'slug' | 'slugEs'>> = {
       },
     ],
   },
+  'repiping': {
+    name: 'Cambio de tubería',
+    summary: 'Cambiamos tubería de agua galvanizada vieja o con fugas por líneas de cobre nuevas, de la principal a los aparatos.',
+    headline: '¿Fuga tras fuga, poca presión, agua oxidada? Es hora de cambiar la tubería.',
+    lead: 'Cuando la tubería galvanizada vieja o gastada sigue teniendo fugas, la cambiamos por líneas de agua de cobre nuevas: la línea principal desde el medidor, y las líneas de la cocina, los baños, la lavadora y el calentador de agua.',
+    problems: [
+      'Fuga tras fuga en la misma tubería vieja',
+      'Poca presión de agua en toda la casa',
+      'Agua oxidada o de color',
+      'Línea principal galvanizada vieja',
+      'Remodelación que necesita líneas de agua nuevas',
+    ],
+    includes: [
+      {
+        title: 'Línea principal nueva',
+        body: 'Una línea principal de cobre nueva desde el medidor hasta la casa, como las líneas galvanizadas viejas que ya hemos cambiado.',
+      },
+      {
+        title: 'Líneas nuevas adentro',
+        body: 'Líneas de cobre nuevas para la cocina, los baños, la lavadora y el calentador, con llaves de paso nuevas.',
+      },
+      {
+        title: 'El precio antes del trabajo',
+        body: 'Le mostramos el plan y el precio antes de abrir una pared. Las cotizaciones son gratis.',
+      },
+    ],
+    seo: {
+      title: 'Cambio de tubería de agua en Oakland',
+      description: '¿Tubería galvanizada vieja o con fugas? La cambiamos por líneas de cobre nuevas, de la principal a cada aparato. Hablamos español. Llame al (510) 753-8649.',
+    },
+    faqs: [
+      {
+        q: '¿Qué incluye el cambio de tubería?',
+        a: 'Cambiar la tubería de agua vieja por nueva. Según lo que necesite su casa, puede ser la línea principal desde el medidor, las líneas de adentro o las dos. Primero revisamos y le decimos qué vale la pena cambiar.',
+      },
+      {
+        q: '¿Qué tubería usan?',
+        a: 'En nuestros cambios recientes usamos cobre, incluso cobre con conexiones a presión (ProPress).',
+      },
+      {
+        q: '¿Sabré el precio antes de que empiecen?',
+        a: 'Sí. Revisamos su tubería, le explicamos qué hay que cambiar y le damos el precio antes de empezar cualquier trabajo. Las cotizaciones son gratis.',
+      },
+    ],
+  },
+  'sewer-line-replacement': {
+    name: 'Cambio de línea de drenaje',
+    summary: 'Cambiamos líneas de drenaje de barro o de hierro fundido rotas por tubería nueva, de la casa a la línea de la ciudad.',
+    headline: '¿Línea de drenaje rota o llena de raíces? La cambiamos, de la casa a la calle.',
+    lead: 'Las líneas de drenaje viejas de barro y de hierro fundido se rompen, se hunden y se llenan de raíces. Primero metemos una cámara, y luego cambiamos el tramo roto o la línea completa con tubería nueva, hasta la conexión en la calle cuando hace falta.',
+    problems: [
+      'Raíces que siguen regresando en una línea vieja de barro',
+      'Tubo de drenaje agrietado o colapsado',
+      'Línea de drenaje de hierro fundido rota',
+      'Destapar el drenaje ya no dura',
+      'Conexión rota en la línea de la ciudad',
+    ],
+    includes: [
+      { title: 'Primero la cámara', body: 'Usted ve la rotura en la pantalla antes de que se hable de excavar.' },
+      {
+        title: 'Tubería nueva, de la casa a la calle',
+        body: 'Cambiamos el tramo roto o toda la línea con tubería de drenaje nueva ABS o SDR, con un registro nuevo donde ayuda.',
+      },
+      {
+        title: 'Terminado limpio',
+        body: 'Rellenamos la zanja, reparamos el concreto o la calle y dejamos todo limpio.',
+      },
+    ],
+    seo: {
+      title: 'Cambio de línea de drenaje en Oakland',
+      description: '¿Línea de drenaje de barro o hierro fundido rota? La cambiamos por tubería nueva, de la casa a la calle, con cámara primero. Hablamos español. (510) 753-8649.',
+    },
+    faqs: [
+      {
+        q: '¿Hay que cambiar toda la línea de drenaje?',
+        a: 'No siempre. Primero metemos una cámara y le mostramos dónde está rota la línea. A veces basta con cambiar un tramo; cuando una línea vieja falla en varios lugares, conviene cambiarla. Usted decide con el precio en la mano.',
+      },
+      {
+        q: '¿Con qué tubería la cambian?',
+        a: 'En nuestros cambios recientes usamos tubería de drenaje nueva ABS y SDR, con registros nuevos donde ayudan.',
+      },
+      {
+        q: '¿Pueden cambiar la conexión en la calle?',
+        a: 'Sí. Hemos cambiado líneas de drenaje rotas y la conexión en Y con la línea de la ciudad, y reparado la calle después.',
+      },
+    ],
+  },
 };
 
 /** In the same order as the English services. */
@@ -736,6 +823,7 @@ export const allServicesEs = [
   'Hydro-jetting',
   'Líneas de drenaje',
   'Tuberías de agua',
+  'Cambio de tubería',
   'Reparación de calentadores de agua',
   'Instalación de calentadores de agua',
   'Bombas de recirculación de agua caliente',

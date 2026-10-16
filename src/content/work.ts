@@ -25,6 +25,18 @@ import trenchApartmentBuilding from '@/assets/work/trench-apartment-building.jpg
 import waterLineTrenchFrontYard from '@/assets/work/water-line-trench-front-yard.jpg';
 import waterSoftenerInstall from '@/assets/work/water-softener-install.jpg';
 import wholeHouseWaterFilter from '@/assets/work/whole-house-water-filter.jpg';
+import claySewerLineRoots from '@/assets/work/clay-sewer-line-roots.jpg';
+import brokenClaySewerLine from '@/assets/work/broken-clay-sewer-line.jpg';
+import crewRemovingOldSewerLine from '@/assets/work/crew-removing-old-sewer-line.jpg';
+import newSewerLineToStreet from '@/assets/work/new-sewer-line-to-street.jpg';
+import sewerReplacementAtCityMain from '@/assets/work/sewer-replacement-at-city-main.jpg';
+import oldClaySewerUnderground from '@/assets/work/old-clay-sewer-underground.jpg';
+import copperRepipeLaundrySink from '@/assets/work/copper-repipe-laundry-sink.jpg';
+import copperRepipeInsideWall from '@/assets/work/copper-repipe-inside-wall.jpg';
+import copperRepipeCrawlSpace from '@/assets/work/copper-repipe-crawl-space.jpg';
+import newCopperMainLineTrench from '@/assets/work/new-copper-main-line-trench.jpg';
+import newCopperMainLineYard from '@/assets/work/new-copper-main-line-yard.jpg';
+import galvanizedMainLineReplaced from '@/assets/work/galvanized-main-line-replaced.jpg';
 import backflowValveNew from '@/assets/work/backflow-valve-new.jpg';
 import backflowValveOld from '@/assets/work/backflow-valve-old.jpg';
 import gasLineBradfordWhiteWaterHeater from '@/assets/work/gas-line-bradford-white-water-heater.jpg';
@@ -80,7 +92,7 @@ export const work: WorkPhoto[] = [
       caption: 'Cambio de tubería junto a la calle, equipo con cascos y chalecos reflectantes',
       alt: 'Equipo con cascos y chalecos reflectantes junto a una zanja abierta con tubo blanco nuevo en Foothill Blvd en Oakland, con conos de tráfico y un camión de trabajo atrás',
     },
-    services: ['sewer-lines'],
+    services: ['sewer-lines', 'sewer-line-replacement'],
   },
   {
     id: 'commercial-water-heaters-copper',
@@ -124,7 +136,7 @@ export const work: WorkPhoto[] = [
       caption: 'Conexión del drenaje en la calle, parchada y con conos',
       alt: 'Parche de asfalto nuevo en la calle rodeado de conos naranjas después de conectar una línea lateral de drenaje, con un camión de trabajo atrás',
     },
-    services: ['sewer-lines', 'emergency-plumbing'],
+    services: ['sewer-lines', 'emergency-plumbing', 'sewer-line-replacement'],
   },
   {
     id: 'gas-water-heater-replacement',
@@ -168,7 +180,7 @@ export const work: WorkPhoto[] = [
       caption: 'Línea de agua nueva a través del jardín de enfrente',
       alt: 'Zanja angosta a lo ancho de un jardín de enfrente con una línea de agua azul nueva en el fondo',
     },
-    services: ['leaks-water-lines', 'emergency-plumbing'],
+    services: ['leaks-water-lines', 'emergency-plumbing', 'repiping'],
   },
   {
     id: 'kitchen-sink-faucet-install',
@@ -367,7 +379,7 @@ export const work: WorkPhoto[] = [
       caption: 'Línea de agua nueva, forrada donde entra a la pared',
       alt: 'Línea de agua nueva forrada con cinta protectora azul y llave de paso roja, entrando a una pared de estuco sobre una zanja abierta',
     },
-    services: ['leaks-water-lines'],
+    services: ['leaks-water-lines', 'repiping'],
   },
   {
     id: 'water-lines-trench-along-house',
@@ -378,7 +390,7 @@ export const work: WorkPhoto[] = [
       caption: 'Líneas de agua nuevas en una zanja junto a la casa',
       alt: 'Dos líneas de agua nuevas con funda azul en una zanja larga abierta junto a una pared de ladrillo',
     },
-    services: ['leaks-water-lines'],
+    services: ['leaks-water-lines', 'repiping'],
   },
   {
     id: 'copper-laundry-water-lines',
@@ -389,7 +401,7 @@ export const work: WorkPhoto[] = [
       caption: 'Líneas de cobre y llaves nuevas para la lavadora',
       alt: 'Líneas de cobre nuevas de agua fría y caliente con llaves de manija roja, revisadas con un nivel azul en una pared blanca',
     },
-    services: ['leaks-water-lines', 'remodel-plumbing'],
+    services: ['leaks-water-lines', 'remodel-plumbing', 'repiping'],
   },
   {
     id: 'roots-sewer-cleanout',
@@ -411,7 +423,7 @@ export const work: WorkPhoto[] = [
       caption: 'Tubo de drenaje nuevo en una zanja abierta',
       alt: 'Tubo y conexiones de drenaje blancos nuevos colocados en una zanja profunda abierta, antes de rellenar',
     },
-    services: ['sewer-lines'],
+    services: ['sewer-lines', 'sewer-line-replacement'],
   },
   {
     id: 'sewer-line-replacement-abs',
@@ -422,7 +434,7 @@ export const work: WorkPhoto[] = [
       caption: 'El equipo cambiando una línea de drenaje por tubo ABS',
       alt: 'Miembros del equipo alrededor de una zanja abierta con una línea de drenaje nueva de tubo negro ABS que sale de la casa, con palas y herramientas cerca',
     },
-    services: ['sewer-lines'],
+    services: ['sewer-lines', 'sewer-line-replacement'],
   },
   {
     id: 'sewer-camera-view',
@@ -599,6 +611,139 @@ export const work: WorkPhoto[] = [
       alt: 'Calentador Bradford White en un clóset con línea de gas amarilla nueva, líneas de agua de cobre nuevas y correas sísmicas',
     },
     services: ['gas-lines', 'water-heaters'],
+  },
+  // Added 2026-10-16 for the repiping and sewer line replacement pages (AB's captioned Yelp photos).
+  {
+    id: 'clay-sewer-line-roots',
+    image: claySewerLineRoots,
+    caption: 'Old clay sewer pipe packed with roots',
+    alt: 'A section of old orange clay sewer pipe lying in dirt beside a trench, with a thick tail of roots pulled out of it',
+    es: {
+      caption: 'Tubo de drenaje de barro viejo lleno de raíces',
+      alt: 'Un tramo de tubo de drenaje de barro anaranjado viejo sobre la tierra junto a una zanja, con una cola gruesa de raíces que salió de adentro',
+    },
+    services: ['sewer-line-replacement', 'sewer-lines'],
+  },
+  {
+    id: 'broken-clay-sewer-line',
+    image: brokenClaySewerLine,
+    caption: 'Broken clay sewer line, dug up',
+    alt: 'Broken pieces of a clay sewer line and roots in an open trench',
+    es: {
+      caption: 'Línea de drenaje de barro rota, ya excavada',
+      alt: 'Pedazos rotos de una línea de drenaje de barro y raíces dentro de una zanja abierta',
+    },
+    services: ['sewer-line-replacement', 'sewer-lines'],
+  },
+  {
+    id: 'crew-removing-old-sewer-line',
+    image: crewRemovingOldSewerLine,
+    caption: 'Crew taking out an old clay sewer line',
+    alt: 'Two crew members in a trench beside a house, pulling out an old clay sewer line, with a piece of clay pipe in the foreground',
+    es: {
+      caption: 'El equipo sacando una línea de drenaje de barro vieja',
+      alt: 'Dos miembros del equipo en una zanja junto a una casa sacando una línea de drenaje de barro vieja, con un pedazo de tubo de barro adelante',
+    },
+    services: ['sewer-line-replacement', 'sewer-lines'],
+  },
+  {
+    id: 'new-sewer-line-to-street',
+    image: newSewerLineToStreet,
+    caption: 'New sewer line going out to the street',
+    alt: 'New white sewer pipe rising out of a taped-off hole by the curb, with a traffic cone beside it',
+    es: {
+      caption: 'Línea de drenaje nueva hacia la calle',
+      alt: 'Tubo de drenaje blanco nuevo saliendo de un hoyo acordonado junto a la banqueta, con un cono de tráfico al lado',
+    },
+    services: ['sewer-line-replacement', 'sewer-lines'],
+  },
+  {
+    id: 'sewer-replacement-at-city-main',
+    image: sewerReplacementAtCityMain,
+    caption: 'Sewer replacement at the city main, street coned off',
+    alt: 'A residential street coned off around a work area, with a work truck and a compressor parked on the road',
+    es: {
+      caption: 'Cambio de drenaje en la línea de la ciudad, calle con conos',
+      alt: 'Una calle residencial con conos alrededor del área de trabajo, con un camión y un compresor estacionados en la calle',
+    },
+    services: ['sewer-line-replacement', 'sewer-lines'],
+  },
+  {
+    id: 'old-clay-sewer-underground',
+    image: oldClaySewerUnderground,
+    caption: 'Old clay sewer pipe found underground',
+    alt: 'An old clay sewer pipe running down through the soil at the bottom of a dug hole, with roots around it',
+    es: {
+      caption: 'Tubo de drenaje de barro viejo bajo tierra',
+      alt: 'Un tubo de drenaje de barro viejo que baja por la tierra en el fondo de un hoyo excavado, con raíces alrededor',
+    },
+    services: ['sewer-line-replacement', 'sewer-lines'],
+  },
+  {
+    id: 'copper-repipe-laundry-sink',
+    image: copperRepipeLaundrySink,
+    caption: 'New copper water lines for a laundry and sink',
+    alt: 'New copper water lines run along a white wall to the laundry and sink hookups',
+    es: {
+      caption: 'Líneas de agua de cobre nuevas para la lavadora y el fregadero',
+      alt: 'Líneas de agua de cobre nuevas a lo largo de una pared blanca hacia las conexiones de la lavadora y el fregadero',
+    },
+    services: ['repiping', 'leaks-water-lines'],
+  },
+  {
+    id: 'copper-repipe-inside-wall',
+    image: copperRepipeInsideWall,
+    caption: 'New copper lines inside an open wall',
+    alt: 'New copper water lines inside an opened wall beside an old gray pipe',
+    es: {
+      caption: 'Líneas de cobre nuevas dentro de una pared abierta',
+      alt: 'Líneas de agua de cobre nuevas dentro de una pared abierta, junto a un tubo gris viejo',
+    },
+    services: ['repiping', 'leaks-water-lines'],
+  },
+  {
+    id: 'copper-repipe-crawl-space',
+    image: copperRepipeCrawlSpace,
+    caption: 'New copper pipe under the house',
+    alt: 'New copper pipe with press fittings running under the floor framing',
+    es: {
+      caption: 'Tubería de cobre nueva debajo de la casa',
+      alt: 'Tubería de cobre nueva con conexiones a presión debajo de la estructura del piso',
+    },
+    services: ['repiping', 'leaks-water-lines'],
+  },
+  {
+    id: 'new-copper-main-line-trench',
+    image: newCopperMainLineTrench,
+    caption: 'New main water line in a trench',
+    alt: 'A new red-sleeved main water line laid in a narrow trench through a lawn',
+    es: {
+      caption: 'Línea principal de agua nueva en una zanja',
+      alt: 'Una línea principal de agua nueva con funda roja en una zanja angosta a través del pasto',
+    },
+    services: ['repiping', 'leaks-water-lines'],
+  },
+  {
+    id: 'new-copper-main-line-yard',
+    image: newCopperMainLineYard,
+    caption: 'New main water line run through the yard',
+    alt: 'A new red-sleeved main water line in a trench turning a corner along a walkway',
+    es: {
+      caption: 'Línea principal de agua nueva por el patio',
+      alt: 'Una línea principal de agua nueva con funda roja en una zanja que da vuelta junto a un andador',
+    },
+    services: ['repiping', 'leaks-water-lines'],
+  },
+  {
+    id: 'galvanized-main-line-replaced',
+    image: galvanizedMainLineReplaced,
+    caption: 'Replaced main line at the meter box',
+    alt: 'A new main line connection and valve inside an open meter box in the ground',
+    es: {
+      caption: 'Línea principal cambiada en la caja del medidor',
+      alt: 'Una conexión nueva de la línea principal y una llave dentro de una caja de medidor abierta en el suelo',
+    },
+    services: ['repiping', 'leaks-water-lines'],
   },
 ];
 
