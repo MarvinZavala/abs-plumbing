@@ -1,0 +1,35 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@600&display=swap" rel="stylesheet">
+<style>
+  /* Google Business Profile cover, 16:9. Rendered at 2x by render.sh. ?brand=1 adds the logo and the 24/7 line. */
+  html,body{margin:0;width:1080px;height:608px;overflow:hidden;background:#0a2239}
+  .grid{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:6px;height:100%}
+  .grid div{background-size:cover;background-position:center}
+  .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,34,57,0) 38%,rgba(10,34,57,.82) 100%)}
+  .brand{position:absolute;left:0;right:0;bottom:34px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+  .row{display:flex;align-items:center;gap:16px}
+  .badge{background:#fff;border-radius:16px;padding:8px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .badge img{width:78px;height:auto;display:block}
+  h1{margin:0;font:800 54px/0.95 'Barlow Condensed',sans-serif;color:#fff;text-shadow:0 4px 20px rgba(0,0,0,.4)}
+  p{margin:0;font:600 21px/1.2 Barlow,sans-serif;color:rgba(255,255,255,.92)}
+  p b{color:#00b6d6;font-weight:600}
+</style></head>
+<body>
+  <div class="grid">
+    <div style="background-image:url(../../../src/assets/work/commercial-water-heaters-copper.jpg);background-position:50% 40%"></div>
+    <div style="background-image:url(../../../src/assets/work/sewer-line-foothill-blvd-oakland.jpg);background-position:42% 50%"></div>
+    <div style="background-image:url(../../../src/assets/work/two-tankless-water-heaters.jpg);background-position:50% 35%"></div>
+  </div>
+  <div id="brand" hidden>
+    <div class="shade"></div>
+    <div class="brand">
+      <div class="row">
+        <div class="badge"><img src="../../abslogo-original.png" alt=""></div>
+        <div style="text-align:left"><h1>AB’s Plumbing Services</h1><p>Family-owned in Oakland. <b>Open 24/7</b> across the Bay Area.</p></div>
+      </div>
+    </div>
+  </div>
+  <script>if (new URLSearchParams(location.search).get('brand')) document.getElementById('brand').hidden = false;</script>
+</body></html>
