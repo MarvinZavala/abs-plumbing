@@ -1,7 +1,7 @@
 import { getImageProps } from 'next/image';
 import Link from 'next/link';
-import flyerTall from '@/assets/offers/fall-holiday-specials-tall.png';
-import flyerWide from '@/assets/offers/fall-holiday-specials-wide.png';
+import flyerTall from '@/assets/offers/fall-plumbing-specials-tall.png';
+import flyerWide from '@/assets/offers/fall-plumbing-specials-wide.png';
 import { business, telHref } from '@/content/business';
 import type { Locale } from '@/content/i18n';
 import { campaign, isRunning } from '@/content/offers';
@@ -16,11 +16,11 @@ type Box = { left: number; top: number; width: number; height: number };
  */
 const flyers = {
   'fall-specials': {
-    tall: { image: flyerTall, button: { left: 9.3, top: 75.2, width: 81.3, height: 5.3 } },
-    wide: { image: flyerWide, button: { left: 4.5, top: 67.9, width: 34, height: 8 } },
+    tall: { image: flyerTall, button: { left: 9.2, top: 75.2, width: 81.4, height: 5.3 } },
+    wide: { image: flyerWide, button: { left: 4.5, top: 68, width: 34, height: 7.8 } },
     alt: {
-      en: 'AB’s Plumbing fall holiday specials, save up to $150: $35 off any plumbing service of $250 or more, $75 off any plumbing service of $500 or more, $150 off any plumbing service of $1,000 or more, and $125 off a new water heater installation. Call to claim your offer.',
-      es: 'Especiales de otoño y fiestas de AB’s Plumbing, ahorre hasta $150: $35 de descuento en servicios de $250 o más, $75 en servicios de $500 o más, $150 en servicios de $1,000 o más y $125 en la instalación de un calentador de agua nuevo. Llame para usar su oferta.',
+      en: 'AB’s Plumbing fall plumbing specials, save up to $150: $35 off any plumbing service of $250 or more, $75 off any plumbing service of $500 or more, $150 off any plumbing service of $1,000 or more, and $125 off a new water heater installation. Call to claim your offer.',
+      es: 'Especiales de plomería de otoño de AB’s Plumbing, ahorre hasta $150: $35 de descuento en servicios de $250 o más, $75 en servicios de $500 o más, $150 en servicios de $1,000 o más y $125 en la instalación de un calentador de agua nuevo. Llame para usar su oferta.',
     },
   },
 };
