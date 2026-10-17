@@ -14,6 +14,13 @@ const nextConfig: NextConfig = {
     return [
       // Linked from the old footer; keep it working for anyone who bookmarked it.
       { source: '/emergency', destination: '/services/emergency-plumbing', permanent: true },
+      // The production .vercel.app alias would otherwise serve a duplicate copy of the site to search engines.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'abs-plumbing.vercel.app' }],
+        destination: 'https://www.abs-plumbingservices.com/:path*',
+        permanent: true,
+      },
     ];
   },
   async headers() {
